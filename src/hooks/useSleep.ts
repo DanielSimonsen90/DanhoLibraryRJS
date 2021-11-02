@@ -1,7 +1,6 @@
-export type Callback<T = void> = (...args: any[]) => T
+import { Callback, PromiseReject, PromiseResolve } from "../utils/BaseReact";
+
 export type TimeoutDelay = number | string;
-export type PromiseResolve<T> = (value: T | PromiseLike<T>) => void;
-export type PromiseReject = (reason?: any) => void;
 export const ValidTime = /^(\d+(?:\.|,)?\d*)(ms|s|m|h|d|w|M|y)$/;
 
 export class Times {

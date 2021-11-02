@@ -1,6 +1,6 @@
 
 import { DependencyList, useEffect } from "react"
-import useTimeout from "./1.2 useTimeout"
+import useTimeout from "./useTimeout"
 import { Callback, TimeoutDelay } from "../useSleep"
 import useEffectOnce from "./useEffectOnce"
 
