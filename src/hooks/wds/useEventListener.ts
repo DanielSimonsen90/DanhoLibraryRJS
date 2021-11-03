@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useRef } from "react"
-type AllEvents<EventType extends keyof HTMLElementEventMap> = HTMLElementEventMap[EventType];
+type AllEvents<EventType extends keyof WindowEventMap> = WindowEventMap[EventType];
 type Listener<T, U> = (event: T, element: U) => void;
 
 /**
@@ -9,7 +9,7 @@ type Listener<T, U> = (event: T, element: U) => void;
  * @param element Element to append listener to. Default is window
  */
 export default function useEventListener<
-    EventType extends keyof HTMLElementEventMap,
+    EventType extends keyof WindowEventMap,
     ElementTarget extends EventTarget = EventTarget,
     EventTypeEvent = AllEvents<EventType>,
 >(
