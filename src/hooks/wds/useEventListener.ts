@@ -8,7 +8,7 @@ type Listener<T, U> = (event: T, element: U) => void;
  * @param callback Listener callback
  * @param element Element to append listener to. Default is window
  */
-export default function useEventListener<
+export function useEventListener<
     EventType extends keyof WindowEventMap,
     ElementTarget extends EventTarget = EventTarget,
     EventTypeEvent = AllEvents<EventType>,
@@ -32,3 +32,4 @@ export default function useEventListener<
     return () => element.removeEventListener(eventType, e => handler(e as any, element as ElementTarget))
   }, [eventType, element])
 }
+export default useEventListener;

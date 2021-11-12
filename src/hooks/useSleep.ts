@@ -56,7 +56,7 @@ export function ms(input: string | number) {
  * @param callback Function to call when sleep is done
  * @returns Function - call function, pass sleep time, returns value from callback
  */
-export default function useSleep<T>(callback: Callback<T>) {
+export function useSleep<T>(callback: Callback<T>) {
     return (time: TimeoutDelay) => new Promise<T>((resolve, reject) => {
         return executeTimeout(resolve, reject, callback, ms(time));
     })
@@ -70,3 +70,4 @@ function executeTimeout<T>(
     try { setTimeout(() => resolve(callback()), time); } 
     catch (err) { reject((err as any).message); }
 }
+export default useSleep;

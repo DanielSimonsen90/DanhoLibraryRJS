@@ -7,7 +7,7 @@ type Props = BaseProps & {
     style?: CSSProperties
 }
 
-export default function Container({ type, children, style, ...props }: Props) {
+export function Container({ type, children, style, ...props }: Props) {
     const className = ['container',
         `container-${type}`,
         props.className ?? ''
@@ -19,3 +19,4 @@ export default function Container({ type, children, style, ...props }: Props) {
         </div>
     )
 }
+export default Container;

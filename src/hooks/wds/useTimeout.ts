@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react"
-import { Callback, ms, TimeoutDelay } from "../useSleep"
+import { Callback } from "../../utils/BaseReact";
+import { ms, TimeoutDelay } from "../useSleep"
 
 /**
  * Smarter version of setTimeout - provides clear() & reset() functions and doesn't get messed up due to re-renders
@@ -7,7 +8,7 @@ import { Callback, ms, TimeoutDelay } from "../useSleep"
  * @param delay Timeout delay - smart-string or millisecond value
  * @returns Object containing reset & clear methods
  */
-export default function useTimeout(callback: Callback, delay: TimeoutDelay) {
+export function useTimeout(callback: Callback, delay: TimeoutDelay) {
   const callbackRef = useRef(callback);
   const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -30,3 +31,4 @@ export default function useTimeout(callback: Callback, delay: TimeoutDelay) {
 
   return { reset, clear };
 }
+export default useTimeout;

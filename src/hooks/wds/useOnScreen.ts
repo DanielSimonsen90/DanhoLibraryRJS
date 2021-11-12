@@ -6,7 +6,7 @@ import React, { RefObject, useEffect, useState } from "react"
  * @param rootMargin Allowed margin until element is visible
  * @returns Reference element's visibility
  */
-export default function useOnScreen<T extends HTMLElement>(ref: RefObject<T>, rootMargin = "0px") { 
+export function useOnScreen<T extends HTMLElement>(ref: RefObject<T>, rootMargin = "0px") { 
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -22,3 +22,4 @@ export default function useOnScreen<T extends HTMLElement>(ref: RefObject<T>, ro
 
     return isVisible;
 }
+export default useOnScreen;

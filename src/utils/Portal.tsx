@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 export type PortalType = 'popout' | 'tooltip' | 'modal';
 type Props = BaseProps & { type: PortalType }
 
-export default function Portal({ type, children, ...rest }: Props) {
+export function Portal({ type, children, ...rest }: Props) {
     const portal = document.createProperElement('div', {
         attributes: [['type', type]]
     });
@@ -35,3 +35,4 @@ export default function Portal({ type, children, ...rest }: Props) {
         return Array.isArray(children);
     }
 }
+export default Portal;

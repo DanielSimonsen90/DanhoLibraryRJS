@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { Children } from './BaseReact';
 
-interface IBaseProps {
+interface IBaseProps extends HTMLAttributes<Element> {
     children?: Children
-    className?: string
+    className?: string,
 }
 
 export type BaseProps<IncludeChildren extends boolean = true> =

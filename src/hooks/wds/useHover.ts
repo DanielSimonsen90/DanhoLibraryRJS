@@ -5,7 +5,7 @@ import useEventListener from "./useEventListener"
  * Returns true if ref is being hovered over
  * @param ref Reference HTML element
  */
-export default function useHover<T extends HTMLElement>(ref: RefObject<T>) {
+export function useHover<T extends HTMLElement>(ref: RefObject<T>) {
     const [hovered, setHovered] = useState(false);
     if (!ref.current) throw Error("No reference element!");
 
@@ -14,3 +14,4 @@ export default function useHover<T extends HTMLElement>(ref: RefObject<T>) {
 
     return hovered;
 }
+export default useHover;

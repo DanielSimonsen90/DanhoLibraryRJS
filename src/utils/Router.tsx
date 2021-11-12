@@ -7,7 +7,7 @@ import { Component } from './BaseReact'
 
 type Props = BaseProps & { routes?: Array<[string, Component]> }
 
-export default function Router({ children, routes }: Props) {
+export function Router({ children, routes }: Props) {
     const switchData = routes?.map(([path, component]) => (
         <Route path={path} component={component} key={path} />
     )) || children;
@@ -20,3 +20,4 @@ export default function Router({ children, routes }: Props) {
         </BrowserRouter>
     )
 }
+export default Router;

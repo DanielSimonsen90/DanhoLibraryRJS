@@ -5,7 +5,7 @@ import useEffectOnce from "./useEffectOnce"
  * Get the size information about provided element
  * @param ref Element to reference
  */
-export default function useSize<T extends HTMLElement>(ref: RefObject<T>) {
+export function useSize<T extends HTMLElement>(ref: RefObject<T>) {
   const [size, setSize] = useState<DOMRectReadOnly>({} as DOMRectReadOnly);
 
   useEffectOnce(() => {
@@ -18,3 +18,4 @@ export default function useSize<T extends HTMLElement>(ref: RefObject<T>) {
 
   return size;
 }
+export default useSize;

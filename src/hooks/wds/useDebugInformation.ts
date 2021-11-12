@@ -19,7 +19,7 @@ type useDebugInformationReturn = {
  * @param prefix Preferred console.log prefix
  * @returns Debug information
  */
-export default function useDebugInformation(componentName: string, props: any, prefix = "[debug-info]"): useDebugInformationReturn {
+export function useDebugInformation(componentName: string, props: any, prefix = "[debug-info]"): useDebugInformationReturn {
     const timesRendered = useRenderCount();
     const changedProps = useRef({});
     const previousProps = useRef(props);
@@ -49,3 +49,4 @@ export default function useDebugInformation(componentName: string, props: any, p
 
     return info;
 }
+export default useDebugInformation;

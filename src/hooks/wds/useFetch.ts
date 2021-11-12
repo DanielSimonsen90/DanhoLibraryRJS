@@ -14,7 +14,7 @@ const DefaultOptions: FetchOptions = {
  * @param dependencies Dependency list
  * @returns Fetch response
  */
-export default function useFetch(url: string, options: FetchOptions = {}, dependencies: DependencyList = []) { 
+export function useFetch(url: string, options: FetchOptions = {}, dependencies: DependencyList = []) { 
     return useAsync<Response>(() => 
         fetch(url, { ...DefaultOptions, ...options })
             .then(async res => res.ok ? 
@@ -22,3 +22,4 @@ export default function useFetch(url: string, options: FetchOptions = {}, depend
                 await Promise.reject(await res.json())
     ), dependencies)
 }
+export default useFetch;

@@ -5,7 +5,7 @@ import { Extensions } from 'danholibraryjs';
  * Loads script dynamically to the DOM
  * @param url Script url
  */
-export default function useScript(url: string) { 
+export function useScript(url: string) { 
     return useAsync(() => { 
         const script = document.createProperElement('script', { 
             attributes: [
@@ -22,3 +22,4 @@ export default function useScript(url: string) {
         }) 
     }, [url]);
 }
+export default useScript;

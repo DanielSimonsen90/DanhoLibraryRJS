@@ -9,7 +9,7 @@ type useGeolocationReturn = useAsyncReturn<GeolocationCoordinates, GeolocationEr
  * Receive all the geographical information based on options
  * @param options Geographical options
  */
-export default function useGeolocation(options: PositionOptions): useGeolocationReturn {
+export function useGeolocation(options: PositionOptions): useGeolocationReturn {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<GeolocationError>();
   const [value, setValue] = useState<GeolocationCoordinates>({} as GeolocationCoordinates);
@@ -31,3 +31,4 @@ export default function useGeolocation(options: PositionOptions): useGeolocation
 
   return { loading, error, value }
 }
+export default useGeolocation;

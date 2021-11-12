@@ -8,7 +8,7 @@ type useStateWithValidationReturn<T> = [state: T, onChange: Dispatch<T>, isValid
  * @param validationFunc Validation predicate
  * @param initialValue Value to validate
  */
-export default function useStateWithValidation<T>(validationFunc: ValidationCallback<T>, initialValue: T): useStateWithValidationReturn<T> {
+export function useStateWithValidation<T>(validationFunc: ValidationCallback<T>, initialValue: T): useStateWithValidationReturn<T> {
   const [state, setState] = useState(initialValue);
   const [isValid, setIsValid] = useState(() => validationFunc(state));
 
@@ -20,3 +20,4 @@ export default function useStateWithValidation<T>(validationFunc: ValidationCall
 
   return [state, onChange, isValid];
 }
+export default useStateWithValidation;

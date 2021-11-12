@@ -12,7 +12,7 @@ type useCookieReturn<T extends Cookie> = [value: T, updateCookie: updateCookies<
  * @param name Name of the cookie
  * @param defaultValue Default value, if cookie wasn't found
  */
-export default function useCookie<T extends Cookie>(name: string, defaultValue: T): useCookieReturn<T> {
+export function useCookie<T extends Cookie>(name: string, defaultValue: T): useCookieReturn<T> {
     const [value, setValue] = useState<T>(() => {
         const cookie = Cookies.get(name);
         if (cookie) return cookie as T;
@@ -32,3 +32,4 @@ export default function useCookie<T extends Cookie>(name: string, defaultValue: 
 
     return [value, updateCookie, deleteCookie];
 }
+export default useCookie;

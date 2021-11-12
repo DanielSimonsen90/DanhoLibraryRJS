@@ -5,7 +5,7 @@ import { useRef } from "react"
  * @param value Current state value
  * @returns Previous state value
  */
-export default function usePrevious<T>(value: T) {
+export function usePrevious<T>(value: T) {
   const currentRef = useRef(value)
   const previousRef = useRef<T>()
 
@@ -16,3 +16,4 @@ export default function usePrevious<T>(value: T) {
 
   return previousRef.current
 }
+export default usePrevious

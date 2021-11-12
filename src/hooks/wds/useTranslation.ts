@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useStorage"
  * Translate key to value
  * @param translationPath Path to translations json/js
  */
-export default function useTranslation(translationPath: string) {
+export function useTranslation(translationPath: string) {
     const [language, setLanguage] = useLocalStorage("language", "en")
     const [fallbackLanguage, setFallbackLanguage] = useLocalStorage("fallbackLanguage", "en")
     const translations = require(translationPath);
@@ -27,3 +27,4 @@ export default function useTranslation(translationPath: string) {
         t: translate,
     }
 }
+export default useTranslation;

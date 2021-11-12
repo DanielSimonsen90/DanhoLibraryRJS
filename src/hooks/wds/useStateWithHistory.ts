@@ -12,7 +12,7 @@ type HistoryOptions = {
  * @param defaultValue Default state value
  * @param options History options
  */
-export default function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapacity }: HistoryOptions) {
+export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapacity }: HistoryOptions) {
     const [value, setValue] = useState(defaultValue)
     const historyRef = useRef([value])
     const pointerRef = useRef(0)
@@ -61,3 +61,4 @@ export default function useStateWithHistory<T>(defaultValue: T, { capacity = Def
         back, forward, go 
     }]
 }
+export default useStateWithHistory;

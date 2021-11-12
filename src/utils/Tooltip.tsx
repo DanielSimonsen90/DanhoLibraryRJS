@@ -11,7 +11,7 @@ type Props = BaseProps & {
 }
 
 
-export default function Tooltip({ dock, query, tooltip, children, ...rest }: Props) {
+export function Tooltip({ dock, query, tooltip, children, ...rest }: Props) {
     const [style, setStyle] = useState({});
     const [tooltipSize, settooltipSize] = useState({ height: 0, width: 0 });
     const [showing, setShowing] = useState(false);
@@ -77,3 +77,4 @@ export default function Tooltip({ dock, query, tooltip, children, ...rest }: Pro
         </div>
     )
 }
+export default Tooltip;

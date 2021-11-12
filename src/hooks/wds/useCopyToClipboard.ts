@@ -20,7 +20,7 @@ type useCopyToClipboardReturn = [copyToClipboard: useCopyToClipboardFunc, props:
 /**
  * Use provided copy function to copy something to clipboard. value is copied value, success is obvious
  */
-export default function useCopyToClipboard(): useCopyToClipboardReturn {
+export function useCopyToClipboard(): useCopyToClipboardReturn {
   const [value, setValue] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -34,3 +34,4 @@ export default function useCopyToClipboard(): useCopyToClipboardReturn {
 
   return [copyToClipboard, { value, success }]
 }
+export default useCopyToClipboard;

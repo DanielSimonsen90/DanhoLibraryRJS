@@ -7,7 +7,7 @@ type FilterCallback<T> = (value: T, index: number, array: T[]) => boolean
  * @param defaultValue Default array
  * @returns Array, along with methods to modify array
  */
-export default function useArray<Item>(defaultValue: Array<Item>) {
+export function useArray<Item>(defaultValue: Array<Item>) {
   const [array, setArray] = useState(defaultValue)
 
   const push = (item: Item) => setArray(a => [...a, item]);
@@ -18,3 +18,4 @@ export default function useArray<Item>(defaultValue: Array<Item>) {
 
   return { array, set: setArray, push, filter, update, remove, clear }
 }
+export default useArray;

@@ -6,7 +6,7 @@ import isEqual from "lodash/fp/isEqual"
  * @param callback Effect callback
  * @param dependencies Dependencies
  */
-export default function useDeepCompareEffect(callback: EffectCallback, dependencies: DependencyList) {
+export function useDeepCompareEffect(callback: EffectCallback, dependencies: DependencyList) {
   const currentDependenciesRef = useRef<DependencyList>()
 
   if (!isEqual(currentDependenciesRef.current, dependencies)) {
@@ -15,3 +15,4 @@ export default function useDeepCompareEffect(callback: EffectCallback, dependenc
 
   useEffect(callback, [currentDependenciesRef.current])
 }
+export default useDeepCompareEffect;

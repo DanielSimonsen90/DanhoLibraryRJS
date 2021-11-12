@@ -5,7 +5,7 @@ import useEventListener from "./useEventListener"
  * Information about the current window size
  * @returns Dimensions of the current window
  */
-export default function useWindowSize() {
+export function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -17,3 +17,4 @@ export default function useWindowSize() {
 
   return windowSize;
 }
+export default useWindowSize;

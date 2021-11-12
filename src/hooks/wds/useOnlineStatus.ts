@@ -4,7 +4,7 @@ import useEventListener from "./useEventListener"
 /**
  * Client is online/offline on internet
  */
-export default function useOnlineStatus() {
+export function useOnlineStatus() {
     const [online, setOnline] = useState(navigator.onLine);
 
     useEventListener("online", () => setOnline(navigator.onLine));
@@ -12,3 +12,4 @@ export default function useOnlineStatus() {
 
     return online;
 }
+export default useOnlineStatus;

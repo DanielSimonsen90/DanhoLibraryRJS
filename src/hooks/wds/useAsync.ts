@@ -14,7 +14,7 @@ export type useAsyncReturn<T, Err = Error> = {
  * @param callback Callback to run
  * @param dependencies Dependencies
  */
-export default function useAsync<T>(callback: Callback<T>, dependencies: DependencyList = []): useAsyncReturn<T> {
+export function useAsync<T>(callback: Callback<T>, dependencies: DependencyList = []): useAsyncReturn<T> {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error>()
   const [value, setValue] = useState<T>()
@@ -35,3 +35,4 @@ export default function useAsync<T>(callback: Callback<T>, dependencies: Depende
 
   return { loading, error, value }
 }
+export default useAsync;

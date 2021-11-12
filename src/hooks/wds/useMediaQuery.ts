@@ -6,7 +6,7 @@ import useEventListener from "./useEventListener"
  * @param mediaQuery Media query
  * @returns If media query is a match
  */
-export default function useMediaQuery(mediaQuery: string) {
+export function useMediaQuery(mediaQuery: string) {
   const [isMatch, setIsMatch] = useState(false)
   const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList>(null as any)
 
@@ -20,3 +20,4 @@ export default function useMediaQuery(mediaQuery: string) {
 
   return isMatch
 }
+export default useMediaQuery;

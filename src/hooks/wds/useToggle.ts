@@ -8,7 +8,7 @@ type ValueChangeFunc<T> = (value: T) => T
  * @param onSetFalse Callback when value is false
  * @returns [value: T, toggleValue: (newValue?: T) => T, isToggled: boolean]
  */
-export default function useToggle<T = boolean>(defaultValue: T, onSetTrue: ValueChangeFunc<T>, onSetFalse: ValueChangeFunc<T>) {
+export function useToggle<T = boolean>(defaultValue: T, onSetTrue: ValueChangeFunc<T>, onSetFalse: ValueChangeFunc<T>) {
   const [value, setValue] = useState(defaultValue);
   const [setTrue, setFalse] = [useRef(onSetTrue), useRef(onSetFalse)];
   const getIsToggled = useCallback(() => setTrue.current(value) == value, [value])
@@ -24,3 +24,4 @@ export default function useToggle<T = boolean>(defaultValue: T, onSetTrue: Value
 
   return [value, toggleValue, isToggled];
 }
+export default useToggle;

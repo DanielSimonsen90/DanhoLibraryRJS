@@ -18,7 +18,7 @@ const defaultOptions = {
  * @param onLongPress onLongPress callback
  * @param options Options
  */
-export default function useLongPress<T extends HTMLElement>(ref: RefObject<T>, onLongPress: OnLongPress, { delay }: LongPressOptions = defaultOptions) {
+export function useLongPress<T extends HTMLElement>(ref: RefObject<T>, onLongPress: OnLongPress, { delay }: LongPressOptions = defaultOptions) {
     if (!ref.current) throw Error("No reference element!");
 
   const { reset, clear } = useTimeout(onLongPress, delay);
@@ -31,3 +31,4 @@ export default function useLongPress<T extends HTMLElement>(ref: RefObject<T>, o
   useEventListener("mouseleave", clear, ref.current);
   useEventListener("touchend", clear, ref.current);
 }
+export default useLongPress;
