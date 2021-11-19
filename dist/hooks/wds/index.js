@@ -37,6 +37,5 @@ __exportStar(require("./useStateWithValidation"), exports);
 __exportStar(require("./useStorage"), exports);
 __exportStar(require("./useTimeout"), exports);
 __exportStar(require("./useToggle"), exports);
-__exportStar(require("./useTranslation"), exports);
 __exportStar(require("./useUpdateEffect"), exports);
 __exportStar(require("./useWindowSize"), exports);

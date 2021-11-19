@@ -13,7 +13,7 @@ const useStorage_1 = require("./useStorage");
 function useDarkMode() {
     const [darkMode, setDarkMode] = (0, useStorage_1.useLocalStorage)("useDarkMode", false);
     const prefersDarkMode = (0, useMediaQuery_1.default)("(prefers-color-scheme: dark)");
-    const enabled = darkMode ?? prefersDarkMode;
+    const enabled = darkMode !== null && darkMode !== void 0 ? darkMode : prefersDarkMode;
     (0, react_1.useEffect)(() => {
         document.body.classList.toggle("dark-mode", enabled);
     }, [enabled]);
