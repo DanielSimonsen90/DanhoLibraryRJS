@@ -1,9 +1,8 @@
-import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import BaseProps from '../utils/BaseProps';
+import { Component } from '../utils/BaseReact';
 export { Redirect, Route }
 
-import BaseProps from './BaseProps'
-import { Component } from './BaseReact'
 
 type Props = BaseProps & { routes?: Array<[string, Component]> }
 

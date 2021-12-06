@@ -1,8 +1,8 @@
-import React, { cloneElement, ReactChild, ReactElement, useEffect } from 'react'
+import React, { cloneElement, ReactElement, useEffect } from 'react'
 import { Extensions } from 'danholibraryjs';
-import BaseProps from './BaseProps'
-import { Children } from './BaseReact';
 import { createPortal } from 'react-dom';
+import BaseProps from '../utils/BaseProps';
+import { Children } from '../utils/BaseReact';
 
 export type PortalType = 'popout' | 'tooltip' | 'modal';
 type Props = BaseProps & { type: PortalType }
