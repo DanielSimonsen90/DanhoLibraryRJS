@@ -13,5 +13,5 @@ export declare type useAsyncReturn<T, Err = Error> = {
  * @param callback Callback to run
  * @param dependencies Dependencies
  */
-export declare function useAsync<T>(callback: Callback<T>, dependencies?: DependencyList): useAsyncReturn<T>;
+export declare function useAsync<T>(callback: Callback<T>, dependencies: DependencyList): useAsyncReturn<T>;
 export default useAsync;

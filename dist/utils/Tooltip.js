@@ -13,6 +13,7 @@ function Tooltip({ dock, query, tooltip, children, ...rest }) {
     const [showing, setShowing] = (0, react_1.useState)(false);
     const selfRef = (0, react_1.createRef)();
     (0, react_1.useEffect)(() => {
+        var _a, _b;
         const tooltipFor = document.querySelector(query);
         const rect = tooltipFor.getClientRects()[0];
         const { top, bottom, left, right, width, height } = {
@@ -24,8 +25,8 @@ function Tooltip({ dock, query, tooltip, children, ...rest }) {
             height: Math.round(rect.height),
         };
         const newtooltipSize = {
-            height: selfRef.current?.offsetHeight || height,
-            width: selfRef.current?.offsetWidth || width
+            height: ((_a = selfRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight) || height,
+            width: ((_b = selfRef.current) === null || _b === void 0 ? void 0 : _b.offsetWidth) || width
         };
         if (newtooltipSize.height == tooltipSize.height &&
             newtooltipSize.width == tooltipSize.width)
@@ -61,7 +62,7 @@ function Tooltip({ dock, query, tooltip, children, ...rest }) {
     }, [dock, query, selfRef, tooltip, tooltipSize.height, tooltipSize.width]);
     if (!showing)
         return null;
-    return ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: "tooltip", style: style }, rest, { ref: selfRef }, { children: (0, jsx_runtime_1.jsx)(Container_1.default, Object.assign({ style: { backgroundColor: 'unset', border: 'unset' } }, { children: children || tooltip }), void 0) }), void 0));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "tooltip", style: style, ...rest, ref: selfRef, children: (0, jsx_runtime_1.jsx)(Container_1.default, { style: { backgroundColor: 'unset', border: 'unset' }, children: children || tooltip }, void 0) }, void 0));
 }
 exports.Tooltip = Tooltip;
 exports.default = Tooltip;

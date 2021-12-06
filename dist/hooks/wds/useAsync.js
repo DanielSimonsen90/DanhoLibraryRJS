@@ -7,7 +7,7 @@ const react_1 = require("react");
  * @param callback Callback to run
  * @param dependencies Dependencies
  */
-function useAsync(callback, dependencies = []) {
+function useAsync(callback, dependencies) {
     const [loading, setLoading] = (0, react_1.useState)(true);
     const [error, setError] = (0, react_1.useState)();
     const [value, setValue] = (0, react_1.useState)();
