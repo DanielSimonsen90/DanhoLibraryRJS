@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from 'react'
-import BaseProps from "./BaseProps";
-import { Children } from "./BaseReact";
+import { BaseProps } from '../utils/BaseProps';
+import { Children } from '../utils/BaseReact';
 import Container from './Container';
 
 export type Dock = 'top' | 'bottom' | 'left' | 'right';

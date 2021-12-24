@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import BaseProps from './BaseProps';
+import BaseProps from '../utils/BaseProps';
 
 export type ContainerType = 'inline-block' | 'flex' | 'popout';
 type Props = BaseProps & {
