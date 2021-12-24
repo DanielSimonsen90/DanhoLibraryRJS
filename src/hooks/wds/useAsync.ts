@@ -29,9 +29,7 @@ export function useAsync<T>(callback: Callback<T>, dependencies: DependencyList)
       .finally(() => setLoading(false))
   }, dependencies)
 
-  useEffect(() => {
-    callbackMemoized()
-  }, [callbackMemoized])
+  useEffect(() => { callbackMemoized() }, [callbackMemoized])
 
   return { loading, error, value }
 }

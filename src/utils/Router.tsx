@@ -5,12 +5,19 @@ export { Redirect, Route }
 import BaseProps from './BaseProps'
 import { Component } from './BaseReact'
 
-type Props = BaseProps & { routes?: Array<[string, Component]> }
+export type RouteConstruct = [string, Component];
+type Props = BaseProps & { 
+    routes: Array<RouteConstruct> 
+}
 
-export function Router({ children, routes }: Props) {
-    const switchData = routes?.map(([path, component]) => (
+export function createRoute(path: string, component: Component): RouteConstruct {
+    return [path, component];
+}
+
+export function Router({ routes }: Props) {
+    const switchData = routes.map(([path, component]) => (
         <Route path={path} component={component} key={path} />
-    )) || children;
+    ));
 
     return (
         <BrowserRouter>
