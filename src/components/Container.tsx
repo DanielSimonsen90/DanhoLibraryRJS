@@ -9,9 +9,9 @@ type Props = BaseProps & {
 
 export function Container({ type, children, style, ...props }: Props) {
     const className = ['container',
-        `container-${type}`,
-        props.className ?? ''
-    ].join(' ');
+        type && `container-${type}`,
+        props.className
+    ].filter(v => v ).join(' ');
 
     return (
         <div {...props} className={className} style={style}>

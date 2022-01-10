@@ -12,20 +12,20 @@ type HistoryOptions = {
  * @param defaultValue Default state value
  * @param options History options
  */
-export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapacity }: HistoryOptions) {
+export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapacity }: HistoryOptions): UseStateWithHistoryReturn<T> {
     const [value, setValue] = useState(defaultValue)
     const historyRef = useRef([value])
     const pointerRef = useRef(0)
 
-    const set = useCallback(v => {
-        const resolvedValue = typeof v === "function" ? v(value) : v;
+    const set = useCallback((value: T) => {
+        const _value = typeof value === "function" ? value(value) : value;
 
-        if (historyRef.current[pointerRef.current] !== resolvedValue) {
+        if (historyRef.current[pointerRef.current] !== _value) {
             if (pointerRef.current < historyRef.current.length - 1) {
                 historyRef.current.splice(pointerRef.current + 1);
             }
 
-            historyRef.current.push(resolvedValue);
+            historyRef.current.push(_value);
 
             while (historyRef.current.length > capacity) {
                 historyRef.current.shift();
@@ -34,7 +34,7 @@ export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapa
             pointerRef.current = historyRef.current.length - 1;
         }
 
-        setValue(resolvedValue);
+        setValue(_value);
     }, [capacity, value]);
 
     const back = useCallbackOnce(() => {
@@ -61,4 +61,13 @@ export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapa
         back, forward, go 
     }]
 }
+
+type UseStateWithHistoryReturn<T> = [value: T, set: (value: T) => void, props: {
+    history: T[],
+    pointer: number,
+    back(): void, 
+    forward(): void, 
+    go(index: number): void
+}]
+
 export default useStateWithHistory;

@@ -10,17 +10,30 @@ const react_1 = require("react");
  */
 function useOnScreen(ref, rootMargin = "0px") {
     const [isVisible, setIsVisible] = (0, react_1.useState)(false);
+    const [el, setEl] = (0, react_1.useState)(null);
     (0, react_1.useEffect)(() => {
-        if (ref.current == null)
+        setEl(() => {
+            if (!ref)
+                return null;
+            if (ref.current)
+                return ref.current;
+            else if (typeof ref === 'string')
+                return document.querySelector(ref);
+            else
+                return ref;
+        });
+    }, [ref]);
+    (0, react_1.useEffect)(() => {
+        if (el == null)
             return;
         const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin });
-        observer.observe(ref.current);
+        observer.observe(el);
         return () => {
-            if (ref.current == null)
+            if (el == null)
                 return;
-            observer.unobserve(ref.current);
+            observer.unobserve(el);
         };
-    }, [ref.current, rootMargin]);
+    }, [el, rootMargin]);
     return isVisible;
 }
 exports.useOnScreen = useOnScreen;

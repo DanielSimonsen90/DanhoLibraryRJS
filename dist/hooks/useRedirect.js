@@ -5,8 +5,8 @@ exports.useRedirect = void 0;
  * Redirects client to new url
  * @param to New url
  */
-function useRedirect(to) {
-    return window.location.pathname = to;
+function useRedirect() {
+    return (to) => window.location.pathname = to;
 }
 exports.useRedirect = useRedirect;
 exports.default = useRedirect;

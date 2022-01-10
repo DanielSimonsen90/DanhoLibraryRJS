@@ -7,7 +7,7 @@ const react_1 = require("react");
  * @param callback Callback to run
  * @param dependencies Dependencies
  */
-function useAsync(callback, dependencies) {
+function useAsync(callback, dependencies = []) {
     const [loading, setLoading] = (0, react_1.useState)(true);
     const [error, setError] = (0, react_1.useState)();
     const [value, setValue] = (0, react_1.useState)();
@@ -20,9 +20,7 @@ function useAsync(callback, dependencies) {
             .catch(setError)
             .finally(() => setLoading(false));
     }, dependencies);
-    (0, react_1.useEffect)(() => {
-        callbackMemoized();
-    }, [callbackMemoized]);
+    (0, react_1.useEffect)(() => { callbackMemoized(); }, [callbackMemoized]);
     return { loading, error, value };
 }
 exports.useAsync = useAsync;

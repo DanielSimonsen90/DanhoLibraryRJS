@@ -6,19 +6,29 @@ import React, { RefObject, useEffect, useState } from "react"
  * @param rootMargin Allowed margin until element is visible
  * @returns Reference element's visibility
  */
-export function useOnScreen<T extends HTMLElement>(ref: RefObject<T>, rootMargin = "0px") { 
+export function useOnScreen<T extends HTMLElement>(ref: RefObject<T> | T | string, rootMargin = "0px") { 
     const [isVisible, setIsVisible] = useState(false);
+    const [el, setEl] = useState<T | null>(null);
 
     useEffect(() => {
-        if (ref.current == null) return
+        setEl(() => {
+            if (!ref) return null;
+            if ((ref as RefObject<T>).current) return (ref as RefObject<T>).current;
+            else if (typeof ref === 'string') return document.querySelector(ref) as T;
+            else return ref as T;
+        })
+    }, [ref])
+
+    useEffect(() => {
+        if (el == null) return
         const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin });
-        observer.observe(ref.current);
+        observer.observe(el);
 
         return () => {
-            if (ref.current == null) return;
-            observer.unobserve(ref.current);
+            if (el == null) return;
+            observer.unobserve(el);
         }
-    }, [ref.current, rootMargin]);
+    }, [el, rootMargin]);
 
     return isVisible;
 }

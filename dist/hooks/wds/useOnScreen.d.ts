@@ -5,5 +5,5 @@ import { RefObject } from "react";
  * @param rootMargin Allowed margin until element is visible
  * @returns Reference element's visibility
  */
-export declare function useOnScreen<T extends HTMLElement>(ref: RefObject<T>, rootMargin?: string): boolean;
+export declare function useOnScreen<T extends HTMLElement>(ref: RefObject<T> | T | string, rootMargin?: string): boolean;
 export default useOnScreen;

@@ -16,19 +16,19 @@ function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
     const [value, setValue] = (0, react_1.useState)(defaultValue);
     const historyRef = (0, react_1.useRef)([value]);
     const pointerRef = (0, react_1.useRef)(0);
-    const set = (0, react_1.useCallback)(v => {
-        const resolvedValue = typeof v === "function" ? v(value) : v;
-        if (historyRef.current[pointerRef.current] !== resolvedValue) {
+    const set = (0, react_1.useCallback)((value) => {
+        const _value = typeof value === "function" ? value(value) : value;
+        if (historyRef.current[pointerRef.current] !== _value) {
             if (pointerRef.current < historyRef.current.length - 1) {
                 historyRef.current.splice(pointerRef.current + 1);
             }
-            historyRef.current.push(resolvedValue);
+            historyRef.current.push(_value);
             while (historyRef.current.length > capacity) {
                 historyRef.current.shift();
             }
             pointerRef.current = historyRef.current.length - 1;
         }
-        setValue(resolvedValue);
+        setValue(_value);
     }, [capacity, value]);
     const back = (0, useCallbackOnce_1.default)(() => {
         if (pointerRef.current <= 0)

@@ -1,10 +1,20 @@
 /// <reference types="react" />
+import { PropertiesWithout } from 'danholibraryjs';
 import { Route, Redirect } from 'react-router-dom';
 import BaseProps from '../utils/BaseProps';
 import { Component } from '../utils/BaseReact';
 export { Redirect, Route };
+export declare type RouteConstruct = [string, Component];
 declare type Props = BaseProps & {
-    routes?: Array<[string, Component]>;
+    routes: Array<RouteConstruct>;
 };
-export declare function Router({ children, routes }: Props): JSX.Element;
+export declare function createRoute(path: string, component: Component): RouteConstruct;
+declare type LocationProps = keyof PropertiesWithout<Function, Location>;
+declare type OnRoutePropChanged<Prop extends LocationProps> = (from: Location[Prop], to: Location[Prop], location: Location) => void;
+declare type OnChangeObj = Partial<{
+    [K in LocationProps]: OnRoutePropChanged<K>;
+}>;
+declare type OnChange<Prop = LocationProps> = Prop extends LocationProps ? OnRoutePropChanged<Prop> : OnChangeObj;
+export declare function useRouterChanged<Prop extends LocationProps | 'unknown' = 'unknown'>(onChange: OnChange<Prop>): Location;
+export declare function Router({ routes }: Props): JSX.Element;
 export default Router;
