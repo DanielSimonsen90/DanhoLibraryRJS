@@ -1,10 +1,5 @@
-import { Key } from 'react';
+import { DetailedHTMLProps } from 'react';
 import { HTMLAttributes } from 'react';
-import { Children } from './BaseReact';
-interface IBaseProps extends HTMLAttributes<Element> {
-    children?: Children;
-    key?: Key;
-    className?: string;
-}
-export declare type BaseProps<IncludeChildren extends boolean = true> = IncludeChildren extends true ? IBaseProps : Omit<IBaseProps, 'children'>;
+declare type IBaseProps<InheritFrom extends HTMLElement = HTMLDivElement> = DetailedHTMLProps<HTMLAttributes<InheritFrom>, InheritFrom>;
+export declare type BaseProps<InheritFrom extends HTMLElement = HTMLDivElement, IncludeChildren extends boolean = true> = IncludeChildren extends true ? IBaseProps<InheritFrom> : Omit<IBaseProps<InheritFrom>, 'children'>;
 export default BaseProps;

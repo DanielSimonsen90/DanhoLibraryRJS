@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useTimeout = void 0;
 const react_1 = require("react");
-const useSleep_1 = require("../useSleep");
+const danholibraryjs_1 = require("danholibraryjs");
 /**
  * Smarter version of setTimeout - provides clear() & reset() functions and doesn't get messed up due to re-renders
  * @param callback Callback to run, once timeout is done
@@ -13,7 +13,7 @@ function useTimeout(callback, delay) {
     const callbackRef = (0, react_1.useRef)(callback);
     const timeoutRef = (0, react_1.useRef)();
     (0, react_1.useEffect)(() => { callbackRef.current = callback; }, [callback]);
-    const set = (0, react_1.useCallback)(() => { timeoutRef.current = setTimeout(() => callbackRef.current(), (0, useSleep_1.ms)(delay)); }, [delay]);
+    const set = (0, react_1.useCallback)(() => { timeoutRef.current = setTimeout(() => callbackRef.current(), (0, danholibraryjs_1.ms)(delay)); }, [delay]);
     /** Clears the timeout */
     const clear = (0, react_1.useCallback)(() => { timeoutRef.current && clearTimeout(timeoutRef.current); }, []);
     (0, react_1.useEffect)(() => {

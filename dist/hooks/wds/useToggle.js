@@ -9,17 +9,25 @@ const react_1 = require("react");
  * @param onSetFalse Callback when value is false
  * @returns [value: T, toggleValue: (newValue?: T) => T, isToggled: boolean]
  */
-function useToggle(defaultValue, onSetTrue, onSetFalse) {
+function useToggle(defaultValue, toggledValue, onSetTrue, onSetFalse) {
     const [value, setValue] = (0, react_1.useState)(defaultValue);
-    const [setTrue, setFalse] = [(0, react_1.useRef)(onSetTrue), (0, react_1.useRef)(onSetFalse)];
-    const getIsToggled = (0, react_1.useCallback)(() => setTrue.current(value) == value, [value]);
-    const isToggled = (0, react_1.useMemo)(getIsToggled, [value]);
-    function toggleValue(newValue) {
-        const isTrue = getIsToggled();
-        return setValue(isTrue ?
-            (newValue ? setFalse.current(newValue) : setFalse.current(value)) :
-            (newValue ? setTrue.current(newValue) : setTrue.current(value)));
-    }
+    const [onToggledTrue, onToggledFalse] = [
+        (0, react_1.useRef)(onSetTrue || ((v) => v)),
+        (0, react_1.useRef)(onSetFalse || ((v) => v))
+    ];
+    const isToggled = (0, react_1.useMemo)(() => value === toggledValue, [value]);
+    const toggleValue = (0, react_1.useCallback)((newValue) => setValue(() => {
+        let v;
+        if (isToggled) {
+            v = newValue !== null && newValue !== void 0 ? newValue : defaultValue;
+            v === defaultValue ? onToggledFalse.current(v) : onToggledTrue.current(v);
+        }
+        else {
+            v = newValue !== null && newValue !== void 0 ? newValue : toggledValue;
+            v === defaultValue ? onToggledTrue.current(v) : onToggledFalse.current(v);
+        }
+        return v;
+    }), [value]);
     return [value, toggleValue, isToggled];
 }
 exports.useToggle = useToggle;

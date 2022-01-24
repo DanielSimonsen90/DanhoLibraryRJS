@@ -7,14 +7,14 @@ exports.useClickOutside = void 0;
 const useEventListener_1 = __importDefault(require("./useEventListener"));
 /**
  * Client clicked outside of reference element - very cool for modals
- * @param ref Element to reference
- * @param cb Click event, if clicked outside
+ * @param query Query to get element
+ * @param onClickOutside Click event, if clicked outside
  */
-function useClickOutside(ref, cb) {
-    (0, useEventListener_1.default)("click", e => {
+function useClickOutside(ref, onClickOutside) {
+    return (0, useEventListener_1.default)("click", e => {
         if (ref.current == null || ref.current.contains(e.target))
             return;
-        cb(e);
+        onClickOutside(e);
     }, document);
 }
 exports.useClickOutside = useClickOutside;

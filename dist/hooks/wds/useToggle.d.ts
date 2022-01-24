@@ -1,4 +1,5 @@
 declare type ValueChangeFunc<T> = (value: T) => T;
+declare type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean];
 /**
  * Toggle between specific values
  * @param defaultValue default/initial value for the toggle
@@ -6,5 +7,5 @@ declare type ValueChangeFunc<T> = (value: T) => T;
  * @param onSetFalse Callback when value is false
  * @returns [value: T, toggleValue: (newValue?: T) => T, isToggled: boolean]
  */
-export declare function useToggle<T = boolean>(defaultValue: T, onSetTrue: ValueChangeFunc<T>, onSetFalse: ValueChangeFunc<T>): (boolean | T | ((newValue?: T | undefined) => void))[];
+export declare function useToggle<T>(defaultValue: T, toggledValue: T, onSetTrue?: ValueChangeFunc<T>, onSetFalse?: ValueChangeFunc<T>): UseToggleReturn<T>;
 export default useToggle;

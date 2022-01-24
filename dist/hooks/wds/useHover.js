@@ -11,11 +11,10 @@ const useEventListener_1 = __importDefault(require("./useEventListener"));
  * @param ref Reference HTML element
  */
 function useHover(ref) {
+    var _a, _b;
     const [hovered, setHovered] = (0, react_1.useState)(false);
-    if (!ref.current)
-        throw Error("No reference element!");
-    (0, useEventListener_1.default)("mouseover", () => setHovered(true), ref.current);
-    (0, useEventListener_1.default)("mouseout", () => setHovered(false), ref.current);
+    (0, useEventListener_1.default)("mouseover", () => setHovered(true), (_a = ref.current) !== null && _a !== void 0 ? _a : undefined);
+    (0, useEventListener_1.default)("mouseout", () => setHovered(false), (_b = ref.current) !== null && _b !== void 0 ? _b : undefined);
     return hovered;
 }
 exports.useHover = useHover;

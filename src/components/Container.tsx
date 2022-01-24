@@ -1,22 +1,21 @@
-import React, { CSSProperties } from 'react'
 import BaseProps from '../utils/BaseProps';
 
 export type ContainerType = 'inline-block' | 'flex' | 'popout';
-type Props = BaseProps & {
-    type?: ContainerType,
-    style?: CSSProperties
+export type ContainerProps = BaseProps & {
+    type?: ContainerType
 }
 
-export function Container({ type, children, style, ...props }: Props) {
+export function Container({ type, children, ...props }: ContainerProps) {
     const className = ['container',
         type && `container-${type}`,
         props.className
-    ].filter(v => v ).join(' ');
+    ].filter(v => v).reverse().join(' ');
 
     return (
-        <div {...props} className={className} style={style}>
+        <div {...props} className={className}>
             {children}
         </div>
     )
 }
+
 export default Container;

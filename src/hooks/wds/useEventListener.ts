@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 type AllEvents<EventType extends keyof WindowEventMap> = WindowEventMap[EventType];
 type Listener<T, U> = (event: T, element: U) => void;
 
@@ -19,17 +19,27 @@ export function useEventListener<
 ) {
   element ?? window;
   const callbackRef = useRef(callback);
+  const handler: Listener<EventTypeEvent, ElementTarget> = (e: EventTypeEvent, element: ElementTarget) => callbackRef.current(e, element);
 
   useEffect(() => {
     callbackRef.current = callback
   }, [callback])
 
+  const addEventListener = () => {
+    const target = element as ElementTarget;
+    target.addEventListener(eventType, e => handler(e as any, target))
+  }
+  const removeEventListener = () => {
+    const target = element as ElementTarget;
+    target.removeEventListener(eventType, e => handler(e as any, target));
+  }
+
   useEffect(() => {
     if (element == null) return
-    const handler: Listener<EventTypeEvent, ElementTarget> = (e: EventTypeEvent, element: ElementTarget) => callbackRef.current(e, element)
-    element.addEventListener(eventType, e => handler(e as any, element as ElementTarget))
-
-    return () => element.removeEventListener(eventType, e => handler(e as any, element as ElementTarget))
+    addEventListener();
+    return () => removeEventListener();
   }, [eventType, element])
+
+  return { addEventListener, removeEventListener }
 }
 export default useEventListener;

@@ -34,9 +34,9 @@ function useRouterChanged(onChange) {
     return location;
 }
 exports.useRouterChanged = useRouterChanged;
-function Router({ routes }) {
+function Router({ routes, fallback }) {
     const switchData = routes.map(([path, component]) => ((0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: ensureSlash(path), component: component }, path)));
-    return ((0, jsx_runtime_1.jsx)(react_router_dom_1.BrowserRouter, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Switch, { children: switchData }, void 0) }, void 0));
+    return ((0, jsx_runtime_1.jsx)(react_router_dom_1.BrowserRouter, { children: (0, jsx_runtime_1.jsxs)(react_router_dom_1.Switch, { children: [switchData, (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { component: fallback }, void 0)] }, void 0) }, void 0));
 }
 exports.Router = Router;
 exports.default = Router;

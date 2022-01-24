@@ -2,19 +2,20 @@ import { PropertiesWithout } from 'danholibraryjs';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import BaseProps from '../utils/BaseProps';
-import { Component } from '../utils/BaseReact';
+import { FunctionComponent } from '../utils/BaseReact';
 export { Redirect, Route }
 
-export type RouteConstruct = [string, Component];
+export type RouteConstruct = [string, FunctionComponent];
 type Props = BaseProps & { 
-    routes: Array<RouteConstruct> 
+    routes: Array<RouteConstruct>
+    fallback?: FunctionComponent
 }
 
 function ensureSlash(path: string) {
     return path.startsWith('/') ? path : `/${path}`
 }
 
-export function createRoute(path: string, component: Component): RouteConstruct {
+export function createRoute(path: string, component: FunctionComponent): RouteConstruct {
     return [ensureSlash(path), component];
 }
 
@@ -48,7 +49,7 @@ export function useRouterChanged<Prop extends LocationProps | 'unknown' = 'unkno
     return location;
 }
 
-export function Router({ routes }: Props) {
+export function Router({ routes, fallback }: Props) {
     const switchData = routes.map(([path, component]) => (
         <Route path={ensureSlash(path)} component={component as any} key={path} />
     ));
@@ -57,6 +58,7 @@ export function Router({ routes }: Props) {
         <BrowserRouter>
             <Switch>
                 {switchData}
+                <Route component={fallback} />
             </Switch>
         </BrowserRouter>
     )

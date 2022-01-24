@@ -1,7 +1,7 @@
 
 import { DependencyList, useEffect } from "react"
+import { TimeDelay } from 'danholibraryjs'
 import useTimeout from "./useTimeout"
-import { TimeoutDelay } from "../useSleep"
 import useEffectOnce from "./useEffectOnce"
 import { Callback } from "../../utils/BaseReact"
 
@@ -11,7 +11,7 @@ import { Callback } from "../../utils/BaseReact"
  * @param delay Time until callback should run
  * @param dependencies Run timeout again if dependencies changed
  */
-export function useDebounce(callback: Callback, delay: TimeoutDelay, dependencies: DependencyList) {
+export function useDebounce(callback: Callback, delay: TimeDelay, dependencies: DependencyList) {
   const { reset, clear } = useTimeout(callback, delay)
   useEffect(reset, [...dependencies, reset])
   useEffectOnce(clear);

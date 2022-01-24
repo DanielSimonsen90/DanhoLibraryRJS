@@ -2,10 +2,18 @@ import { useCallback, useRef, useState } from "react"
 import useCallbackOnce from "../useCallbackOnce"
 
 const DefaultCapacity = 10;
-type HistoryOptions = {
+export type HistoryOptions = {
     /** Default: 10 */
     capacity: number
 }
+
+type UseStateWithHistoryReturn<T> = [value: T, set: (value: T) => void, props: {
+    history: T[],
+    pointer: number,
+    back(): void, 
+    forward(): void, 
+    go(index: number): void
+}]
 
 /**
  * useState but you can go back to the previous values
@@ -61,13 +69,5 @@ export function useStateWithHistory<T>(defaultValue: T, { capacity = DefaultCapa
         back, forward, go 
     }]
 }
-
-type UseStateWithHistoryReturn<T> = [value: T, set: (value: T) => void, props: {
-    history: T[],
-    pointer: number,
-    back(): void, 
-    forward(): void, 
-    go(index: number): void
-}]
 
 export default useStateWithHistory;
