@@ -2,15 +2,17 @@ export declare type HistoryOptions = {
     /** Default: 10 */
     capacity: number;
 };
-declare type UseStateWithHistoryReturn<T> = [
-    value: T,
-    set: (value: T) => void,
+declare type UseStateWithHistoryReturn<State> = [
+    value: State,
+    set: (value: State) => void,
     props: {
-        history: T[];
+        history: State[];
         pointer: number;
         back(): void;
         forward(): void;
         go(index: number): void;
+        remove(item: State | number): void;
+        pop(): void;
     }
 ];
 /**
@@ -18,5 +20,5 @@ declare type UseStateWithHistoryReturn<T> = [
  * @param defaultValue Default state value
  * @param options History options
  */
-export declare function useStateWithHistory<T>(defaultValue: T, { capacity }: HistoryOptions): UseStateWithHistoryReturn<T>;
+export declare function useStateWithHistory<State>(defaultValue: State, { capacity }: HistoryOptions): UseStateWithHistoryReturn<State>;
 export default useStateWithHistory;

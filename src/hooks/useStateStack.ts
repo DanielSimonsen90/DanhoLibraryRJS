@@ -1,12 +1,12 @@
-import { SetStateAction, useCallback, useEffect, useMemo, useRef } from "react";
+import { SetStateAction, useEffect, useMemo } from "react";
 import { SetStateFunction } from "../utils/BaseReact";
 import useArrayState from "./wds/useArrayState";
-import { HistoryOptions } from "./wds/useStateWithHistory";
+import useStateWithHistory, { HistoryOptions } from "./wds/useStateWithHistory";
 
 export type PushState<State> = (state: State | ((preState: State) => State)) => number;
 export type PopState = () => void;
 export type UseStateStackReturn<State> = {
-    value: State, 
+    value?: State, 
     push: PushState<State>, 
     pop: PopState,
     size: number
@@ -17,35 +17,32 @@ export type StackOptions = HistoryOptions & {
 
 export function useStateStack<State>(initialValue?: State, options?: StackOptions): UseStateStackReturn<State> {
     const capacity = options?.capacity ?? 10;
-    const { length: size, index, push, remove, shift, value: arr } = useArrayState(initialValue ? [initialValue] : []);
-    const value = useMemo(() => index(size - 1), [size]);
+    const [value, push, { pop, history, pointer }] = useStateWithHistory(initialValue, { capacity: 3 });
 
-    useEffect(() => {
-        console.log('useStateStack, useEffect', {
-            size, value: value != null && value == index(size - 1), arr
-        });
-    })
-
+    console.log('useStateStack, return', { size: history.length, value });
     /**@returns Index of stack item */
-    const pushState = useCallback((item: SetStateAction<State>) => {
-        const _item = typeof item === "function" ? (item as SetStateFunction<State>)(value) : item;
+    const pushState = (item: SetStateAction<State>) => {
+        const next = typeof item === "function" ? (item as SetStateFunction<State>)(value as State) : item;
 
-        if (index(size) !== _item) {
-            if (size < length - 1) remove(size + 1);
+        console.log({ value, next });
+        
 
-            push(_item);
+        if (value !== next) {
+            push(next);
 
-            while (length > capacity) shift()
+            while (history.length > capacity) history.shift()
         }
 
-        return size;
-    }, [capacity, value, size]);
+        return history.length;
+    };
 
-    const pop = useCallback(() => {
-        console.log('useStateStack, pop', { arr, value, size });
-        remove(value);
-    }, [value, size]);
-
-    return { value, push: pushState, pop, size };
+    // const pop = () => {
+    //     console.log('useStateStack, pop', { value, size: history.length });
+    //     // remove(history[pointer + 1]);
+    //     // back();
+    //     history.pop();
+    // };
+    
+    return { value, push: pushState, pop, size: history.length };
 }
 export default useStateStack;

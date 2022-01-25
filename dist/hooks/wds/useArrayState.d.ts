@@ -7,7 +7,6 @@ declare type FilterCallback<T> = (value: T, index: number, array: T[]) => boolea
 export declare function useArray<Item>(defaultValue: Array<Item>): {
     value: Item[];
     length: number;
-    set: import("react").Dispatch<import("react").SetStateAction<Item[]>>;
     push: (item: Item) => void;
     filter: (callback: FilterCallback<Item>) => void;
     update: (i: number, item: Item) => void;
