@@ -1,15 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useArray = void 0;
+exports.useStateArray = void 0;
 const react_1 = require("react");
 /**
  * Manages array states
  * @param defaultValue Default array
  * @returns Array, along with methods to modify array
  */
-function useArray(defaultValue) {
-    const [array, setArray] = (0, react_1.useState)(defaultValue);
-    const length = (0, react_1.useMemo)(() => array.length, [array, array.length]);
+function useStateArray(defaultValue) {
+    const [array, setArray] = (0, react_1.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : []);
+    const arrayProps = (0, react_1.useMemo)(() => {
+        console.log('useArray arrayProps memo update', array);
+        const { find, some, includes, every, random, reduce, map, forEach, findIndex, indexOf, lastIndexOf, keys, values, join, length } = array;
+        const index = (index) => array[index];
+        return {
+            find, some, includes, every, random,
+            reduce, map, forEach,
+            findIndex, indexOf, index, lastIndexOf,
+            keys, values, join,
+            length
+        };
+    }, [array]);
     (0, react_1.useEffect)(() => { console.log('useArrayState, useEffect', array); });
     const push = (item) => setArray(a => [...a, item]);
     const update = (i, item) => setArray(a => [...a.slice(0, i), item, ...a.slice(i + 1, a.length)]);
@@ -19,24 +30,28 @@ function useArray(defaultValue) {
         console.log('useArrayState filter', { pre, cur, a });
         return cur;
     });
-    const remove = (i) => {
+    const remove = (0, react_1.useCallback)((i) => {
         if (i === undefined || i === null)
-            return;
+            return undefined;
         let index = typeof i === 'number' ? i : array.indexOf(i);
-        console.log('useArrayState, remove', { i });
+        const item = array[index];
+        console.log('useArrayState, remove', { i, item, array });
         setArray(a => [...a.slice(0, index), ...a.slice(index + 1, a.length)]);
-    };
+        return item;
+    }, [array]);
     const clear = () => setArray([]);
     const shift = () => remove(0);
-    const index = (i) => array[i];
-    console.log('useArrayState return', { array, length });
-    return {
-        value: array, length,
+    const pop = (0, react_1.useCallback)(() => {
+        console.log('useArrayState pop', { array, index: array.length - 1 });
+        remove(array.length - 1);
+    }, [array]);
+    console.log('useArrayState return', { array });
+    return { ...arrayProps,
+        value: array,
         push,
         filter, update,
-        remove, clear, shift,
-        index
+        remove, clear, shift, pop
     };
 }
-exports.useArray = useArray;
-exports.default = useArray;
+exports.useStateArray = useStateArray;
+exports.default = useStateArray;

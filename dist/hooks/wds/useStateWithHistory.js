@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useStateWithHistory = void 0;
 const react_1 = require("react");
 const useCallbackOnce_1 = __importDefault(require("../useCallbackOnce"));
+const useArrayState_1 = __importDefault(require("./useArrayState"));
 const DefaultCapacity = 10;
 /**
  * useState but you can go back to the previous values
@@ -13,83 +14,75 @@ const DefaultCapacity = 10;
  * @param options History options
  */
 function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
-    const [current, setCurrent] = (0, react_1.useState)(defaultValue);
-    // const historyRef = useRef(defaultValue ? [defaultValue] : [])
-    const historyRef = (0, react_1.useRef)([defaultValue, defaultValue]);
+    const history = (0, useArrayState_1.default)(defaultValue ? [defaultValue] : []);
     const pointerRef = (0, react_1.useRef)(0);
+    const current = (0, react_1.useMemo)(() => history.index(pointerRef.current), [history, pointerRef.current]);
     console.log('useStateWithHistory return', {
         current,
-        history: historyRef.current,
+        history: history,
         pointer: pointerRef.current
     });
     const push = (0, react_1.useCallback)((value) => {
         const next = typeof value === "function" ? value(current) : value;
-        console.log({ current, next, history: historyRef.current });
-        if (current === next)
-            return;
-        if (pointerRef.current < historyRef.current.length - 1) {
-            historyRef.current.splice(pointerRef.current + 1);
+        console.log('useStateWithHistory push', { current, next, history });
+        history.push(next);
+        while (history.length > capacity) {
+            history.shift();
         }
-        historyRef.current.push(next);
-        while (historyRef.current.length > capacity) {
-            historyRef.current.shift();
-        }
-        pointerRef.current = historyRef.current.length - 1;
-        setCurrent(next);
+        pointerRef.current = history.length - 1;
     }, [capacity, current]);
     const back = (0, useCallbackOnce_1.default)(() => {
         if (pointerRef.current <= 0)
             return;
         pointerRef.current--;
-        setCurrent(historyRef.current[pointerRef.current]);
     });
     const forward = (0, useCallbackOnce_1.default)(() => {
-        if (pointerRef.current >= historyRef.current.length - 1)
+        if (pointerRef.current >= history.length - 1)
             return;
         pointerRef.current++;
-        setCurrent(historyRef.current[pointerRef.current]);
     });
     const go = (0, useCallbackOnce_1.default)(index => {
-        if (index < 0 || index > historyRef.current.length - 1)
+        if (index < 0 || index > history.length - 1)
             return;
         pointerRef.current = index;
-        setCurrent(historyRef.current[pointerRef.current]);
     });
     const remove = (0, useCallbackOnce_1.default)((item) => {
-        let index = typeof item === 'number' ? item : historyRef.current.indexOf(item);
+        let index = typeof item === 'number' ? item : history.indexOf(item);
         if (index == -1)
-            index = historyRef.current.length - 1;
-        console.log('useStateWithHistory remove', { index, item, history: historyRef.current });
+            index = history.length - 1;
+        console.log('useStateWithHistory remove', { index, item, history: history });
         if (index < 0)
             return;
-        historyRef.current = historyRef.current.filter((_, i) => i !== index);
+        history.filter((_, i) => i !== index);
         // Element removed was in history
         if (pointerRef.current > index)
             pointerRef.current--;
         // Element removed is self
         else if (pointerRef.current == index) {
-            pointerRef.current = historyRef.current[pointerRef.current + 1] ?
+            pointerRef.current = history.index(pointerRef.current + 1) ?
                 pointerRef.current++ :
                 pointerRef.current > 0 ?
                     pointerRef.current-- :
                     pointerRef.current;
         }
-        setCurrent(historyRef.current[pointerRef.current]);
     });
     const pop = (0, useCallbackOnce_1.default)(() => {
-        const isPointedTo = historyRef.current.length - 1 === pointerRef.current;
-        historyRef.current.pop();
+        const isPointedTo = history.length - 1 === pointerRef.current;
+        history.pop();
         if (isPointedTo)
             pointerRef.current--;
-        setCurrent(historyRef.current[pointerRef.current]);
     });
-    if (historyRef.current.some(s => s === null || s === undefined)) {
-        historyRef.current = historyRef.current.filter(s => s);
-        setCurrent(historyRef.current[pointerRef.current = historyRef.current.length - 1]);
+    if (history.some(s => s === null || s === undefined)) {
+        history.filter(s => s != null);
     }
     return [current, push, {
-            history: historyRef.current,
-            pointer: pointerRef.current,
+            history,
+            get pointer() {
+                return pointerRef.current;
+            },
+            setPointer(value) {
+                return pointerRef.current = value;
+            },
             back, forward, go, remove, pop
         }];
 }

@@ -1,16 +1,18 @@
+import { UseArrayReturn } from "./useArrayState";
 export declare type HistoryOptions = {
     /** Default: 10 */
     capacity: number;
 };
 declare type UseStateWithHistoryReturn<State> = [
     value: State,
-    set: (value: State) => void,
+    push: (value: State) => void,
     props: {
-        history: State[];
+        history: UseArrayReturn<State>;
         pointer: number;
-        back(): void;
+        setPointer(value: number): number;
         forward(): void;
         go(index: number): void;
+        back(): void;
         remove(item: State | number): void;
         pop(): void;
     }
