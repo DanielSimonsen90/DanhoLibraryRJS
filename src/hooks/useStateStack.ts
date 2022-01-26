@@ -1,8 +1,7 @@
-import { SetStateAction } from "react";
-import { SetStateFunction } from "../utils/BaseReact";
-import useStateWithHistory, { HistoryOptions } from "./wds/useStateWithHistory";
+import { useMemo, useState } from "react";
+import { HistoryOptions } from "./wds/useStateWithHistory";
 
-export type PushState<State> = (state: State | ((preState: State) => State)) => number;
+export type PushState<State> = (state: State) => number;
 export type PopState = () => void;
 export type UseStateStackReturn<State> = {
     value?: State, 
@@ -16,31 +15,27 @@ export type StackOptions = HistoryOptions & {
 
 export function useStateStack<State>(initialValue?: State, options?: StackOptions): UseStateStackReturn<State> {
     const capacity = options?.capacity ?? 10;
-    const [value, push, { pop: _pop, history, setPointer }] = useStateWithHistory(initialValue, { capacity: 3 });
+    const [array, setArray] = useState(initialValue ? [initialValue] : []);
+    const size = useMemo(() => array.length, [array]);
+    const value = useMemo(() => array[size - 1], [size]);
 
-    /**@returns Index of stack item */
-    const pushState = (item: SetStateAction<State>) => {
-        const next = typeof item === "function" ? (item as SetStateFunction<State>)(value as State) : item;
+    const push = (item: State) => {
+        if (!item) return -1;
+        else if (array.includes(item)) console.warn('Pushed item to stack, that was already in stack', {
+            stack: array, item, foundAt: array.indexOf(item)
+        });
 
-        console.log('useStateStack push', { value, next });
-        
-
-        if (value !== next) {
-            push(next);
-            
-            while (history.length > capacity) history.shift()
-            setPointer(history.length);
+        let currentSize = size;
+        while (currentSize + 1 > capacity) {
+            array.shift();
+            currentSize--;
         }
 
-        return history.length;
-    };
-
-    const pop = () => {
-        console.log('useStateStack pop', { value, history });
-        _pop();
+        setArray(a => [...a, item])
+        return size;
     }
-    
-    console.log('useStateStack, return', { size: history.length, value });
-    return { value, push: pushState, pop, size: history.length };
+    const pop = () => setArray(a => a.slice(0, -1));
+
+    return { value, push, pop, size };
 }
 export default useStateStack;

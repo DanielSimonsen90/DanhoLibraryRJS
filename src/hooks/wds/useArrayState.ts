@@ -37,6 +37,7 @@ export function useStateArray<Item>(defaultValue?: Array<Item>): UseArrayReturn<
 
     const index = (index: number) => array[index];
 
+
     return {
       find, some, includes, every, random,
       reduce, map, forEach,
@@ -46,33 +47,20 @@ export function useStateArray<Item>(defaultValue?: Array<Item>): UseArrayReturn<
     }
   }, [array])
 
-  useEffect(() => { console.log('useArrayState, useEffect', array) });
-
   const push = (item: Item) => setArray(a => [...a, item]);
   const update = (i: number, item: Item) => setArray(a => [...a.slice(0, i), item, ...a.slice(i + 1, a.length)]);
-  const filter = (callback: FilterCallback<Item>) => setArray(a => {
-    const pre = a;
-    const cur = a.filter(callback);
-    console.log('useArrayState filter', { pre, cur, a });
-    return cur;
-  });
-  const remove = useCallback((i: number | Item) => {
+  const filter = (callback: FilterCallback<Item>) => setArray(a => a.filter(callback));
+  const remove = (i: number | Item) => {
     if (i === undefined || i === null) return undefined;
 
     let index = typeof i === 'number' ? i : array.indexOf(i);    
     const item = array[index];
-    console.log('useArrayState, remove', { i, item, array });
     setArray(a => [...a.slice(0, index), ...a.slice(index + 1, a.length)]);
     return item;
-  }, [array]);
+  };
   const clear = () => setArray([]);
   const shift = () => remove(0);
-  const pop = useCallback(() => {
-    console.log('useArrayState pop', { array, index: array.length - 1 });
-    remove(array.length - 1);
-  }, [array]);
-
-  console.log('useArrayState return', { array });
+  const pop = () => remove(array.length - 1);
 
   return { ...arrayProps,
     value: array,

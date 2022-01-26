@@ -30,17 +30,8 @@ export function useStateWithHistory<State>(defaultValue: State, { capacity = Def
     const pointerRef = useRef(0);
     const current = useMemo(() => history.index(pointerRef.current), [history, pointerRef.current])
 
-    console.log('useStateWithHistory return', {
-        current, 
-        history: history,
-        pointer: pointerRef.current
-    });
-
     const push = useCallback((value: State) => {
         const next = typeof value === "function" ? value(current) : value;
-
-        console.log('useStateWithHistory push', { current, next, history });
-        
         history.push(next);
 
         while (history.length > capacity) {
@@ -68,7 +59,6 @@ export function useStateWithHistory<State>(defaultValue: State, { capacity = Def
     const remove = useCallbackOnce((item: State | number) => {
         let index = typeof item === 'number' ? item : history.indexOf(item);
         if (index == -1) index = history.length - 1;
-        console.log('useStateWithHistory remove', { index, item, history: history });
         
         if (index < 0) return;
         history.filter((_, i) => i !== index);

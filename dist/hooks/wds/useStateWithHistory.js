@@ -17,14 +17,8 @@ function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
     const history = (0, useArrayState_1.default)(defaultValue ? [defaultValue] : []);
     const pointerRef = (0, react_1.useRef)(0);
     const current = (0, react_1.useMemo)(() => history.index(pointerRef.current), [history, pointerRef.current]);
-    console.log('useStateWithHistory return', {
-        current,
-        history: history,
-        pointer: pointerRef.current
-    });
     const push = (0, react_1.useCallback)((value) => {
         const next = typeof value === "function" ? value(current) : value;
-        console.log('useStateWithHistory push', { current, next, history });
         history.push(next);
         while (history.length > capacity) {
             history.shift();
@@ -50,7 +44,6 @@ function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
         let index = typeof item === 'number' ? item : history.indexOf(item);
         if (index == -1)
             index = history.length - 1;
-        console.log('useStateWithHistory remove', { index, item, history: history });
         if (index < 0)
             return;
         history.filter((_, i) => i !== index);
