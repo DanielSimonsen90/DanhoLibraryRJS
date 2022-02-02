@@ -1,6 +1,5 @@
-import { DetailedHTMLProps, Key } from 'react';
+import { DetailedHTMLProps } from 'react';
 import { HTMLAttributes } from 'react';
-import { Children } from './BaseReact';
 
 type IBaseProps<InheritFrom extends HTMLElement = HTMLDivElement> = DetailedHTMLProps<HTMLAttributes<InheritFrom>, InheritFrom>;
 
