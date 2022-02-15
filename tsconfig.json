@@ -16,7 +16,7 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "declaration": true,
-    "watch": true
+    "watch": true,
   },
   "include": [
     "src/**/*"
