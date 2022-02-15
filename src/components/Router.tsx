@@ -1,25 +1,19 @@
-import { PropertiesWithout } from 'danholibraryjs';
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { PropertiesWithout } from 'danholibraryjs';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import BaseProps from '../utils/BaseProps';
 import { FunctionComponent } from '../utils/BaseReact';
 export { Redirect, Route }
 
 export type RouteConstruct = [string, FunctionComponent];
-type Props = BaseProps & { 
-    routes: Array<RouteConstruct>
-    fallback?: FunctionComponent
-}
 
 function ensureSlash(path: string) {
     return path.startsWith('/') ? path : `/${path}`
 }
-
 export function createRoute(path: string, component: FunctionComponent): RouteConstruct {
     return [ensureSlash(path), component];
 }
 
-// type LocationProps = keyof { [K in keyof Location as Location[K] extends Function ? never : K]: Location[K] }
 type LocationProps = keyof PropertiesWithout<Function, Location>;
 type OnRoutePropChanged<Prop extends LocationProps> = (from: Location[Prop], to: Location[Prop], location: Location) => void;
 type OnChangeObj = Partial<{ [K in LocationProps]: OnRoutePropChanged<K> }>;
@@ -49,6 +43,10 @@ export function useRouterChanged<Prop extends LocationProps | 'unknown' = 'unkno
     return location;
 }
 
+type Props = BaseProps & { 
+    routes: Array<RouteConstruct>
+    fallback?: FunctionComponent
+}
 export function Router({ routes, fallback }: Props) {
     const switchData = routes.map(([path, component]) => (
         <Route path={ensureSlash(path)} component={component as any} key={path} />

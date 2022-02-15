@@ -1,4 +1,4 @@
 export * from './Container';
-export * from './Portal';
 export * from './Router';
-export * from './Tooltip';
+export * from './TabBar';
+export declare function combineClassName(...classNames: Array<string | undefined>): string;

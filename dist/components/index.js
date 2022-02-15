@@ -10,7 +10,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.combineClassName = void 0;
 __exportStar(require("./Container"), exports);
-__exportStar(require("./Portal"), exports);
 __exportStar(require("./Router"), exports);
-__exportStar(require("./Tooltip"), exports);
+__exportStar(require("./TabBar"), exports);
+function combineClassName(...classNames) {
+    return classNames.filter(v => v).join(' ');
+}
+exports.combineClassName = combineClassName;
