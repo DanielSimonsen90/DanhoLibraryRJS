@@ -8,17 +8,27 @@ const react_1 = require("react");
 const useEventListener_1 = __importDefault(require("./useEventListener"));
 /**
  * CSS media queries in React 👀
- * @param mediaQuery Media query
+ * @param mediaQuery Media query: default: (max-width: mediaQuery)
  * @returns If media query is a match
  */
 function useMediaQuery(mediaQuery) {
+    const mq = (0, react_1.useMemo)(() => {
+        let prop = 'max-width';
+        let val = mediaQuery; // 600(px)
+        if (mediaQuery.includes(':')) {
+            const noParents = mediaQuery.startsWith('(') ? mediaQuery.substring(1, mediaQuery.length - 1) : mediaQuery;
+            [prop, val] = noParents.split(':');
+        }
+        const value = val.trim() + (/\d$/.test(val) ? 'px' : '');
+        return `(${prop}: ${value})`;
+    }, [mediaQuery]);
     const [isMatch, setIsMatch] = (0, react_1.useState)(false);
     const [mediaQueryList, setMediaQueryList] = (0, react_1.useState)(null);
     (0, react_1.useEffect)(() => {
-        const list = window.matchMedia(mediaQuery);
+        const list = window.matchMedia(mq);
         setMediaQueryList(list);
         setIsMatch(list.matches);
-    }, [mediaQuery]);
+    }, [mq]);
     (0, useEventListener_1.default)("change", (e, t) => setIsMatch(t.matches), mediaQueryList);
     return isMatch;
 }
