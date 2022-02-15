@@ -13,7 +13,7 @@ export type StackOptions = HistoryOptions & {
 
 }
 
-export function useStateStack<State>(initialValue?: State, options?: StackOptions): UseStateStackReturn<State> {
+export function useStack<State>(initialValue?: State, options?: StackOptions): UseStateStackReturn<State> {
     const capacity = options?.capacity ?? 10;
     const [array, setArray] = useState(initialValue ? [initialValue] : []);
     const size = useMemo(() => array.length, [array]);
@@ -38,4 +38,4 @@ export function useStateStack<State>(initialValue?: State, options?: StackOption
 
     return { value, push, pop, size };
 }
-export default useStateStack;
+export default useStack;
