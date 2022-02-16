@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "strict": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-    "rootDir": "src",
+    "baseUrl": "src",
     "outDir": "dist",
     "esModuleInterop": true,
     "declaration": true,

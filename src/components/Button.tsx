@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import Icon from 'react-fontawesome';
+import { combineClassName } from '.';
 
 export type CRUD = 'create' | 'read' | 'update' | 'delete';
 export type Importance = 'primary' | 'secondary' | 'tertiary';
@@ -25,13 +26,8 @@ export function Button({ crud, iconName, importance, className, children, ..._pr
         iconName = GetIconFromCrud(crud);
     }
 
-    const classNameCombined = [
-        className, 
-        importance
-    ].filter(v => v).join(' ');
-
     return (
-        <button className={classNameCombined} {...props}>
+        <button className={combineClassName(className, importance)} {...props}>
             {iconName && <Icon name={iconName} />}
             {children}
         </button>

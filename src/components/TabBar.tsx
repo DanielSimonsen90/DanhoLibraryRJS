@@ -1,43 +1,69 @@
-import { ReactElement } from 'react';
+import { MouseEventHandler, ReactElement, useMemo, useState } from 'react';
 import { Arrayable } from 'danholibraryjs';
 import { combineClassName } from '.';
 import BaseProps from '../utils/BaseProps';
-import { Component } from '../utils/BaseReact';
-import { useStateWithHistory } from '../hooks/wds/useStateWithHistory';
+import { TabBarItemProps } from './TabBarItem';
 
-export type OnItemSelectedEvent = React.MouseEvent<HTMLDivElement, MouseEvent> & {
-    previous: Component
-    current: Component
-}
-export type TabBarItemProps = BaseProps;
-type OnItemSelected = (event: OnItemSelectedEvent) => void;
-export type TabBarProps = Omit<BaseProps, 'children'> & {
-    children: Arrayable<ReactElement<TabBarItemProps>>
+export type TabBarProps = Omit<BaseProps<HTMLElement>, 'children'> & {
+    data?: Map<string, TabBarItemProps>
+    children?: Arrayable<ReactElement<TabBarItemProps>>
     onItemSelected?: OnItemSelected
 }
 
-export default function TabBar({ className, onItemSelected, ...props }: TabBarProps) {
-    const [componentSelected, setComponentSelected] = useStateWithHistory(
-        Array.isArray(props.children) ? props.children[0] : props.children, {
-        capacity: 1
-    });
+export type OnItemSelectedEvent = React.MouseEvent<HTMLLIElement, MouseEvent> & {
+    previous: TabBarItemProps
+    current: TabBarItemProps
+}
+type OnItemSelected = (event: OnItemSelectedEvent) => void;
 
-    const children = [props.children].flat().map(child => {
-        child.props.onClick = event => {
-            onItemSelected?.({
-                ...event,
-                previous: componentSelected,
-                current: child
-            });
-            setComponentSelected(child);
-            child.props.onClick?.(event);
-        }
-        return child;
-    })
+export function TabBar({ onItemSelected, ...props }: TabBarProps) {
+    const items = useMemo(() => {
+        const propsChildren = props.children !== undefined && (Array.isArray(props.children) ? props.children : [props.children]);
+        if (propsChildren === false && props.data) return props.data;
+        else if (propsChildren === false) return new Map<string, TabBarItemProps>([
+            ['Item', { 
+                title: 'Item', 
+                component: <h1>Please use the data property or give TabBar children!</h1> 
+            }]
+        ])
+
+        return propsChildren.reduce((map, child) => {
+            return map.set(child.props.title, child.props)
+        }, new Map<string, TabBarItemProps>());
+    }, [props.children]);
+    const titles = useMemo(() => items.keyArr(), [items]);
+
+    const [componentSelected, setComponentSelected] = useState(items.valueArr()[0]);
+
+    const _onItemSelected: MouseEventHandler<HTMLLIElement> = (e) => {
+        const item = items.get(e.currentTarget.textContent!)!;
+        onItemSelected?.({ ...e,
+            previous: componentSelected,
+            current: item
+        });
+        setComponentSelected(item);
+    }
 
     return (
-        <div className={combineClassName('tab-bar', className)} {...props}>
-            {children}
-        </div>
+        <section {...props} className={combineClassName('tab-bar-container', props.className)}>
+            <header className="tab-bar">
+                <ul>
+                    {titles.map(title => <li key={title} className={
+                        componentSelected.title === title ? 
+                            'selected' : 
+                            undefined
+                        } onClick={_onItemSelected}>{title}</li>
+                    )}
+                </ul>
+            </header>
+            <hr />
+            <section className="tab-bar-content">
+                {typeof componentSelected.component === 'function' ? 
+                    componentSelected.component() : 
+                    componentSelected.component
+                }
+            </section>
+        </section>
     );
 }
+export default TabBar;

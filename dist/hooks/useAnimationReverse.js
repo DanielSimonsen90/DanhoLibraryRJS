@@ -14,7 +14,7 @@ const useMediaQuery_1 = __importDefault(require("./wds/useMediaQuery"));
  */
 function useAnimationReverse(query, className, baseTime) {
     const allowAnimations = (0, useMediaQuery_1.default)('prefers-reduced-motion: no-preference');
-    return (time) => {
+    return ({ time, className: additionalClassName = '' } = {}) => {
         const el = document.querySelector(query);
         if (!el)
             throw new Error(`Invalid query: ${query}`);
@@ -24,7 +24,10 @@ function useAnimationReverse(query, className, baseTime) {
                 if (!time && !baseTime)
                     return resolve(el);
                 setTimeout(() => {
-                    el.classList.remove(className.replace('.', ''));
+                    el.classList.remove(...[
+                        className.replace('.', ''),
+                        additionalClassName
+                    ].filter(v => v));
                     resolve(el);
                 }, allowAnimations ? (0, danholibraryjs_1.ms)(time || baseTime) : 0);
             }

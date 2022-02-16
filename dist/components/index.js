@@ -15,6 +15,7 @@ __exportStar(require("./Container"), exports);
 __exportStar(require("./Button"), exports);
 __exportStar(require("./Router"), exports);
 __exportStar(require("./TabBar"), exports);
+__exportStar(require("./TabBarItem"), exports);
 function combineClassName(...classNames) {
     return classNames.filter(v => v).join(' ');
 }

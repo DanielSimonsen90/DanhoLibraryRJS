@@ -1,25 +1,40 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TabBar = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const _1 = require(".");
-const useStateWithHistory_1 = require("../hooks/wds/useStateWithHistory");
-function TabBar({ className, onItemSelected, ...props }) {
-    const [componentSelected, setComponentSelected] = (0, useStateWithHistory_1.useStateWithHistory)(Array.isArray(props.children) ? props.children[0] : props.children, {
-        capacity: 1
-    });
-    const children = [props.children].flat().map(child => {
-        child.props.onClick = event => {
-            var _a, _b;
-            onItemSelected === null || onItemSelected === void 0 ? void 0 : onItemSelected({
-                ...event,
-                previous: componentSelected,
-                current: child
-            });
-            setComponentSelected(child);
-            (_b = (_a = child.props).onClick) === null || _b === void 0 ? void 0 : _b.call(_a, event);
-        };
-        return child;
-    });
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, _1.combineClassName)('tab-bar', className), ...props, children: children }, void 0));
+function TabBar({ onItemSelected, ...props }) {
+    const items = (0, react_1.useMemo)(() => {
+        const propsChildren = props.children !== undefined && (Array.isArray(props.children) ? props.children : [props.children]);
+        if (propsChildren === false && props.data)
+            return props.data;
+        else if (propsChildren === false)
+            return new Map([
+                ['Item', {
+                        title: 'Item',
+                        component: (0, jsx_runtime_1.jsx)("h1", { children: "Please use the data property or give TabBar children!" }, void 0)
+                    }]
+            ]);
+        return propsChildren.reduce((map, child) => {
+            return map.set(child.props.title, child.props);
+        }, new Map());
+    }, [props.children]);
+    const titles = (0, react_1.useMemo)(() => items.keyArr(), [items]);
+    const [componentSelected, setComponentSelected] = (0, react_1.useState)(items.valueArr()[0]);
+    const _onItemSelected = (e) => {
+        const item = items.get(e.currentTarget.textContent);
+        onItemSelected === null || onItemSelected === void 0 ? void 0 : onItemSelected({ ...e,
+            previous: componentSelected,
+            current: item
+        });
+        setComponentSelected(item);
+    };
+    return ((0, jsx_runtime_1.jsxs)("section", { ...props, className: (0, _1.combineClassName)('tab-bar-container', props.className), children: [(0, jsx_runtime_1.jsx)("header", { className: "tab-bar", children: (0, jsx_runtime_1.jsx)("ul", { children: titles.map(title => (0, jsx_runtime_1.jsx)("li", { className: componentSelected.title === title ?
+                            'selected' :
+                            undefined, onClick: _onItemSelected, children: title }, title)) }, void 0) }, void 0), (0, jsx_runtime_1.jsx)("hr", {}, void 0), (0, jsx_runtime_1.jsx)("section", { className: "tab-bar-content", children: typeof componentSelected.component === 'function' ?
+                    componentSelected.component() :
+                    componentSelected.component }, void 0)] }, void 0));
 }
+exports.TabBar = TabBar;
 exports.default = TabBar;
