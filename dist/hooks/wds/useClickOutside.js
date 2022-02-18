@@ -10,9 +10,10 @@ const useEventListener_1 = __importDefault(require("./useEventListener"));
  * @param query Query to get element
  * @param onClickOutside Click event, if clicked outside
  */
-function useClickOutside(ref, onClickOutside) {
+function useClickOutside(query, onClickOutside) {
     return (0, useEventListener_1.default)("click", e => {
-        if (ref.current == null || ref.current.contains(e.target))
+        const el = document.querySelector(query);
+        if (el == null || el.contains(e.target))
             return;
         onClickOutside(e);
     }, document);
