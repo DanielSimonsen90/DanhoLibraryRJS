@@ -6,5 +6,5 @@ export declare type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLBut
     iconName?: string;
     importance?: Importance;
 };
-export declare function Button({ crud, iconName, importance, className, children, ..._props }: ButtonProps): JSX.Element;
+export declare function Button({ crud, iconName, importance, className, value, children, ..._props }: ButtonProps): JSX.Element;
 export default Button;

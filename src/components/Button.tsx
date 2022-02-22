@@ -19,7 +19,7 @@ function GetIconFromCrud(crud: CRUD) {
     }
 }
 
-export function Button({ crud, iconName, importance, className, children, ..._props }: ButtonProps) {
+export function Button({ crud, iconName, importance, className, value, children, ..._props }: ButtonProps) {
     const props = { ..._props, "data-crud": crud }
 
     if (!iconName && crud) {
@@ -29,7 +29,7 @@ export function Button({ crud, iconName, importance, className, children, ..._pr
     return (
         <button className={combineClassName(className, importance)} {...props}>
             {iconName && <Icon name={iconName} />}
-            {children}
+            {value || children}
         </button>
     );
 }

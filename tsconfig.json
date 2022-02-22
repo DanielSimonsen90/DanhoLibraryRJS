@@ -8,7 +8,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
     "outDir": "dist",
     "esModuleInterop": true,
     "declaration": true,

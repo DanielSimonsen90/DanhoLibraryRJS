@@ -9,3 +9,4 @@ export declare type SetStateFunction<S> = (preState: S) => S;
 export declare type UseStateSetState<S> = Dispatch<SetStateAction<S>>;
 export declare type UseStateReturn<S> = [S, UseStateSetState<S>];
 export declare type StateObj<StateType, State extends string> = Record<Uncapitalize<State>, StateType> & Record<`set${State}`, UseStateSetState<StateType>>;
+export declare type ClickEvent<Element extends HTMLElement = HTMLDivElement> = React.MouseEvent<Element, MouseEvent>;
