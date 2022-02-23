@@ -15,9 +15,8 @@ export function useEventListener<
 >(
     eventType: EventType, 
     callback: Listener<EventTypeEvent, ElementTarget>,
-    element?: ElementTarget
+    element: ElementTarget = window as any
 ) {
-  element ?? window;
   const callbackRef = useRef(callback);
   const handler: Listener<EventTypeEvent, ElementTarget> = (e: EventTypeEvent, element: ElementTarget) => callbackRef.current(e, element);
 

@@ -4,10 +4,15 @@ import { useStateOnChange, useUpdateEffect } from "../../hooks";
 import useFormatDate from "./useFormatDate";
 import Calendar, { ExtendedDate } from "./Calendar";
 import { getNow } from "./Calendar/hooks";
+import Button from "../Button";
 
 type Props = {
-    allowPastDates?: boolean
     onChange(value: ExtendedDate, formatted: string): void,
+
+    allowPastDates?: boolean
+    buttonSubmitTitle?: string,
+    dateLabelTitle?: string,
+    dateNames?: Array<string>,
     /**
      * Formatting the date in the input.
      * @$year Replaced with year of the date
@@ -38,28 +43,41 @@ type Props = {
      * 
      * @$relative Replaced with relative timeformat as TimeSpan
      */
-    format?: string
+    format?: string,
+    monthNames?: Array<string>
 }
 export { Props as DatePickerProps }
 
-export function DatePicker({ allowPastDates = false, format = "$dd/$MM/$year", onChange }: Props) {
+export function DatePicker({ 
+    onChange, dateNames, monthNames,
+
+    allowPastDates = false, 
+    buttonSubmitTitle = "Select Date", 
+    dateLabelTitle = "Date",
+    format = "$dd/$MM/$year", 
+}: Props) {
     const now = getNow();
     const [date, setDate] = useState(now);
     const [calendarMode, setCalendarMode] = useState(false);
     const formatDate = useFormatDate(date);
-    const [inputValueFormatted, inputValue, setInputValue] = useStateOnChange(formatDate(format), 500);
+    const [inputValue, inputValueFormatted, setInputValue] = useStateOnChange(formatDate(format), 0);
 
     useUpdateEffect(() => onChange(date, inputValueFormatted), [date])
 
     return (
-        <div className="datepicker">
-            {calendarMode ? <Calendar onDateSelected={setDate} close={() => setCalendarMode(false)} allowPastDates={allowPastDates} /> :
+        <section className="datepicker">
+            {calendarMode ? <Calendar format={format} allowPastDates={allowPastDates} 
+                dateNames={dateNames} monthNames={monthNames}
+                onDateSelected={setDate} close={() => setCalendarMode(false)} 
+            /> :
             <>
-                <input type="text" value={calendarMode ? inputValue : inputValueFormatted} onChange={e => setInputValue(e.target.value)} />
+                <label htmlFor="date-input">{dateLabelTitle}</label>
+                <input id="date-input" type="text" value={calendarMode ? inputValue : inputValueFormatted} onChange={e => setInputValue(e.target.value)} />
                 <Icon tabIndex={0} name="calendar" onKeyDown={e => (e.key === 'Enter' || e.key === 'NumpadEnter') && setCalendarMode(true)} onClick={() => setCalendarMode(true)} />
+                <Button crud="create" importance="primary" onClick={() => onChange(date, inputValueFormatted)} value={buttonSubmitTitle} />
             </>
             }
-        </div>
+        </section>
     );
 }
 

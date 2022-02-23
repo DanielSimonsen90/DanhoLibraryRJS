@@ -3,7 +3,7 @@
  * @param query Query to get element
  * @param onClickOutside Click event, if clicked outside
  */
-export declare function useClickOutside(query: string, onClickOutside: (event: MouseEvent) => void): {
+export declare function useClickOutside(query: string, onClickOutside: (event: MouseEvent, element: HTMLElement) => void): {
     addEventListener: () => void;
     removeEventListener: () => void;
 };

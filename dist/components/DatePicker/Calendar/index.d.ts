@@ -2,9 +2,12 @@
 import { ClickEvent } from '../../../utils';
 import { LongDay, LongMonth, ShortDay, ShortMonth } from '../../../utils/Time';
 declare type Props = {
-    allowPastDates?: boolean;
+    format: string;
     onDateSelected(date: ExtendedDate, event: ClickEvent): void;
     close(): void;
+    allowPastDates?: boolean;
+    dateNames?: Array<string>;
+    monthNames?: Array<string>;
 };
 export { Props as CalendarProps };
 export declare type ExtendedDate = {
@@ -26,6 +29,6 @@ export declare type ExtendedDate = {
     weekDayLong: LongDay;
     toString: string;
 };
-export declare function Calendar({ allowPastDates, onDateSelected, close }: Props): JSX.Element;
+export declare function Calendar({ format, onDateSelected, close, allowPastDates, monthNames, dateNames }: Props): JSX.Element;
 export default Calendar;
 export * from './hooks';

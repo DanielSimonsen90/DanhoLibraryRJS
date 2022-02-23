@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import Icon from 'react-fontawesome';
 import { fromEwToExtended, useCalendarDays, getNow } from './hooks';
-import { dayNames } from '../useFormatDate';
+import useFormatDate, { dayNames as DayNames, monthNames as MonthNames } from '../useFormatDate';
 import { ClickEvent } from '../../../utils';
 import { LongDay, LongMonth, ShortDay, ShortMonth, weekdays as workdays, weekend } from '../../../utils/Time';
+import { useEventListener } from '../../../hooks';
 
 type Props = {
-    allowPastDates?: boolean
+    format: string
     onDateSelected(date: ExtendedDate, event: ClickEvent): void,
     close(): void
+
+    allowPastDates?: boolean
+    dateNames?: Array<string>,
+    monthNames?: Array<string>
 }
 export { Props as CalendarProps }
 export type ExtendedDate = {
@@ -33,51 +38,63 @@ export type ExtendedDate = {
     toString: string
 }
 
-export function Calendar({ allowPastDates = false, onDateSelected, close }: Props) {
+export function Calendar({ 
+    format, onDateSelected, close, 
+    allowPastDates = false,
+    monthNames = MonthNames,
+    dateNames = DayNames
+}: Props) {
     const now = getNow();
     const [selectedDate, setSelectedDate] = useState<ExtendedDate>(now);
     const dates = useCalendarDays(selectedDate);
+    const formatDate = useFormatDate<false>();
+    useEventListener('keypress', (e, target) => {
+        console.log(e.key)
+    })
 
 
-    const onDirectionClicked = (direction: 'previous' | 'next') => setSelectedDate(v => (
-        { ...v, month: direction === 'previous' ? v.month - 1 : v.month + 1  }
-    ));
+    const onDirectionClicked = (direction: 'previous' | 'next') => setSelectedDate(v => (fromEwToExtended(
+        new Date(new Date(v.time).setMonth(direction === 'previous' ? v.month - 2 : v.month))
+    )));
     const _onDateSelected = (date: ExtendedDate, e: ClickEvent) => {
         if (!allowPastDates && date.time < now.time) return;
         onDateSelected(date, e)
         close();
     }
     const setDataTime = (date: ExtendedDate) => (
-        date.month < now.month || date.day < now.day ? 'past' :
-        date.day === now.day ? 'today' :
-        date.month > now.month ? 'next-month' : 'future'
+        date.month < now.month || date.day < now.day && date.month <= now.month ? 'past' :
+        date.day === now.day ? 'today' : 'future'
     );
 
     return (
         <div className="calendar">
-            <header>
-                {selectedDate.month > now.month && <Icon name="angle-left" onClick={() => onDirectionClicked('previous')} />}
-                <h1>
-                    <span>{selectedDate.monthNameLong}</span> <span>{selectedDate.year}</span>
+            <header aria-labelledby='calendar-header'>
+                {(allowPastDates || selectedDate.month > now.month) && <Icon name="angle-left" onClick={() => onDirectionClicked('previous')} />}
+                <h1 id="calendar-header">
+                    <span id="calendar-header-month" title={selectedDate.monthNameLong}
+                    >{monthNames[selectedDate.month - 1]}</span> <span id="calendar-header-month" title={selectedDate.year.toString()}
+                    >{selectedDate.year}</span>
                 </h1>
-                <Icon name="angle-right" onClick={() => onDirectionClicked('next')} />
+                <Icon name="angle-right" onKeyDown={e => console.log(e.key)} onClick={() => onDirectionClicked('next')} />
             </header>
             <hr />
-            <section className="weekdays">
-                {dayNames.map(day => <h2 className='weekday' key={day}
-                    data-workday={workdays.includes(day)}
-                    data-weekend={weekend.includes(day)}
-                >{day}</h2>)}
-            </section>
-            <section className="calendar-dates">
-                {dates.map(date => (
-                    <div key={`${date.day}-${date.month}-${date.year}`} className='calendar-date' onClick={e => _onDateSelected(date, e)}
-                        data-time={setDataTime(date)} 
-                        data-selected={date === selectedDate ? 'selected' : null}
-                    >
-                        {date.day}
-                    </div>
-                ))}
+            <section title="Calendar dates" className="calendar-dates">
+                {dateNames.map(day => <h2 className='weekday' key={day}
+                    data-workday={(workdays as Array<string>).includes(day)}
+                    data-weekend={(weekend as Array<string>).includes(day)}
+                >{day.substring(0, 3)}</h2>)}
+
+                {dates.map(date => {
+                    const toString = formatDate(date, format);
+                    return (
+                        <p key={toString} className='calendar-date' onClick={e => _onDateSelected(date, e)}
+                            data-time={setDataTime(date)} title={toString}
+                            data-selected={date === selectedDate ? 'selected' : null}
+                        >
+                            {date.day}
+                        </p>
+                    )
+                })}
             </section>
         </div>
     );

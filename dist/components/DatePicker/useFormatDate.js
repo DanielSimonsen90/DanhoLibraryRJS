@@ -9,8 +9,8 @@ exports.monthNames = new Array('Janurary', 'February', 'March', 'April', 'May', 
 exports.dayNames = new Array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 const weekFrom = (date) => Math.round(new danholibraryjs_1.TimeSpan(new Date(date.getFullYear(), 1, 1), date.getTime()).getTotalDays() / 7);
 exports.weekFrom = weekFrom;
-function useFormatDate(date) {
-    return (0, react_1.useCallback)((format) => format
+function formatDate(date, format) {
+    return format
         .replaceAll('$year', date.year.toString())
         .replaceAll('$month', exports.monthNames[date.month])
         .replaceAll('$MM', (0, exports.doubleDigit)(date.month))
@@ -29,6 +29,11 @@ function useFormatDate(date) {
         .replaceAll('$s', date.second.toString())
         .replaceAll('$msms', (0, exports.doubleDigit)(date.millisecond))
         .replaceAll('$ms', date.millisecond.toString())
-        .replaceAll('$relative', new danholibraryjs_1.TimeSpan(new Date(), date.date).toString()), [date]);
+        .replaceAll('$relative', new danholibraryjs_1.TimeSpan(new Date(), date.date).toString());
+}
+function useFormatDate(date) {
+    const noDate = (0, react_1.useCallback)((date, format) => formatDate(date, format), []);
+    const hasDate = (0, react_1.useCallback)((format) => date && formatDate(date, format), [date]);
+    return date ? hasDate : noDate;
 }
 exports.default = useFormatDate;

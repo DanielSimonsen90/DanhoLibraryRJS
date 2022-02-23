@@ -8,8 +8,7 @@ const react_1 = require("react");
  * @param callback Listener callback
  * @param element Element to append listener to. Default is window
  */
-function useEventListener(eventType, callback, element) {
-    element !== null && element !== void 0 ? element : window;
+function useEventListener(eventType, callback, element = window) {
     const callbackRef = (0, react_1.useRef)(callback);
     const handler = (e, element) => callbackRef.current(e, element);
     (0, react_1.useEffect)(() => {

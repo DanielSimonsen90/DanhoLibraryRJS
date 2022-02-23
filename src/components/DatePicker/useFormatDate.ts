@@ -17,10 +17,9 @@ export const weekFrom = (date: Date) => Math.round(new TimeSpan(
     date.getTime()
 ).getTotalDays() / 7)
 
-export default function useFormatDate(date: ExtendedDate) {
-    return useCallback((format: string) => format
+function formatDate(date: ExtendedDate, format: string) {
+    return format
         .replaceAll('$year', date.year.toString())
-        
         .replaceAll('$month', monthNames[date.month])
         .replaceAll('$MM', doubleDigit(date.month))
         .replaceAll('$M', date.month.toString())
@@ -46,5 +45,15 @@ export default function useFormatDate(date: ExtendedDate) {
         .replaceAll('$ms', date.millisecond.toString())
 
         .replaceAll('$relative', new TimeSpan(new Date(), date.date).toString())
-    , [date]);
+}
+
+type UseFormatDateReturn<HasDate extends boolean> = 
+    HasDate extends true ? 
+        (format: string) => string : 
+        (date: ExtendedDate, format: string) => string
+;
+export default function useFormatDate<HasDate extends boolean = true>(date?: ExtendedDate): UseFormatDateReturn<HasDate> {
+    const noDate = useCallback((date: ExtendedDate, format: string) => formatDate(date, format), []) as UseFormatDateReturn<HasDate>;
+    const hasDate = useCallback((format: string) => date && formatDate(date, format), [date]) as UseFormatDateReturn<HasDate>;
+    return date ? hasDate : noDate;
 }

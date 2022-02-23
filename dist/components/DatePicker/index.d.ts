@@ -1,8 +1,11 @@
 /// <reference types="react" />
 import { ExtendedDate } from "./Calendar";
 declare type Props = {
-    allowPastDates?: boolean;
     onChange(value: ExtendedDate, formatted: string): void;
+    allowPastDates?: boolean;
+    buttonSubmitTitle?: string;
+    dateLabelTitle?: string;
+    dateNames?: Array<string>;
     /**
      * Formatting the date in the input.
      * @$year Replaced with year of the date
@@ -34,8 +37,9 @@ declare type Props = {
      * @$relative Replaced with relative timeformat as TimeSpan
      */
     format?: string;
+    monthNames?: Array<string>;
 };
 export { Props as DatePickerProps };
-export declare function DatePicker({ allowPastDates, format, onChange }: Props): JSX.Element;
+export declare function DatePicker({ onChange, dateNames, monthNames, allowPastDates, buttonSubmitTitle, dateLabelTitle, format, }: Props): JSX.Element;
 export default DatePicker;
 export * from './Calendar';

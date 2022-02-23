@@ -42,30 +42,53 @@ exports.useLastDayOfMonth = useLastDayOfMonth;
 function useCalendarDays(date) {
     const firstDotM = useFirstDayOfMonth(date);
     const lastDotM = useLastDayOfMonth(date);
-    return (0, react_1.useMemo)(() => {
-        const result = new Array();
-        // First day of the Month isn't a monday, push all days from month prior to date and convert to ExtendedDate
+    const key = (0, react_1.useMemo)(() => firstDotM.toString, [firstDotM]);
+    const calculate = (0, react_1.useCallback)((rendered) => {
+        const result = {
+            [key]: new Array()
+        };
+        console.log('Starting from', {
+            result, props: [firstDotM, date, lastDotM]
+        });
+        // First day of the Month isn't a Monday, push all days from month prior to date and convert to ExtendedDate
         if (firstDotM.weekDay !== 'Mon') {
-            const daysFromMonday = useFormatDate_1.dayNames.findIndex(v => v === firstDotM.weekDayLong); //1
-            const previousMonthDays = danholibraryjs_1.Time.daysInMonth[firstDotM.month - 2]; //31
+            const daysFromMonday = useFormatDate_1.dayNames.findIndex(v => v === firstDotM.weekDayLong);
+            const previousMonthDays = danholibraryjs_1.Time.daysInMonth[firstDotM.month - 2] || danholibraryjs_1.Time.daysInMonth[12 - firstDotM.month - 2];
             for (let i = 0; i < daysFromMonday; i++) {
-                const setMonth = new Date(firstDotM.time).setMonth(firstDotM.month - 2, previousMonthDays - i); // 31/1/2022
-                const date = new Date(setMonth);
-                result.push(fromEwToExtended(date));
+                const time = new Date(firstDotM.time).setMonth(firstDotM.month - 2, previousMonthDays - i);
+                const item = new Date(time);
+                result[key].push(fromEwToExtended(item));
+                console.log('Iterate previous month', { daysFromMonday, previousMonthDays, time, date, item, result: result[key][i] });
             }
         }
         // Add first day of the month
-        result.push(firstDotM);
+        result[key].push(firstDotM);
         // Add days between first day- and last day of the month
         for (let i = firstDotM.day + 1; i < lastDotM.day; i++) {
-            const previous = result[i - 1];
-            result.push(fromEwToExtended(new Date(new Date(previous.time).setDate(previous.day + 1))));
-            // console.log({result, i, previous, firstDotM, lastDotM});
+            const previous = result[key][i - 1];
+            result[key].push(fromEwToExtended(new Date(new Date(previous.time).setDate(previous.day + 1))));
+            // console.log({result[key], i, previous, firstDotM, lastDotM});
         }
         //Push last day of the month
-        result.push(lastDotM);
-        return result;
-    }, [date]);
+        result[key].push(lastDotM);
+        // Last day of the Month isn't a Sunday, push remaining days and convert to ExtendedDate
+        if (lastDotM.weekDay !== 'Sun') {
+            const daysInAWeek = Math.round(danholibraryjs_1.Time.week / danholibraryjs_1.Time.day);
+            const daysTillSunday = daysInAWeek - useFormatDate_1.dayNames.findIndex(v => v === lastDotM.weekDayLong);
+            for (let i = 1; i < daysTillSunday; i++) {
+                const time = new Date(lastDotM.time).setMonth(lastDotM.month, i);
+                const date = new Date(time);
+                result[key].push(fromEwToExtended(date));
+            }
+        }
+        console.log('Return result[key]', { props: [firstDotM, date, lastDotM], result: result[key] });
+        return result[key].reduce((actualResult, date) => {
+            if (!actualResult.some(d => d.time === date.time))
+                actualResult.push(date);
+            return actualResult;
+        }, new Array());
+    }, [firstDotM]);
+    return (0, react_1.useMemo)(() => calculate(0), [firstDotM]);
 }
 exports.useCalendarDays = useCalendarDays;
 function getNow() {
