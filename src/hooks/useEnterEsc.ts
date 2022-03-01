@@ -3,28 +3,29 @@ import { useEffect } from "react";
 type Callback = () => void;
 
 type Props = {
-    onEnter: Callback;
-    onEsc: Callback;
+    onEnter: Callback
+    onEsc: Callback
+    target?: EventTarget
 }
 
-export function useEnterEsc({ onEsc, onEnter }: Props) {
+export function useEnterEsc({ onEsc, onEnter, target = document }: Props) {
     const createListener = (handler: Callback, ...keys: Array<string>) => (e: KeyboardEvent) => {
         if (keys.includes(e.code)) {
-            handler();
             e.preventDefault();
+            handler();
         }
     }
 
     useEffect(() => {
         const listener = createListener(onEnter, "Enter", "NumpadEnter");
-        document.addEventListener("keydown", listener);
-        return () => { document.removeEventListener("keydown", listener); };
+        target.addEventListener("keydown", { handleEvent: listener });
+        return () => { target.removeEventListener("keydown", { handleEvent: listener }); };
     }, [onEnter]);
 
     useEffect(() => {
         const listener = createListener(onEsc, 'Escape');
-        document.addEventListener("keydown", listener);
-        return () => { document.removeEventListener("keydown", listener); };
+        target.addEventListener("keydown", { handleEvent: listener });
+        return () => { target.removeEventListener("keydown", { handleEvent: listener }); };
     }, [onEsc]);
 };
 export default useEnterEsc;
