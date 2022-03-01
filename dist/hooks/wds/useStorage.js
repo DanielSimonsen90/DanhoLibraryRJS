@@ -12,8 +12,8 @@ const useCallbackOnce_1 = __importDefault(require("../useCallbackOnce"));
  * @param defaultValue Fallback value
  * @returns Value matching key in LocalStorage. If no value found, defaultValue is returned
  */
-function useLocalStorage(key, defaultValue) {
-    return useStorage(key, defaultValue, window.localStorage);
+function useLocalStorage(key, defaultValue, parse) {
+    return useStorage(key, defaultValue, window.localStorage, parse);
 }
 exports.useLocalStorage = useLocalStorage;
 /**
@@ -22,8 +22,8 @@ exports.useLocalStorage = useLocalStorage;
  * @param defaultValue Fallback value
  * @returns Value matching key in SessionStorage. If no value found, defaultValue is returned
  */
-function useSessionStorage(key, defaultValue) {
-    return useStorage(key, defaultValue, window.sessionStorage);
+function useSessionStorage(key, defaultValue, parse) {
+    return useStorage(key, defaultValue, window.sessionStorage, parse);
 }
 exports.useSessionStorage = useSessionStorage;
 /**
@@ -33,12 +33,12 @@ exports.useSessionStorage = useSessionStorage;
  * @param storageObject Storage type
  * @returns value matching key
  */
-function useStorage(key, defaultValue, storageObject) {
+function useStorage(key, defaultValue, storageObject, parse) {
     const [value, setValue] = (0, react_1.useState)(() => {
         const jsonValue = storageObject.getItem(key);
         return jsonValue != null ?
-            JSON.parse(jsonValue) :
-            typeof defaultValue === 'function' ?
+            parse ? parse(JSON.parse(jsonValue)) : JSON.parse(jsonValue)
+            : typeof defaultValue === 'function' ?
                 defaultValue() :
                 defaultValue;
     });

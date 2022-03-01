@@ -1,9 +1,11 @@
 import { CookieAttributes } from "js-cookie";
-declare type Cookie = string | object;
+declare type Cookie = string | {
+    [key: string]: string;
+};
 declare type CookieOptions = CookieAttributes | undefined;
-declare type updateCookies<T> = (newValue: T, options: CookieOptions) => void;
-declare type deleteCookies = () => void;
-declare type useCookieReturn<T extends Cookie> = [value: T, updateCookie: updateCookies<T>, deleteCookie: deleteCookies];
+declare type UpdateCookies<T> = (newValue: T, options?: CookieOptions) => void;
+declare type DeleteCookies = () => void;
+declare type useCookieReturn<T extends Cookie> = [value: T, updateCookie: UpdateCookies<T>, deleteCookie: DeleteCookies];
 /**
  * Easy way to manage cookies
  * @param name Name of the cookie

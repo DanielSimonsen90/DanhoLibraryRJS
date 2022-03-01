@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import Icon from 'react-fontawesome';
-import { fromEwToExtended, useCalendarDays, getNow } from './hooks';
+import { Date } from 'danholibraryjs';
+import { useCalendarDays, getNow } from './hooks';
 import useFormatDate, { dayNames as DayNames, monthNames as MonthNames } from '../useFormatDate';
 import { ClickEvent } from '../../../utils';
-import { LongDay, LongMonth, ShortDay, ShortMonth, weekdays as workdays, weekend } from '../../../utils/Time';
+import { weekdays as workdays, weekend } from '../../../utils/Time';
 import { useEventListener } from '../../../hooks';
 
 type Props = {
     format: string
-    onDateSelected(date: ExtendedDate, event: ClickEvent): void,
+    onDateSelected(date: Date, event: ClickEvent): void,
     close(): void
 
     allowPastDates?: boolean
@@ -16,27 +17,6 @@ type Props = {
     monthNames?: Array<string>
 }
 export { Props as CalendarProps }
-export type ExtendedDate = {
-    time: number,
-    date: Date,
-
-    year: number,
-    month: number,
-    week: number,
-    day: number,
-    hour: number,
-    hourShort: number,
-    isPM: boolean,
-    minute: number,
-    second: number,
-    millisecond: number
-
-    monthName: ShortMonth,
-    monthNameLong: LongMonth,
-    weekDay: ShortDay,
-    weekDayLong: LongDay,
-    toString: string
-}
 
 export function Calendar({ 
     format, onDateSelected, close, 
@@ -45,7 +25,7 @@ export function Calendar({
     dateNames = DayNames
 }: Props) {
     const now = getNow();
-    const [selectedDate, setSelectedDate] = useState<ExtendedDate>(now);
+    const [selectedDate, setSelectedDate] = useState<Date>(now);
     const dates = useCalendarDays(selectedDate);
     const formatDate = useFormatDate<false>();
     useEventListener('keypress', (e, target) => {
@@ -53,15 +33,17 @@ export function Calendar({
     })
 
 
-    const onDirectionClicked = (direction: 'previous' | 'next') => setSelectedDate(v => (fromEwToExtended(
-        new Date(new Date(v.time).setMonth(direction === 'previous' ? v.month - 2 : v.month))
-    )));
-    const _onDateSelected = (date: ExtendedDate, e: ClickEvent) => {
+    const onDirectionClicked = (direction: 'previous' | 'next') => setSelectedDate(v => ({
+        ...v.set({ 
+            months: direction === 'previous' ? v.month - 2 : v.month 
+        })
+    }) as Date);
+    const _onDateSelected = (date: Date, e: ClickEvent) => {
         if (!allowPastDates && date.time < now.time) return;
         onDateSelected(date, e)
         close();
     }
-    const setDataTime = (date: ExtendedDate) => (
+    const setDataTime = (date: Date) => (
         date.month < now.month || date.day < now.day && date.month <= now.month ? 'past' :
         date.day === now.day ? 'today' : 'future'
     );
@@ -71,7 +53,7 @@ export function Calendar({
             <header aria-labelledby='calendar-header'>
                 {(allowPastDates || selectedDate.month > now.month) && <Icon name="angle-left" onClick={() => onDirectionClicked('previous')} />}
                 <h1 id="calendar-header">
-                    <span id="calendar-header-month" title={selectedDate.monthNameLong}
+                    <span id="calendar-header-month" title={selectedDate.monthName}
                     >{monthNames[selectedDate.month - 1]}</span> <span id="calendar-header-month" title={selectedDate.year.toString()}
                     >{selectedDate.year}</span>
                 </h1>

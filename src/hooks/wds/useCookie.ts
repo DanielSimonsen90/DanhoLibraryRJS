@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react"
 import Cookies, { CookieAttributes } from "js-cookie"
 
-type Cookie = string | object;
+type Cookie = string | { [key: string]: string };
 type CookieOptions = CookieAttributes | undefined;
-type updateCookies<T> = (newValue: T, options: CookieOptions) => void;
-type deleteCookies = () => void;
-type useCookieReturn<T extends Cookie> = [value: T, updateCookie: updateCookies<T>, deleteCookie: deleteCookies]
+type UpdateCookies<T> = (newValue: T, options?: CookieOptions) => void;
+type DeleteCookies = () => void;
+type useCookieReturn<T extends Cookie> = [value: T, updateCookie: UpdateCookies<T>, deleteCookie: DeleteCookies]
 
 /**
  * Easy way to manage cookies
@@ -20,12 +20,12 @@ export function useCookie<T extends Cookie>(name: string, defaultValue: T): useC
         return defaultValue;
     })
 
-    const updateCookie = useCallback<updateCookies<T>>((newValue, options) => {
+    const updateCookie = useCallback<UpdateCookies<T>>((newValue, options) => {
         Cookies.set(name, newValue, options); 
         setValue(newValue);
     }, [name]);
 
-    const deleteCookie = useCallback<deleteCookies>(() => {
+    const deleteCookie = useCallback<DeleteCookies>(() => {
         Cookies.remove(name);
         setValue(null as any);
     }, [name]);

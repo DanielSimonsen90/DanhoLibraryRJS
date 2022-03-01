@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Icon from 'react-fontawesome';
+import { Date } from "danholibraryjs";
 import { useStateOnChange, useUpdateEffect } from "../../hooks";
 import useFormatDate from "./useFormatDate";
-import Calendar, { ExtendedDate } from "./Calendar";
+import Calendar from "./Calendar";
 import { getNow } from "./Calendar/hooks";
 import Button from "../Button";
 
 type Props = {
-    onChange(value: ExtendedDate, formatted: string): void,
+    onChange(value: Date, formatted: string): void,
 
     allowPastDates?: boolean
     buttonSubmitTitle?: string,

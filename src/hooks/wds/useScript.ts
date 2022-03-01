@@ -1,5 +1,4 @@
 import useAsync from "./useAsync";
-import { Extensions } from 'danholibraryjs';
 
 /**
  * Loads script dynamically to the DOM

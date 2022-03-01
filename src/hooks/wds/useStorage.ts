@@ -7,8 +7,8 @@ import useCallbackOnce from "../useCallbackOnce";
  * @param defaultValue Fallback value
  * @returns Value matching key in LocalStorage. If no value found, defaultValue is returned
  */
-export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T) {
-  return useStorage(key, defaultValue, window.localStorage)
+export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T, parse?: Parse<T>) {
+  return useStorage(key, defaultValue, window.localStorage, parse)
 }
 
 /**
@@ -17,11 +17,12 @@ export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T
  * @param defaultValue Fallback value
  * @returns Value matching key in SessionStorage. If no value found, defaultValue is returned
  */
-export function useSessionStorage<Key extends string, T>(key: Key, defaultValue: T) {
-  return useStorage(key, defaultValue, window.sessionStorage)
+export function useSessionStorage<Key extends string, T>(key: Key, defaultValue: T, parse?: Parse<T>) {
+  return useStorage(key, defaultValue, window.sessionStorage, parse)
 }
 
 type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void]
+type Parse<T> = (value: T) => T;
 
 /**
  * Goes through provided storageObject to find value that matches key. Returns defaultValue, if no value was found
@@ -30,13 +31,13 @@ type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, rem
  * @param storageObject Storage type
  * @returns value matching key
  */
-function useStorage<Key extends string, T>(key: Key, defaultValue: T, storageObject: Storage): UseStorageReturn<T> {
+function useStorage<Key extends string, T>(key: Key, defaultValue: T, storageObject: Storage, parse?: Parse<T>): UseStorageReturn<T> {
   const [value, setValue] = useState<T>(() => {
     const jsonValue = storageObject.getItem(key);
 
     return jsonValue != null ? 
-      JSON.parse(jsonValue) as T : 
-        typeof defaultValue === 'function' ? 
+      parse ? parse(JSON.parse(jsonValue) as T) : JSON.parse(jsonValue) 
+      : typeof defaultValue === 'function' ? 
           defaultValue() : 
           defaultValue;
   });
@@ -47,7 +48,7 @@ function useStorage<Key extends string, T>(key: Key, defaultValue: T, storageObj
   }, [key, value, storageObject]);
 
   const remove: () => void = useCallbackOnce(() => {
-      setValue(undefined as any);
+    setValue(undefined as any);
   });
   
   return [value, setValue, remove]

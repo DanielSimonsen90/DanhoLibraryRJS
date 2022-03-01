@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import { ExtendedDate } from "./Calendar";
+import { Date } from "danholibraryjs";
 declare type Props = {
-    onChange(value: ExtendedDate, formatted: string): void;
+    onChange(value: Date, formatted: string): void;
     allowPastDates?: boolean;
     buttonSubmitTitle?: string;
     dateLabelTitle?: string;

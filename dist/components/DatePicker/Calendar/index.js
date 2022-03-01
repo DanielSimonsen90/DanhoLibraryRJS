@@ -41,7 +41,11 @@ function Calendar({ format, onDateSelected, close, allowPastDates = false, month
     (0, hooks_2.useEventListener)('keypress', (e, target) => {
         console.log(e.key);
     });
-    const onDirectionClicked = (direction) => setSelectedDate(v => ((0, hooks_1.fromEwToExtended)(new Date(new Date(v.time).setMonth(direction === 'previous' ? v.month - 2 : v.month)))));
+    const onDirectionClicked = (direction) => setSelectedDate(v => ({
+        ...v.set({
+            months: direction === 'previous' ? v.month - 2 : v.month
+        })
+    }));
     const _onDateSelected = (date, e) => {
         if (!allowPastDates && date.time < now.time)
             return;
@@ -50,7 +54,7 @@ function Calendar({ format, onDateSelected, close, allowPastDates = false, month
     };
     const setDataTime = (date) => (date.month < now.month || date.day < now.day && date.month <= now.month ? 'past' :
         date.day === now.day ? 'today' : 'future');
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "calendar", children: [(0, jsx_runtime_1.jsxs)("header", { "aria-labelledby": 'calendar-header', children: [(allowPastDates || selectedDate.month > now.month) && (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: "angle-left", onClick: () => onDirectionClicked('previous') }, void 0), (0, jsx_runtime_1.jsxs)("h1", { id: "calendar-header", children: [(0, jsx_runtime_1.jsx)("span", { id: "calendar-header-month", title: selectedDate.monthNameLong, children: monthNames[selectedDate.month - 1] }, void 0), " ", (0, jsx_runtime_1.jsx)("span", { id: "calendar-header-month", title: selectedDate.year.toString(), children: selectedDate.year }, void 0)] }, void 0), (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: "angle-right", onKeyDown: e => console.log(e.key), onClick: () => onDirectionClicked('next') }, void 0)] }, void 0), (0, jsx_runtime_1.jsx)("hr", {}, void 0), (0, jsx_runtime_1.jsxs)("section", { title: "Calendar dates", className: "calendar-dates", children: [dateNames.map(day => (0, jsx_runtime_1.jsx)("h2", { className: 'weekday', "data-workday": Time_1.weekdays.includes(day), "data-weekend": Time_1.weekend.includes(day), children: day.substring(0, 3) }, day)), dates.map(date => {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "calendar", children: [(0, jsx_runtime_1.jsxs)("header", { "aria-labelledby": 'calendar-header', children: [(allowPastDates || selectedDate.month > now.month) && (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: "angle-left", onClick: () => onDirectionClicked('previous') }, void 0), (0, jsx_runtime_1.jsxs)("h1", { id: "calendar-header", children: [(0, jsx_runtime_1.jsx)("span", { id: "calendar-header-month", title: selectedDate.monthName, children: monthNames[selectedDate.month - 1] }, void 0), " ", (0, jsx_runtime_1.jsx)("span", { id: "calendar-header-month", title: selectedDate.year.toString(), children: selectedDate.year }, void 0)] }, void 0), (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: "angle-right", onKeyDown: e => console.log(e.key), onClick: () => onDirectionClicked('next') }, void 0)] }, void 0), (0, jsx_runtime_1.jsx)("hr", {}, void 0), (0, jsx_runtime_1.jsxs)("section", { title: "Calendar dates", className: "calendar-dates", children: [dateNames.map(day => (0, jsx_runtime_1.jsx)("h2", { className: 'weekday', "data-workday": Time_1.weekdays.includes(day), "data-weekend": Time_1.weekend.includes(day), children: day.substring(0, 3) }, day)), dates.map(date => {
                         const toString = formatDate(date, format);
                         return ((0, jsx_runtime_1.jsx)("p", { className: 'calendar-date', onClick: e => _onDateSelected(date, e), "data-time": setDataTime(date), title: toString, "data-selected": date === selectedDate ? 'selected' : null, children: date.day }, toString));
                     })] }, void 0)] }, void 0));
