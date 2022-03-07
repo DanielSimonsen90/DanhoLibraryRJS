@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Router = exports.useRouterChanged = exports.createRoute = exports.Route = exports.Redirect = void 0;
+exports.Router = exports.useRouterChanged = exports.createRoute = exports.ensureSlash = exports.Route = exports.Redirect = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");
@@ -9,6 +9,7 @@ Object.defineProperty(exports, "Redirect", { enumerable: true, get: function () 
 function ensureSlash(path) {
     return path.startsWith('/') ? path : `/${path}`;
 }
+exports.ensureSlash = ensureSlash;
 function createRoute(path, component) {
     return [ensureSlash(path), component];
 }

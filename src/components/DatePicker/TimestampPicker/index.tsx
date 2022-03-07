@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
+import { Date } from "danholibraryjs";
 import { StateObj } from "../../../utils";
-import { ExtendedDate, fromEwToExtended, getNow } from "../Calendar";
+import { getNow } from "../Calendar";
 import useFormatDate, { doubleDigit } from "../useFormatDate";
 
 type Props = {
@@ -23,7 +24,7 @@ type Props = {
      * @$relative Replaced with relative timeformat as TimeSpan
      */
     format?: string
-    onChange(date: ExtendedDate, formatted: string): void
+    onChange(date: Date, formatted: string): void
 }
 
 type TimestampImperialProps = StateObj<string, 'Apm'>
@@ -39,12 +40,12 @@ function TimestampImperial({ apm, setApm: setAPM }: TimestampImperialProps) {
 
 export default function TimestampPicker({ type = '24h', format = '$hh24:$mm', onChange }: Props) {
     const now = getNow();
-    const [hour, setHour] = useState(now.hour.toString());
-    const [minute, setMinute] = useState(doubleDigit(now.minute));
+    const [hour, setHour] = useState(now.hours.toString());
+    const [minute, setMinute] = useState(doubleDigit(now.minutes));
     const [apm, setAPM] = useState(now.isPM ? 'PM' : 'AM');
-    const selectedDate = useMemo(() => ({ ...now,
-        hour: parseInt(hour), 
-        minute: parseInt(minute)
+    const selectedDate = useMemo<Date>(() => ({...now} as Date).set({
+        hours: parseInt(hour),
+        minutes: parseInt(minute)
     }), [hour, minute]);
     const formatDate = useFormatDate(selectedDate);
 

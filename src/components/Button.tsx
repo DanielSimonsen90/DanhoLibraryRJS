@@ -8,7 +8,8 @@ export type Importance = 'primary' | 'secondary' | 'tertiary';
 export type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, 'onClick'> & {
     crud?: CRUD,
     iconName?: string,
-    importance?: Importance
+    importance?: Importance,
+    hideIcon?: boolean
     
     onClick?: (event: ClickEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void
 }
@@ -22,7 +23,7 @@ function GetIconFromCrud(crud: CRUD) {
     }
 }
 
-export function Button({ crud, iconName, importance, className, value, children, onClick, ..._props }: ButtonProps) {
+export function Button({ crud, iconName, importance, hideIcon, className, value, children, onClick, ..._props }: ButtonProps) {
     const props = { ..._props, "data-crud": crud }
 
     if (!iconName && crud) {
@@ -32,7 +33,7 @@ export function Button({ crud, iconName, importance, className, value, children,
     return (
         <button className={combineClassName(className, importance)} onClick={onClick} 
             onKeyDown={e => (e.key === 'Enter' || e.key === 'NumpadEnter') && onClick?.(e)}  {...props}>
-            {iconName && <Icon name={iconName} />}
+            {iconName && !hideIcon && <Icon name={iconName} />}
             {value || children}
         </button>
     );

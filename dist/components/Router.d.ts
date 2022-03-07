@@ -5,6 +5,7 @@ import BaseProps from '../utils/BaseProps';
 import { FunctionComponent } from '../utils/BaseReact';
 export { Redirect, Route };
 export declare type RouteConstruct = [string, FunctionComponent];
+export declare function ensureSlash(path: string): string;
 export declare function createRoute(path: string, component: FunctionComponent): RouteConstruct;
 declare type LocationProps = keyof PropertiesWithout<Function, Location>;
 declare type OnRoutePropChanged<Prop extends LocationProps> = (from: Location[Prop], to: Location[Prop], location: Location) => void;

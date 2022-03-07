@@ -7,7 +7,7 @@ export { Redirect, Route }
 
 export type RouteConstruct = [string, FunctionComponent];
 
-function ensureSlash(path: string) {
+export function ensureSlash(path: string) {
     return path.startsWith('/') ? path : `/${path}`
 }
 export function createRoute(path: string, component: FunctionComponent): RouteConstruct {

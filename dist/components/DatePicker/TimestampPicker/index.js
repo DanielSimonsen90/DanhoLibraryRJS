@@ -28,13 +28,13 @@ function TimestampImperial({ apm, setApm: setAPM }) {
 }
 function TimestampPicker({ type = '24h', format = '$hh24:$mm', onChange }) {
     const now = (0, Calendar_1.getNow)();
-    const [hour, setHour] = (0, react_1.useState)(now.hour.toString());
-    const [minute, setMinute] = (0, react_1.useState)((0, useFormatDate_1.doubleDigit)(now.minute));
+    const [hour, setHour] = (0, react_1.useState)(now.hours.toString());
+    const [minute, setMinute] = (0, react_1.useState)((0, useFormatDate_1.doubleDigit)(now.minutes));
     const [apm, setAPM] = (0, react_1.useState)(now.isPM ? 'PM' : 'AM');
-    const selectedDate = (0, react_1.useMemo)(() => ({ ...now,
-        hour: parseInt(hour),
-        minute: parseInt(minute)
-    }), [hour, minute]);
+    const selectedDate = (0, react_1.useMemo)(() => ({ ...now }.set({
+        hours: parseInt(hour),
+        minutes: parseInt(minute)
+    })), [hour, minute]);
     const formatDate = (0, useFormatDate_1.default)(selectedDate);
     (0, react_1.useEffect)(() => { onChange(selectedDate, formatDate(format)); }, [hour, minute, apm]);
     return ((0, jsx_runtime_1.jsxs)("div", { className: "timestamp-picker", children: [(0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-hour", type: "number", onChange: e => setHour(e.target.value), value: hour }, void 0), (0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-minute", type: "number", onChange: e => setMinute((0, useFormatDate_1.doubleDigit)(parseInt(e.target.value))), value: minute }, void 0), type === '12h' && (0, jsx_runtime_1.jsx)(TimestampImperial, { apm: apm, setApm: setAPM }, void 0)] }, void 0));

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { ExtendedDate } from "../Calendar";
+import { Date } from "danholibraryjs";
 declare type Props = {
     type?: '12h' | '24h';
     /**
@@ -20,7 +20,7 @@ declare type Props = {
      * @$relative Replaced with relative timeformat as TimeSpan
      */
     format?: string;
-    onChange(date: ExtendedDate, formatted: string): void;
+    onChange(date: Date, formatted: string): void;
 };
 export default function TimestampPicker({ type, format, onChange }: Props): JSX.Element;
 export {};
