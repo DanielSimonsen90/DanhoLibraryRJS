@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { PropertiesWithout } from 'danholibraryjs';
 import { Route, Redirect } from 'react-router-dom';
+import { PropertiesWithout } from 'danholibraryjs';
 import BaseProps from '../utils/BaseProps';
 import { FunctionComponent } from '../utils/BaseReact';
 export { Redirect, Route };

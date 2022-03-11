@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { PropertiesWithout } from 'danholibraryjs';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { PropertiesWithout } from 'danholibraryjs';
 import BaseProps from '../utils/BaseProps';
 import { FunctionComponent } from '../utils/BaseReact';
 export { Redirect, Route }
