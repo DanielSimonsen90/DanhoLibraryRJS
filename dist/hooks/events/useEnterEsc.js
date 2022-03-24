@@ -6,7 +6,7 @@ function useEnterEsc({ onEsc, onEnter, target = document }) {
     const createListener = (handler, ...keys) => (e) => {
         if (keys.includes(e.code)) {
             e.preventDefault();
-            handler();
+            handler === null || handler === void 0 ? void 0 : handler();
         }
     };
     (0, react_1.useEffect)(() => {

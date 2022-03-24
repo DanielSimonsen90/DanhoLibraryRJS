@@ -9,10 +9,10 @@ type Props = {
 }
 
 export function useEnterEsc({ onEsc, onEnter, target = document }: Props) {
-    const createListener = (handler: Callback, ...keys: Array<string>) => (e: KeyboardEvent) => {
+    const createListener = (handler?: Callback, ...keys: Array<string>) => (e: KeyboardEvent) => {
         if (keys.includes(e.code)) {
             e.preventDefault();
-            handler();
+            handler?.();
         }
     }
 
