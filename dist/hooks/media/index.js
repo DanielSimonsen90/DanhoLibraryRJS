@@ -11,6 +11,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./useAnimation"), exports);
+__exportStar(require("./useDarkMode"), exports);
 __exportStar(require("./useHover"), exports);
 __exportStar(require("./useMediaQuery"), exports);
 __exportStar(require("./useOnScreen"), exports);

@@ -1,6 +1,5 @@
 export * from './useArrayState';
 export * from './useCookie';
-export * from './useDarkMode';
 export * from './usePrevious';
 export * from './useStack';
 export * from './useStateOnChange';
