@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react"
 import { Callback } from "../../utils/BaseReact";
 import { ms, TimeDelay } from "danholibraryjs";
+import { useCallbackOnce } from "../once";
 
 /**
  * Smarter version of setTimeout - provides clear() & reset() functions and doesn't get messed up due to re-renders
@@ -9,26 +10,23 @@ import { ms, TimeDelay } from "danholibraryjs";
  * @returns Object containing reset & clear methods
  */
 export function useTimeout(callback: Callback, delay: TimeDelay) {
-  const callbackRef = useRef(callback);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const callbackRef = useRef(callback)
+  const timeoutRef = useRef<NodeJS.Timeout>()
 
-  useEffect(() => { callbackRef.current = callback }, [callback]);
-
-  const set = useCallback(() => { timeoutRef.current = setTimeout(() => callbackRef.current(), ms(delay)); }, [delay]);
-  /** Clears the timeout */
-  const clear = useCallback(() => { timeoutRef.current && clearTimeout(timeoutRef.current) }, []);
+  useEffect(() => { callbackRef.current = callback }, [callback])
+  const set = useCallback(() => { timeoutRef.current = setTimeout(() => callbackRef.current(), ms(delay))}, [delay])
+  const clear = useCallbackOnce(() => { timeoutRef.current && clearTimeout(timeoutRef.current) });
 
   useEffect(() => {
-    set();
-    return clear;
-  }, [delay, set, clear]);
+    set()
+    return clear
+  }, [delay, set, clear])
 
-  /** Resets the timeout */
-  const reset = useCallback(() => {
-    clear();
-    set();
-  }, [clear, set]);
+  const reset = useCallback(() => { 
+    clear()
+    set()
+  }, [clear, set])
 
-  return { reset, clear };
+  return { reset, clear }
 }
 export default useTimeout;

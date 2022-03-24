@@ -13,7 +13,7 @@ type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Disp
 export function useStateOnChange<T>(initialState: T, timeout: TimeDelay): UseStateOnChangeReturn<T> {
     const [state, setState] = useState(initialState);
     const [stateChange, setStateChange] = useState(initialState);
-    useDebounce(() => setState(stateChange), timeout, [state, timeout]);
+    useDebounce(() => { setState(stateChange) }, timeout, [stateChange, timeout]);
 
     return [state, stateChange, setStateChange];
 }
