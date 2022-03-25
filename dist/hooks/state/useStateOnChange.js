@@ -15,9 +15,7 @@ const useDebounce_1 = __importDefault(require("../effect/useDebounce"));
 function useStateOnChange(initialState, timeout) {
     const [state, setState] = (0, react_1.useState)(initialState);
     const [stateChange, setStateChange] = (0, react_1.useState)(initialState);
-    (0, useDebounce_1.default)(() => {
-        setState(stateChange);
-    }, timeout, [stateChange, timeout]);
+    (0, useDebounce_1.default)(() => { setState(stateChange); }, timeout, [stateChange, timeout]);
     return [state, stateChange, setStateChange];
 }
 exports.useStateOnChange = useStateOnChange;

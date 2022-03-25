@@ -1,0 +1,34 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    max-width: 2em;
+    height: 1em;
+    border-radius: 1em;
+    border: 1px solid #555;
+    background-color: hsl(128, 100%, 75%);
+    transition: all .5s ease-in-out;
+
+    &[data-checked=false] {
+        background-color: hsl(0, 100%, 75%);
+    }
+
+    $size: .9em;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        background-color: lime;
+        transform: translateY(-50%);
+        transition: all .5s ease-in-out;
+        box-shadow: 2px 0 .25em rgba(0, 0, 0, .5);
+    }
+    &[data-checked=false]::after {
+        background-color: red;
+        transform: translate(calc(10% + #{$size}), -50%);
+        box-shadow: -2px 0 .25em rgba(0, 0, 0, .5);
+    }
+}
