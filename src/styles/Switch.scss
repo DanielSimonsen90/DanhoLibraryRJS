@@ -1,15 +1,20 @@
 .switch {
+    --checked-color: lime;
+    --checked-background-color: hsl(128, 100%, 75%);
+    --unchecked-color: red;
+    --unchecked-background-color: hsl(0, 100%, 75%);
+
     position: relative;
     display: inline-block;
     max-width: 2em;
     height: 1em;
     border-radius: 1em;
     border: 1px solid #555;
-    background-color: hsl(128, 100%, 75%);
+    background-color: var(--checked-background-color);
     transition: all .5s ease-in-out;
 
     &[data-checked=false] {
-        background-color: hsl(0, 100%, 75%);
+        background-color: var(--unchecked-background-color);
     }
 
     $size: .9em;
@@ -21,14 +26,29 @@
         width: $size;
         height: $size;
         border-radius: 50%;
-        background-color: lime;
+        background-color: var(--checked-color);
         transform: translateY(-50%);
         transition: all .5s ease-in-out;
         box-shadow: 2px 0 .25em rgba(0, 0, 0, .5);
     }
     &[data-checked=false]::after {
-        background-color: red;
+        background-color: var(--unchecked-color);
         transform: translate(calc(10% + #{$size}), -50%);
         box-shadow: -2px 0 .25em rgba(0, 0, 0, .5);
+    }
+
+    &[data-vertical] {
+        min-height: 2em;
+        max-width: 1em;
+
+        &::after {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        &[data-checked=false]::after {
+            transform: translate(-50%, calc(10% + .9em))
+        }
     }
 }
