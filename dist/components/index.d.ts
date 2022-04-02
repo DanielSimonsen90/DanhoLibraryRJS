@@ -6,4 +6,4 @@ export * from './Router';
 export * from './Switch';
 export * from './TabBar';
 export * from './TabBarItem';
-export declare function combineClassName(...classNames: Array<string | undefined>): string;
+export declare function classNames(...classNames: Array<string | undefined>): string;

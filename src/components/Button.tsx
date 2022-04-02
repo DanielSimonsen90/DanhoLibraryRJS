@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import Icon from 'react-fontawesome';
-import { combineClassName } from '.';
+import { classNames } from '.';
 import { ClickEvent } from '../utils';
 
 export type CRUD = 'create' | 'read' | 'update' | 'delete';
@@ -31,7 +31,7 @@ export function Button({ crud, iconName, importance, hideIcon, className, value,
     }
 
     return (
-        <button className={combineClassName(className, importance)} onClick={onClick} 
+        <button className={classNames(className, importance)} onClick={onClick} 
             onKeyDown={e => (e.key === 'Enter' || e.key === 'NumpadEnter') && onClick?.(e)}  {...props}>
             {iconName && !hideIcon && <Icon name={iconName} />}
             {value || children}

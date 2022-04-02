@@ -30,7 +30,7 @@ function TabBar({ onItemSelected, ...props }) {
         });
         setComponentSelected(item);
     };
-    return ((0, jsx_runtime_1.jsxs)("section", { ...props, className: (0, _1.combineClassName)('tab-bar-container', props.className), children: [(0, jsx_runtime_1.jsx)("header", { className: "tab-bar", children: (0, jsx_runtime_1.jsx)("ul", { children: titles.map(title => (0, jsx_runtime_1.jsx)("li", { className: componentSelected.title === title ?
+    return ((0, jsx_runtime_1.jsxs)("section", { ...props, className: (0, _1.classNames)('tab-bar-container', props.className), children: [(0, jsx_runtime_1.jsx)("header", { className: "tab-bar", children: (0, jsx_runtime_1.jsx)("ul", { children: titles.map(title => (0, jsx_runtime_1.jsx)("li", { className: componentSelected.title === title ?
                             'selected' :
                             undefined, onClick: _onItemSelected, children: title }, title)) }, void 0) }, void 0), (0, jsx_runtime_1.jsx)("hr", {}, void 0), (0, jsx_runtime_1.jsx)("section", { className: "tab-bar-content", children: typeof componentSelected.component === 'function' ?
                     componentSelected.component() :

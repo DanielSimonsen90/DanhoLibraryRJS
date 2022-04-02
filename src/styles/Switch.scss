@@ -18,37 +18,48 @@
     }
 
     $size: .9em;
-    &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
+    &-circle {
+        --shadow-offset: 2px;
+
+        position: relative;
+        left: 0%;
+
+        display: grid;
+        place-items: center;
         width: $size;
         height: $size;
+        
         border-radius: 50%;
         background-color: var(--checked-color);
-        transform: translateY(-50%);
-        transition: all .5s ease-in-out;
-        box-shadow: 2px 0 .25em rgba(0, 0, 0, .5);
+        box-shadow: var(--shadow-offset) 0 .25em rgba(0, 0, 0, .5);
+        transition: all var(--transition-time, .5s) ease-in-out;
     }
-    &[data-checked=false]::after {
+    &[data-checked=false] &-circle {
+        --shadow-offset: -2px;
+        transform: translateX(100%);
         background-color: var(--unchecked-color);
-        transform: translate(calc(10% + #{$size}), -50%);
-        box-shadow: -2px 0 .25em rgba(0, 0, 0, .5);
     }
 
-    &[data-vertical] {
+    &[data-vertical=true] {
         min-height: 2em;
         max-width: 1em;
 
-        &::after {
+        .switch-circle {
             top: 0;
             left: 50%;
             transform: translateX(-50%);
         }
     
-        &[data-checked=false]::after {
+        &[data-checked=false] .switch-circle {
             transform: translate(-50%, calc(10% + .9em))
         }
+    }
+    
+    .icon {
+        --size-bottom-left: .9em;
+        --size-top-right: .6em;
+
+        z-index: 1;
+        transition: all var(--transition-time, .5s) ease-in-out;
     }
 }

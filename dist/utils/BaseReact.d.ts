@@ -2,7 +2,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 export declare type Children = ReactNode;
 export declare type Component = JSX.Element;
 export declare type FunctionComponent = () => Component;
-export declare type Callback<T = void> = () => T;
+export declare type Callback<T = void, Arguments = any> = (...args: Array<Arguments>) => T;
 export declare type PromiseResolve<T> = (value: T | PromiseLike<T>) => void;
 export declare type PromiseReject = (reason?: any) => void;
 export declare type SetStateFunction<S> = (preState: S) => S;

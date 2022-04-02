@@ -20,7 +20,7 @@ function Button({ crud, iconName, importance, hideIcon, className, value, childr
     if (!iconName && crud) {
         iconName = GetIconFromCrud(crud);
     }
-    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, _1.combineClassName)(className, importance), onClick: onClick, onKeyDown: e => (e.key === 'Enter' || e.key === 'NumpadEnter') && (onClick === null || onClick === void 0 ? void 0 : onClick(e)), ...props, children: [iconName && !hideIcon && (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: iconName }, void 0), value || children] }, void 0));
+    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, _1.classNames)(className, importance), onClick: onClick, onKeyDown: e => (e.key === 'Enter' || e.key === 'NumpadEnter') && (onClick === null || onClick === void 0 ? void 0 : onClick(e)), ...props, children: [iconName && !hideIcon && (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { name: iconName }, void 0), value || children] }, void 0));
 }
 exports.Button = Button;
 exports.default = Button;

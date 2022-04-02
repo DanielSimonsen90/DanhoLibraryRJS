@@ -1,4 +1,4 @@
-import { combineClassName } from '.';
+import { classNames } from '.';
 import BaseProps from '../utils/BaseProps';
 
 export type ContainerType = 'flex' | 'popout' | 'sidebar' | 'grid';
@@ -7,7 +7,7 @@ export type ContainerProps = BaseProps & {
 }
 
 export function Container({ type, children, ...props }: ContainerProps) {
-    const className = combineClassName(
+    const className = classNames(
         'container', 
         type && `container-${type}`, 
         props.className

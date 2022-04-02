@@ -1,7 +1,5 @@
 import { CookieAttributes } from "js-cookie";
-declare type Cookie = string | {
-    [key: string]: string;
-};
+declare type Cookie = string | Record<string, string>;
 declare type CookieOptions = CookieAttributes | undefined;
 declare type UpdateCookies<T> = (newValue: T, options?: CookieOptions) => void;
 declare type DeleteCookies = () => void;

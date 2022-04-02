@@ -1,4 +1,6 @@
 import { ms, TimeDelay } from 'danholibraryjs'
+import { useCallback } from 'react';
+import { useLocalStorage } from '../state/useStorage';
 import useMediaQuery from './useMediaQuery';
 
 type AdditionalData = {
@@ -13,8 +15,8 @@ type AdditionalData = {
  * @param baseTime Base time to wait until className is removed. If left undefined, class will not be removed 
  */
 export function useAnimationReverse(query: string, className: string, baseTime?: TimeDelay) {
-    const allowAnimations = useMediaQuery('prefers-reduced-motion: no-preference');
-
+    const prefersAnimations = useMediaQuery('prefers-reduced-motion: no-preference');
+    const [settings] = useLocalStorage('settings', { animations: prefersAnimations });
     return ({ time, className: additionalClassName = '' }: AdditionalData = {}) => {
         const el = document.querySelector<HTMLElement>(query);
         if (!el) throw new Error(`Invalid query: ${query}`);
@@ -30,7 +32,7 @@ export function useAnimationReverse(query: string, className: string, baseTime?:
                         additionalClassName
                     ].filter(v => v));
                     resolve(el);
-                }, allowAnimations ? ms(time || baseTime!) : 0);
+                }, settings.animations ? ms(time || baseTime!) : 0);
             } catch (err) { reject(err); }
         })
     }
