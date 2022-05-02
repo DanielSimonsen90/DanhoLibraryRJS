@@ -1,0 +1,65 @@
+.switch {
+    --checked-color: lime;
+    --checked-background-color: hsl(128, 100%, 75%);
+    --unchecked-color: red;
+    --unchecked-background-color: hsl(0, 100%, 75%);
+
+    position: relative;
+    display: inline-block;
+    max-width: 2em;
+    height: 1em;
+    border-radius: 1em;
+    border: 1px solid #555;
+    background-color: var(--checked-background-color);
+    transition: all .5s ease-in-out;
+
+    &[data-checked=false] {
+        background-color: var(--unchecked-background-color);
+    }
+
+    $size: .9em;
+    &-circle {
+        --shadow-offset: 2px;
+
+        position: relative;
+        left: 0%;
+
+        display: grid;
+        place-items: center;
+        width: $size;
+        height: $size;
+        
+        border-radius: 50%;
+        background-color: var(--checked-color);
+        box-shadow: var(--shadow-offset) 0 .25em rgba(0, 0, 0, .5);
+        transition: all var(--transition-time, .5s) ease-in-out;
+    }
+    &[data-checked=false] &-circle {
+        --shadow-offset: -2px;
+        transform: translateX(100%);
+        background-color: var(--unchecked-color);
+    }
+
+    &[data-vertical=true] {
+        min-height: 2em;
+        max-width: 1em;
+
+        .switch-circle {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        &[data-checked=false] .switch-circle {
+            transform: translate(-50%, calc(10% + .9em))
+        }
+    }
+    
+    .icon {
+        --size-bottom-left: .9em;
+        --size-top-right: .6em;
+
+        z-index: 1;
+        transition: all var(--transition-time, .5s) ease-in-out;
+    }
+}

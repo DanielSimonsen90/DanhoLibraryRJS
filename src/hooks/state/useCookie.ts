@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react"
 import Cookies, { CookieAttributes } from "js-cookie"
 
-type Cookie = string | { [key: string]: string };
+type Cookie = string | Record<string, string>
 type CookieOptions = CookieAttributes | undefined;
 type UpdateCookies<T> = (newValue: T, options?: CookieOptions) => void;
 type DeleteCookies = () => void;

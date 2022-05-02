@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactElement, useMemo, useState } from 'react';
 import { Arrayable } from 'danholibraryjs';
-import { combineClassName } from '.';
+import { classNames } from '.';
 import BaseProps from '../utils/BaseProps';
 import { TabBarItemProps } from './TabBarItem';
 
@@ -45,7 +45,7 @@ export function TabBar({ onItemSelected, ...props }: TabBarProps) {
     }
 
     return (
-        <section {...props} className={combineClassName('tab-bar-container', props.className)}>
+        <section {...props} className={classNames('tab-bar-container', props.className)}>
             <header className="tab-bar">
                 <ul>
                     {titles.map(title => <li key={title} className={
