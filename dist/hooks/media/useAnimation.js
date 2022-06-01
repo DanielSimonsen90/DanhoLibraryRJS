@@ -15,7 +15,7 @@ const useMediaQuery_1 = __importDefault(require("./useMediaQuery"));
  */
 function useAnimationReverse(query, className, baseTime) {
     const prefersAnimations = (0, useMediaQuery_1.default)('prefers-reduced-motion: no-preference');
-    const [settings] = (0, useStorage_1.useLocalStorage)('settings', { animations: prefersAnimations });
+    const [{ animations: allowAnimations }] = (0, useStorage_1.useLocalStorage)('settings', { animations: prefersAnimations });
     return ({ time, className: additionalClassName = '' } = {}) => {
         const el = document.querySelector(query);
         if (!el)
@@ -31,7 +31,7 @@ function useAnimationReverse(query, className, baseTime) {
                         additionalClassName
                     ].filter(v => v));
                     resolve(el);
-                }, settings.animations ? (0, danholibraryjs_1.ms)(time || baseTime) : 0);
+                }, allowAnimations ? (0, danholibraryjs_1.ms)(time || baseTime) : 0);
             }
             catch (err) {
                 reject(err);
