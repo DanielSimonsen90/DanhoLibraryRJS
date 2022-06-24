@@ -15,13 +15,20 @@ type useCookieReturn<T extends Cookie> = [value: T, updateCookie: UpdateCookies<
 export function useCookie<T extends Cookie>(name: string, defaultValue: T): useCookieReturn<T> {
     const [value, setValue] = useState<T>(() => {
         const cookie = Cookies.get(name);
-        if (cookie) return cookie as T;
-        Cookies.set(name, defaultValue);
+        if (cookie) {
+            try { return JSON.parse(cookie); }
+            catch { return cookie; }
+        }
+
+        const value = getStringValue(defaultValue);
+        Cookies.set(name, value);
         return defaultValue;
-    })
+    });
+    const getStringValue = useCallback((v: T) => typeof v === "string" ? v : JSON.stringify(v), []);
+
 
     const updateCookie = useCallback<UpdateCookies<T>>((newValue, options) => {
-        Cookies.set(name, newValue, options); 
+        Cookies.set(name, getStringValue(newValue), options); 
         setValue(newValue);
     }, [name]);
 

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -29,8 +33,8 @@ function DatePicker({ onChange, dateNames, monthNames, allowPastDates = false, b
     const formatDate = (0, useFormatDate_1.default)(date);
     const [inputValue, inputValueFormatted, setInputValue] = (0, hooks_1.useStateOnChange)(formatDate(format), 0);
     (0, hooks_1.useUpdateEffect)(() => onChange(date, inputValueFormatted), [date]);
-    return ((0, jsx_runtime_1.jsx)("section", { className: "datepicker", children: calendarMode ? (0, jsx_runtime_1.jsx)(Calendar_1.default, { format: format, allowPastDates: allowPastDates, dateNames: dateNames, monthNames: monthNames, onDateSelected: setDate, close: () => setCalendarMode(false) }, void 0) :
-            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("label", { htmlFor: "date-input", children: dateLabelTitle }, void 0), (0, jsx_runtime_1.jsx)("input", { id: "date-input", type: "text", value: calendarMode ? inputValue : inputValueFormatted, onChange: e => setInputValue(e.target.value) }, void 0), (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { tabIndex: 0, name: "calendar", onKeyDown: e => (e.key === 'Enter' || e.key === 'NumpadEnter') && setCalendarMode(true), onClick: () => setCalendarMode(true) }, void 0), (0, jsx_runtime_1.jsx)(Button_1.default, { crud: "create", importance: "primary", onClick: () => onChange(date, inputValueFormatted), value: buttonSubmitTitle }, void 0)] }, void 0) }, void 0));
+    return ((0, jsx_runtime_1.jsx)("section", { className: "datepicker", children: calendarMode ? (0, jsx_runtime_1.jsx)(Calendar_1.default, { format: format, allowPastDates: allowPastDates, dateNames: dateNames, monthNames: monthNames, onDateSelected: setDate, close: () => setCalendarMode(false) }) :
+            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("label", { htmlFor: "date-input", children: dateLabelTitle }), (0, jsx_runtime_1.jsx)("input", { id: "date-input", type: "text", value: calendarMode ? inputValue : inputValueFormatted, onChange: e => setInputValue(e.target.value) }), (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { tabIndex: 0, name: "calendar", onKeyDown: e => (e.key === 'Enter' || e.key === 'NumpadEnter') && setCalendarMode(true), onClick: () => setCalendarMode(true) }), (0, jsx_runtime_1.jsx)(Button_1.default, { crud: "create", importance: "primary", onClick: () => onChange(date, inputValueFormatted), value: buttonSubmitTitle })] }) }));
 }
 exports.DatePicker = DatePicker;
 exports.default = DatePicker;

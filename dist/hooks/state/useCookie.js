@@ -14,13 +14,21 @@ const js_cookie_1 = __importDefault(require("js-cookie"));
 function useCookie(name, defaultValue) {
     const [value, setValue] = (0, react_1.useState)(() => {
         const cookie = js_cookie_1.default.get(name);
-        if (cookie)
-            return cookie;
-        js_cookie_1.default.set(name, defaultValue);
+        if (cookie) {
+            try {
+                return JSON.parse(cookie);
+            }
+            catch (_a) {
+                return cookie;
+            }
+        }
+        const value = getStringValue(defaultValue);
+        js_cookie_1.default.set(name, value);
         return defaultValue;
     });
+    const getStringValue = (0, react_1.useCallback)((v) => typeof v === "string" ? v : JSON.stringify(v), []);
     const updateCookie = (0, react_1.useCallback)((newValue, options) => {
-        js_cookie_1.default.set(name, newValue, options);
+        js_cookie_1.default.set(name, getStringValue(newValue), options);
         setValue(newValue);
     }, [name]);
     const deleteCookie = (0, react_1.useCallback)(() => {

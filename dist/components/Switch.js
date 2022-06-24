@@ -23,6 +23,6 @@ const Switch = (props) => {
                         // right: !vertical && !checked ? 'calc(var(--size-top-right) * -1)' : 'auto',
                         // top: !vertical ? '50%' : checked ? 'var(--size-top-right)' : 'auto',
                         // bottom: vertical && !checked ? 'calc(var(--size-bottom-left) / 2)' : 'auto',
-                    }, componentDidMount: onIconDidMount, componentWillUnmount: onIconWillUnmount }, void 0) }, void 0), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest }, void 0)] }, void 0));
+                    }, componentDidMount: onIconDidMount, componentWillUnmount: onIconWillUnmount }) }), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest })] }));
 };
 exports.Switch = Switch;

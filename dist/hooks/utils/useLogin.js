@@ -15,14 +15,14 @@ function Input({ value: initialValue, onChange, label, ...props }) {
     };
     if (label && !props.id)
         throw new Error("Input must have an id if it has a label!");
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [label && (0, jsx_runtime_1.jsx)("label", { htmlFor: props.id, children: label }, void 0), (0, jsx_runtime_1.jsx)("input", { value: value, onChange: _onChange, ...props }, void 0)] }, void 0));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [label && (0, jsx_runtime_1.jsx)("label", { htmlFor: props.id, children: label }), (0, jsx_runtime_1.jsx)("input", { value: value, onChange: _onChange, ...props })] }));
 }
 function useLogin({ isLoggedIn: initialIsLogin, onLoginAttempt, usernameProps, passwordProps, loginButtonProps }) {
     const [isLoggedIn, setIsLoggedIn] = (0, react_1.useState)(initialIsLogin);
     const [username, setUsername] = (0, react_1.useState)("");
     const [password, setPassword] = (0, react_1.useState)("");
     const onSubmit = () => setIsLoggedIn(onLoginAttempt(username, password));
-    const component = ((0, jsx_runtime_1.jsx)("div", { className: "login-container", children: (0, jsx_runtime_1.jsxs)("form", { action: "", children: [(0, jsx_runtime_1.jsx)(Input, { value: username, onChange: setUsername, type: "text", id: "username", label: "Username", ...usernameProps }, void 0), (0, jsx_runtime_1.jsx)(Input, { value: password, onChange: setPassword, type: "password", id: "password", label: "Password", ...passwordProps }, void 0), (0, jsx_runtime_1.jsx)(Button_1.default, { importance: "primary", crud: "create", type: "submit", onClick: onSubmit, children: "Login" }, void 0)] }, void 0) }, void 0));
+    const component = ((0, jsx_runtime_1.jsx)("div", { className: "login-container", children: (0, jsx_runtime_1.jsxs)("form", { action: "", children: [(0, jsx_runtime_1.jsx)(Input, { value: username, onChange: setUsername, type: "text", id: "username", label: "Username", ...usernameProps }), (0, jsx_runtime_1.jsx)(Input, { value: password, onChange: setPassword, type: "password", id: "password", label: "Password", ...passwordProps }), (0, jsx_runtime_1.jsx)(Button_1.default, { importance: "primary", crud: "create", type: "submit", onClick: onSubmit, children: "Login" })] }) }));
     const logout = () => setIsLoggedIn(false);
     return [component, isLoggedIn, logout];
 }
