@@ -19,7 +19,6 @@ __exportStar(require("./Button"), exports);
 __exportStar(require("./Container"), exports);
 __exportStar(require("./DatePicker"), exports);
 __exportStar(require("./Dropdown"), exports);
-__exportStar(require("./Router"), exports);
 __exportStar(require("./Switch"), exports);
 __exportStar(require("./TabBar"), exports);
 __exportStar(require("./TabBarItem"), exports);
