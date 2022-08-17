@@ -10,7 +10,7 @@ const react_1 = require("react");
 function useStateWithValidation(validationFunc, initialValue) {
     const [state, setState] = (0, react_1.useState)(initialValue);
     const [isValid, setIsValid] = (0, react_1.useState)(() => validationFunc(state));
-    const onChange = (0, react_1.useCallback)(nextState => {
+    const onChange = (0, react_1.useCallback)((nextState) => {
         const value = typeof nextState === "function" ? nextState(state) : nextState;
         setState(value);
         setIsValid(validationFunc(value));
