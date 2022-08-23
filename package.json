@@ -1,8 +1,8 @@
 {
-  "name": "danholibraryrjs",
+  "name": "@danielsimonsen90/danholibraryrjs",
   "description": "DanhoLibrary for React.js",
   "author": "Daniel Simonsen",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "commonjs",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
@@ -11,7 +11,9 @@
     "build-ts": "npx tsc --project tsconfig.json",
     "build-sass": "npx node-sass -w src/styles/index.scss dist/styles/index.css",
     "build-sass-min": "npx node-sass -w src/styles/index.scss dist/styles/index.min.css --output-style compressed",
-    "build": "npm run build-ts && npm run build-sass && npm run build-sass-min"
+    "build": "npm run build-ts && npm run build-sass && npm run build-sass-min",
+    "login-github": "npm login --scope=@DanielSimonsen90 --registry=https://npm.pkg.github.com",
+    "login-npm": "npm login --scope@danhosaur --registry=https://registry.npmjs.org"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.3.1",
-    "danholibraryjs": "^1.7.0",
+    "danholibraryjs": "github:danielsimonsen90/danholibraryjs",
     "js-cookie": "^3.0.1",
     "node-sass": "^6.0.1",
     "react-fontawesome": "^1.7.1",

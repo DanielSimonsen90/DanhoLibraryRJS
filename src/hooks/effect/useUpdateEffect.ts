@@ -5,6 +5,8 @@ import { Callback } from "../../utils/BaseReact";
  * useEffect, but it doesn't run on first render
  * @param callback Callback to run when dependencies update
  * @param dependencies Dependencies
+ * 
+ * @depricated use useDeepCompareEffect instead
  */
 export function useUpdateEffect(callback: Callback, dependencies?: DependencyList) {
   const firstRenderRef = useRef(true);

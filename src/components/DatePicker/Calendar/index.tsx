@@ -7,7 +7,7 @@ import { ClickEvent } from '../../../utils';
 import { weekdays as workdays, weekend } from '../../../utils/Time';
 import { useEventListener } from '../../../hooks';
 
-type Props = {
+export type CalendarProps = {
     format: string
     onDateSelected(date: Date, event: ClickEvent): void,
     close(): void
@@ -16,14 +16,13 @@ type Props = {
     dateNames?: Array<string>,
     monthNames?: Array<string>
 }
-export { Props as CalendarProps }
 
 export function Calendar({ 
     format, onDateSelected, close, 
     allowPastDates = false,
     monthNames = MonthNames,
     dateNames = DayNames
-}: Props) {
+}: CalendarProps) {
     const now = getNow();
     const [selectedDate, setSelectedDate] = useState<Date>(now);
     const dates = useCalendarDays(selectedDate);

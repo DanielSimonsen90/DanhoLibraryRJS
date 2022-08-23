@@ -1,4 +1,4 @@
-import { Component, FunctionComponent } from "../utils/BaseReact"
+import { Component, FunctionComponent } from "../../utils/BaseReact"
 
 export type TabBarItemProps = {
     title: string,

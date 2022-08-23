@@ -1,15 +1,16 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import React from 'react';
 import Icon from 'react-fontawesome';
 import { classNames } from '.';
-import { ClickEvent } from '../utils';
+import { BaseProps, ClickEvent } from '../utils';
 
 export type CRUD = 'create' | 'read' | 'update' | 'delete';
 export type Importance = 'primary' | 'secondary' | 'tertiary';
-export type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, 'onClick'> & {
+export type ButtonProps = Omit<BaseProps<HTMLButtonElement>, 'onClick'> & {
     crud?: CRUD,
     iconName?: string,
     importance?: Importance,
-    hideIcon?: boolean
+    hideIcon?: boolean,
+    value?: string,
     
     onClick?: (event: ClickEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void
 }

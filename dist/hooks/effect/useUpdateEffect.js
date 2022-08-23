@@ -6,6 +6,8 @@ const react_1 = require("react");
  * useEffect, but it doesn't run on first render
  * @param callback Callback to run when dependencies update
  * @param dependencies Dependencies
+ *
+ * @depricated use useDeepCompareEffect instead
  */
 function useUpdateEffect(callback, dependencies) {
     const firstRenderRef = (0, react_1.useRef)(true);

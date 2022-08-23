@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Date } from "danholibraryjs";
-declare type Props = {
+export declare type DatePickerProps = {
     onChange(value: Date, formatted: string): void;
     allowPastDates?: boolean;
     buttonSubmitTitle?: string;
@@ -39,7 +39,6 @@ declare type Props = {
     format?: string;
     monthNames?: Array<string>;
 };
-export { Props as DatePickerProps };
-export declare function DatePicker({ onChange, dateNames, monthNames, allowPastDates, buttonSubmitTitle, dateLabelTitle, format, }: Props): JSX.Element;
+export declare function DatePicker({ onChange, dateNames, monthNames, allowPastDates, buttonSubmitTitle, dateLabelTitle, format, }: DatePickerProps): JSX.Element;
 export default DatePicker;
 export * from './Calendar';

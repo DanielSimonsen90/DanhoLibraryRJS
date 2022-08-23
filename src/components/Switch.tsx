@@ -11,13 +11,13 @@ export type SwitchProps = BaseProps<HTMLInputElement> & {
     /**@default false */
     vertical?: boolean;
     onCheckChanged?: (value: boolean, e: ChangeEvent<HTMLInputElement>) => void;
-    icons?: Omit<IconProps, 'name' | 'checked'> & {
+    icons?: Omit<IconProps, 'name' | 'checked' | 'vertical'> & {
         checked?: string;
         unchecked?: string;
     }
 }
 
-export const Switch: React.FC<SwitchProps> = (props) => {
+export function Switch(props: SwitchProps) {
     const { checked, disabled, vertical, icons, onCheckChanged, className, id, ...rest } = props;
     const inputRef = useRef<HTMLInputElement>(null);
     const switchRef = useRef<HTMLDivElement>(null);
@@ -49,3 +49,4 @@ export const Switch: React.FC<SwitchProps> = (props) => {
         </div>
     );
 }
+export default Switch;

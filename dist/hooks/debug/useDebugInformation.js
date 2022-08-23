@@ -11,7 +11,7 @@ const useRenderCount_1 = __importDefault(require("./useRenderCount"));
  * Debug component in details
  * @param componentName Name of the component to debug
  * @param props Component props
- * @param prefix Preferred console.log prefix
+ * @param prefix Preferred console.log prefix. Default = "[debug-info]"
  * @returns Debug information
  */
 function useDebugInformation(componentName, props, prefix = "[debug-info]") {

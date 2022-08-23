@@ -1,3 +1,4 @@
+import { ClickEvent } from '../../utils';
 import useEventListener from './useEventListener';
 
 function includesChild(parent: Node, target: Node | null) {
@@ -11,7 +12,7 @@ function includesChild(parent: Node, target: Node | null) {
  * @param query Query to get element
  * @param onClickOutside Click event, if clicked outside
  */
-export function useClickOutside(query: string, onClickOutside: (event: MouseEvent, element: HTMLElement) => void) {
+export function useClickOutside(query: string, onClickOutside: (event: ClickEvent, element: HTMLElement) => void) {
     return useEventListener("click", e => { 
         const el = document.querySelector<HTMLElement>(query);
         if (el == null || includesChild(el, e.target as Node)) return;

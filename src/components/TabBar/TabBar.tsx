@@ -1,20 +1,21 @@
 import { MouseEventHandler, ReactElement, useMemo, useState } from 'react';
 import { Arrayable } from 'danholibraryjs';
-import { classNames } from '.';
-import BaseProps from '../utils/BaseProps';
+import { classNames } from '..';
+import BaseProps from '../../utils/BaseProps';
 import { TabBarItemProps } from './TabBarItem';
+import { ClickEvent } from '../../utils';
 
-export type TabBarProps = Omit<BaseProps<HTMLElement>, 'children'> & {
+type OnItemSelected = (event: OnItemSelectedEvent) => void;
+export type OnItemSelectedEvent = ClickEvent<HTMLLIElement> & {
+    previous: TabBarItemProps
+    current: TabBarItemProps
+}
+
+export type TabBarProps = BaseProps<HTMLElement, false> & {
     data?: Map<string, TabBarItemProps>
     children?: Arrayable<ReactElement<TabBarItemProps>>
     onItemSelected?: OnItemSelected
 }
-
-export type OnItemSelectedEvent = React.MouseEvent<HTMLLIElement, MouseEvent> & {
-    previous: TabBarItemProps
-    current: TabBarItemProps
-}
-type OnItemSelected = (event: OnItemSelectedEvent) => void;
 
 export function TabBar({ onItemSelected, ...props }: TabBarProps) {
     const items = useMemo(() => {

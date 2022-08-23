@@ -7,7 +7,7 @@ import Calendar from "./Calendar";
 import { getNow } from "./Calendar/hooks";
 import Button from "../Button";
 
-type Props = {
+export type DatePickerProps = {
     onChange(value: Date, formatted: string): void,
 
     allowPastDates?: boolean
@@ -47,7 +47,6 @@ type Props = {
     format?: string,
     monthNames?: Array<string>
 }
-export { Props as DatePickerProps }
 
 export function DatePicker({ 
     onChange, dateNames, monthNames,
@@ -56,7 +55,7 @@ export function DatePicker({
     buttonSubmitTitle = "Select Date", 
     dateLabelTitle = "Date",
     format = "$dd/$MM/$year", 
-}: Props) {
+}: DatePickerProps) {
     const now = getNow();
     const [date, setDate] = useState(now);
     const [calendarMode, setCalendarMode] = useState(false);
