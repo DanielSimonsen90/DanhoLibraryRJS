@@ -13,7 +13,7 @@ type AdditionalData = {
  * @param className Class to add 
  * @param baseTime Base time to wait until className is removed. If left undefined, class will not be removed 
  */
-export function useAnimationReverse(query: string, className: string, baseTime?: TimeDelay) {
+export function useAnimation(query: string, className: string, baseTime?: TimeDelay) {
     const prefersAnimations = useMediaQuery('prefers-reduced-motion: no-preference');
     const [{ animations: allowAnimations }] = useLocalStorage('settings', { animations: prefersAnimations });
     return ({ time, className: additionalClassName = '' }: AdditionalData = {}) => {
@@ -36,4 +36,4 @@ export function useAnimationReverse(query: string, className: string, baseTime?:
         })
     }
 }
-export default useAnimationReverse;
+export default useAnimation;

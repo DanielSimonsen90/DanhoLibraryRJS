@@ -5,4 +5,5 @@ import { DependencyList, EffectCallback } from "react";
  * @param dependencies Dependencies
  */
 export declare function useDeepCompareEffect(callback: EffectCallback, dependencies: DependencyList): void;
+export declare const useUpdateEffect: typeof useDeepCompareEffect;
 export default useDeepCompareEffect;

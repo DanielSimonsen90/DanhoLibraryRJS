@@ -5,12 +5,8 @@ The button component is a basic button but with custom attributes provided by th
 ButtonProps extends [BaseProps](../../Utils/Base/Props.md) on the HTMLButtonElement, meaning it will accept every button property.
 
 ## References
-* Utils
+* [Utils](../../Utils/index.md)
     * [BaseProps](../../Utils/Base/Props.md)
-
-* External
-    * FontAwesome as Icon from [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)
-
 
 ## [Module](../../../src/components/Button.tsx)
 ```tsx

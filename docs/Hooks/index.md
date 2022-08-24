@@ -1,7 +1,7 @@
 # [DanhoLibraryRJS](../index.md) / Hooks
 All useful hooks exported
 
-## Table of Contents
+## Items
 * [Debug](./Debug/index.md)
     * [useDebugInformation](./Debug/useDebugInformation.md)
     * [useRenderCount](./Debug/useRenderCount.md)

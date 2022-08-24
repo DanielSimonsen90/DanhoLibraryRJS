@@ -1,6 +1,6 @@
 # [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / Utility
 
-## Table of Contents
+## Items
 * [Container](./Container.md)
 
 

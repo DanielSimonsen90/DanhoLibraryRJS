@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS]('../README.md)
+# [DanhoLibraryRJS](../README.md)
 
 [By DanielSimonsen90 // Danhosaur](https://github.com/DanielSimonsen90)
 
@@ -16,7 +16,7 @@ import { ... } from 'DanhoLibraryRJS';
 
 ## Documentation
 
-* [Components](./Components.md)
-* [Hooks](./Hooks.md)
-* [Styles](./Styles.md)
-* [Utils](./Utils.md)
+* [Components](./Components/index.md)
+* [Hooks](./Hooks/index.md)
+* [Styles](./Styles/index.md)
+* [Utils](./Utils/index.md)

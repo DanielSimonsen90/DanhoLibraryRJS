@@ -2,7 +2,7 @@
 Better looking datepicker than <input type="datetime-local">
 > **Note**: Module will be rewritten in the future.
 
-## Table of Contents
+## Items
 * [Calendar](./Calendar.md)
 * [Hooks](./Hooks.md)
 

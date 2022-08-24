@@ -4,6 +4,7 @@ useEffect but only runs when dependencies are changed (unrelated state may cause
 ## [Module](../../../src/hooks/effect/useDeepCompareEffect.ts)
 ```ts
 export function useDeepCompareEffect(callback: EffectCallback, dependencies: DependencyList): void;
+export const useUpdateEffect = useDeepCompareEffect; // For deprication reasons
 export default useDeepCompareEffect;
 ```
 

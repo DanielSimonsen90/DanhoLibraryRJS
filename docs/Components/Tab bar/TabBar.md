@@ -9,7 +9,7 @@ In the sub-section, the child component matching the tab item is rendered.
     * [BaseProps](../../Utils/Base/Props.md)
     * [ClickEvent](../../Utils/index.md)
 
-## [Module](../../../src/components/TabBar.tsx)
+## [Module](../../../src/components/TabBar/TabBar.tsx)
 ```tsx
 type OnItemSelectedEvent = ClickEvent<HTMLLiElement> & {
     previous: TabBarItemProps;

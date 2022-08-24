@@ -14,4 +14,3 @@ __exportStar(require("./useAsyncEffect"), exports);
 __exportStar(require("./useDebounce"), exports);
 __exportStar(require("./useDeepCompareEffect"), exports);
 __exportStar(require("./useThrottle"), exports);
-__exportStar(require("./useUpdateEffect"), exports);

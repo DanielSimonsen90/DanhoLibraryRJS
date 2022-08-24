@@ -6,7 +6,7 @@ Comes with preset classNames such as 'container' and 'container-{type}', provide
 ContainerProps extends [BaseProps](../../Utils/Base/Props.md) on the HTMLDivElement, meaning it will accept every div property.
 
 ## References
-* Utils
+* [Utils](../../Utils/index.md)
     * [BaseProps](../../Utils/Base/Props.md)
 
 ## [Module](../../../src/components/Container.tsx)

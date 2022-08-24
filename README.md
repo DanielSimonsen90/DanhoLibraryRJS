@@ -16,7 +16,7 @@ import { ... } from 'DanhoLibraryRJS';
 
 ## Documentation
 
-* [Components](/docs/Components.md)
-* [Hooks](/docs/Hooks.md)
-* [Styles](/docs/Styles.md)
-* [Utils](/docs/Utils.md)
+* [Components](/docs/Components/index.md)
+* [Hooks](/docs/Hooks/index.md)
+* [Styles](/docs/Styles/index.md)
+* [Utils](/docs/Utils/index.md)

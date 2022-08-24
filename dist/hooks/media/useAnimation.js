@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useAnimationReverse = void 0;
+exports.useAnimation = void 0;
 const danholibraryjs_1 = require("danholibraryjs");
 const useStorage_1 = require("../state/useStorage");
 const useMediaQuery_1 = __importDefault(require("./useMediaQuery"));
@@ -13,7 +13,7 @@ const useMediaQuery_1 = __importDefault(require("./useMediaQuery"));
  * @param className Class to add
  * @param baseTime Base time to wait until className is removed. If left undefined, class will not be removed
  */
-function useAnimationReverse(query, className, baseTime) {
+function useAnimation(query, className, baseTime) {
     const prefersAnimations = (0, useMediaQuery_1.default)('prefers-reduced-motion: no-preference');
     const [{ animations: allowAnimations }] = (0, useStorage_1.useLocalStorage)('settings', { animations: prefersAnimations });
     return ({ time, className: additionalClassName = '' } = {}) => {
@@ -39,5 +39,5 @@ function useAnimationReverse(query, className, baseTime) {
         });
     };
 }
-exports.useAnimationReverse = useAnimationReverse;
-exports.default = useAnimationReverse;
+exports.useAnimation = useAnimation;
+exports.default = useAnimation;

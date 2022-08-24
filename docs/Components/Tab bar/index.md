@@ -4,11 +4,11 @@ TabBar related components.
 The component renders a section with a header and a sub-section. The header is the TabBar component itself, to toggle between tabs using \<ul>.
 In the sub-section, the child component matching the tab item is rendered.
 
-## Table of Contents
+## Items
 * [TabBar](./TabBar.md)
 * [TabBarItem](./TabBarItem.md)
 
-## Module
+## [Module](../../../src/components/TabBar/index.tsx)
 ```tsx
 export type OnItemSelectedEvent = ClickEvent<HTMLLiElement> & {
     previous: TabBarItemProps;

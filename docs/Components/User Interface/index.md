@@ -1,9 +1,11 @@
 # [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / User Interface
 Basic User Interface components
 
-## Table of Contents
+## Items
 * [Button](./Button.md)
-* [DatePicker](./DatePicker.md)
+* [DatePicker](./DatePicker/index.md)
+    * [Calendar](./DatePicker/Calendar.md)
+    * [Hooks](./DatePicker/Hooks.md)
 * [Dropdown](./Dropdown.md)
 * [Icon](./Icon.md)
 * [Switch](./Switch.md)
