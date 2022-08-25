@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useAsyncReturn } from "./useAsync";
 
-
 type GeolocationError = GeolocationPositionError | null | undefined;
 type useGeolocationReturn = useAsyncReturn<GeolocationCoordinates, GeolocationError>
 

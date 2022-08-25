@@ -16,10 +16,13 @@ const DefaultOptions = {
  * @returns Fetch response
  */
 function useFetch(url, options = {}, dependencies = []) {
-    return (0, useAsync_1.default)(() => fetch(url, { ...DefaultOptions, ...options })
-        .then(async (res) => res.ok ?
-        res.json() :
-        await Promise.reject(await res.json())), dependencies);
+    return (0, useAsync_1.default)(async () => {
+        var _a;
+        const res = await fetch(url, { ...DefaultOptions, ...options });
+        if (!res.ok)
+            return Promise.reject((_a = (await res.json())) !== null && _a !== void 0 ? _a : (await res.text()));
+        return res.json();
+    }, dependencies);
 }
 exports.useFetch = useFetch;
 exports.default = useFetch;

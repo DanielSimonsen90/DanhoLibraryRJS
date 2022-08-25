@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 
-type FilterCallback<T> = (value: T, index: number, array: T[]) => boolean
+type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean
 type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
   push(item: T): void,
   update(index: number, item: T): void,
@@ -22,10 +22,10 @@ export type UseArrayReturn<T> = { value: Array<T> } &
  * @param defaultValue Default array
  * @returns Array, along with methods to modify array
  */
-export function useStateArray<Item>(defaultValue?: Array<Item>): UseArrayReturn<Item> {
+export function useArrayState<Item>(defaultValue?: Array<Item>): UseArrayReturn<Item> {
   const [array, setArray] = useState(defaultValue ?? []);
   const arrayProps = useMemo(() => {
-    console.log('useArray arrayProps memo update', array);
+    // console.log('useArray arrayProps memo update', array);
 
     const { 
       find, some, includes, every, random, 
@@ -69,4 +69,4 @@ export function useStateArray<Item>(defaultValue?: Array<Item>): UseArrayReturn<
     remove, clear, shift, pop
   }
 }
-export default useStateArray;
+export default useArrayState;

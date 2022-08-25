@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / [User Interface](./index.md) / Switch
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / [User Interface](./index.md) / Switch
 Switch knob to toggle between ON and OFF state.
 
 SwitchProps extends [BaseProps](../../Utils/Base/Props.md) on the HTMLInputElement, meaning it will accept every input property.

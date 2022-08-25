@@ -1,6 +1,9 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import useCallbackOnce from "../once/useCallbackOnce";
 
+type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void]
+type Parse<T> = (value: T) => T;
+
 /**
  * Store a value in LocalStorage using key
  * @param key Key to store value
@@ -20,9 +23,6 @@ export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T
 export function useSessionStorage<Key extends string, T>(key: Key, defaultValue: T, parse?: Parse<T>) {
   return useStorage(key, defaultValue, window.sessionStorage, parse)
 }
-
-type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void]
-type Parse<T> = (value: T) => T;
 
 /**
  * Goes through provided storageObject to find value that matches key. Returns defaultValue, if no value was found

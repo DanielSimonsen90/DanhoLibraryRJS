@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / Tab bar
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / Tab bar
 TabBar related components.
 
 The component renders a section with a header and a sub-section. The header is the TabBar component itself, to toggle between tabs using \<ul>.

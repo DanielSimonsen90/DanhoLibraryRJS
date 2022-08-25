@@ -1,21 +1,43 @@
 import { useCallback, useMemo, useRef } from "react"
 import useCallbackOnce from "../once/useCallbackOnce";
-import useStateArray, { UseArrayReturn } from "./useArrayState";
+import useArrayState, { UseArrayReturn } from "./useArrayState";
 
 const DefaultCapacity = 10;
 export type HistoryOptions = {
-    /** Default: 10 */
+    /** @default 10 */
     capacity: number
 }
 
 type UseStateWithHistoryReturn<State> = [value: State, push: (value: State) => void, props: {
     history: UseArrayReturn<State>,
+    /**
+     * Internal pointer reference. Recommended not to use.
+     */
     pointer: number,
+    /**
+     * Set value of the pointer reference. Preferred to use forward/go/backward instead.
+     * @param value Number between 0 and capacity - 1.
+     */
     setPointer(value: number): number,
+    /**
+     * Move pointer forward. Kinda like CTRL + Y
+     */
     forward(): void, 
+    /**
+     * Go to specific history index.
+     */
     go(index: number): void,
+    /**
+     * Move pointer backward. Kinda like CTRL + Z
+     */
     back(): void, 
+    /**
+     * Remove provided history item or item at index.
+     */
     remove(item: State | number): void,
+    /**
+     * Remove latest history item.
+     */
     pop(): void
 }]
 
@@ -25,7 +47,7 @@ type UseStateWithHistoryReturn<State> = [value: State, push: (value: State) => v
  * @param options History options
  */
 export function useStateWithHistory<State>(defaultValue: State, { capacity = DefaultCapacity }: HistoryOptions): UseStateWithHistoryReturn<State> {
-    const history = useStateArray(defaultValue ? [defaultValue] : []);
+    const history = useArrayState(defaultValue ? [defaultValue] : []);
     const pointerRef = useRef(0);
     const current = useMemo(() => history.index(pointerRef.current), [history, pointerRef.current])
 
@@ -40,14 +62,18 @@ export function useStateWithHistory<State>(defaultValue: State, { capacity = Def
         pointerRef.current = history.length - 1;
     }, [capacity, current]);
 
-    const back = useCallbackOnce(() => {
-        if (pointerRef.current <= 0) return;
-        pointerRef.current--;
+    const back = useCallbackOnce((by: number = 1) => {
+        const value = pointerRef.current - by;
+        if (value < 0) return;
+
+        pointerRef.current = value;
     });
 
-    const forward = useCallbackOnce(() => {
-        if (pointerRef.current >= history.length - 1) return;
-        pointerRef.current++;
+    const forward = useCallbackOnce((by: number = 1) => {
+        const value = pointerRef.current + by;
+        if (value >= history.length) return;
+
+        pointerRef.current = value;
     });
 
     const go = useCallbackOnce<(index: number) => void>(index => {
@@ -98,3 +124,5 @@ export function useStateWithHistory<State>(defaultValue: State, { capacity = Def
 }
 
 export default useStateWithHistory;
+
+[].slice

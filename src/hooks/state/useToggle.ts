@@ -1,19 +1,30 @@
 import { useCallback, useMemo, useRef, useState } from "react"
 type ValueChangeFunc<T> = (value: T) => T
+type ValueChanged<T> = (value: T) => void
 type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean]
+type ToggleChanges<T> = {
+  onDefault: ValueChangeFunc<T>,
+  onChange: ValueChanged<T>,
+  onToggled: ValueChangeFunc<T>,
+}
 
 /**
- * Toggle between specific values
- * @param defaultValue default/initial value for the toggle
- * @param onSetTrue Callback when value is ture
- * @param onSetFalse Callback when value is false
- * @returns [value: T, toggleValue: (newValue?: T) => T, isToggled: boolean]
+ * Toggles between defaultValue & toggledValue.
+ * @param defaultValue The default value of the toggle
+ * @param toggledValue The value of the toggle when toggled
+ * @param changes Change callbacks if needed for when a toggle has occured.
+ * @returns [value: T, toggleValue: (value?: T) => void, isToggled: boolean]
  */
-export function useToggle<T>(defaultValue: T, toggledValue: T, onSetTrue?: ValueChangeFunc<T>, onSetFalse?: ValueChangeFunc<T>): UseToggleReturn<T> {
+export function useToggle<T>(defaultValue: T, toggledValue: T, { onDefault, onToggled, onChange }: ToggleChanges<T> = {
+  onDefault: (value: T) => value,
+  onChange: (value: T) => {},
+  onToggled: (value: T) => value,
+}): UseToggleReturn<T> {
   const [value, setValue] = useState(defaultValue);
-  const [onToggledTrue, onToggledFalse] = [
-    useRef<ValueChangeFunc<T>>(onSetTrue || ((v) => v)), 
-    useRef<ValueChangeFunc<T>>(onSetFalse || ((v) => v))
+  const [onToggledTrue, onToggledFalse, onToggleChanged] = [
+    useRef<ValueChangeFunc<T>>(onToggled), 
+    useRef<ValueChangeFunc<T>>(onDefault),
+    useRef<ValueChanged<T>>(onChange),
   ];
   const isToggled = useMemo(() => value === toggledValue, [value]);
 
@@ -28,6 +39,7 @@ export function useToggle<T>(defaultValue: T, toggledValue: T, onSetTrue?: Value
       v = newValue ?? toggledValue;
       v === defaultValue ? onToggledTrue.current(v) : onToggledFalse.current(v);
     }
+    onChange(v);
 
     return v;
   }), [value])

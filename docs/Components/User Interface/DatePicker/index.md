@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / [User Interface](./index.md) / DatePicker
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / [User Interface](./index.md) / DatePicker
 Better looking datepicker than <input type="datetime-local">
 > **Note**: Module will be rewritten in the future.
 

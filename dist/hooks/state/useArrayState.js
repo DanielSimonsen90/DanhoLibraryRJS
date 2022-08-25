@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useStateArray = void 0;
+exports.useArrayState = void 0;
 const react_1 = require("react");
 /**
  * Manages array states
  * @param defaultValue Default array
  * @returns Array, along with methods to modify array
  */
-function useStateArray(defaultValue) {
+function useArrayState(defaultValue) {
     const [array, setArray] = (0, react_1.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : []);
     const arrayProps = (0, react_1.useMemo)(() => {
-        console.log('useArray arrayProps memo update', array);
+        // console.log('useArray arrayProps memo update', array);
         const { find, some, includes, every, random, reduce, map, forEach, findIndex, indexOf, lastIndexOf, keys, values, join, length } = array;
         const index = (index) => array[index];
         return {
@@ -42,5 +42,5 @@ function useStateArray(defaultValue) {
         remove, clear, shift, pop
     };
 }
-exports.useStateArray = useStateArray;
-exports.default = useStateArray;
+exports.useArrayState = useArrayState;
+exports.default = useArrayState;

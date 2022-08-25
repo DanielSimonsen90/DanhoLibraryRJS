@@ -1,4 +1,4 @@
-declare type FilterCallback<T> = (value: T, index: number, array: T[]) => boolean;
+declare type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean;
 declare type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
     push(item: T): void;
     update(index: number, item: T): void;
@@ -13,5 +13,5 @@ export declare type UseArrayReturn<T> = {
  * @param defaultValue Default array
  * @returns Array, along with methods to modify array
  */
-export declare function useStateArray<Item>(defaultValue?: Array<Item>): UseArrayReturn<Item>;
-export default useStateArray;
+export declare function useArrayState<Item>(defaultValue?: Array<Item>): UseArrayReturn<Item>;
+export default useArrayState;

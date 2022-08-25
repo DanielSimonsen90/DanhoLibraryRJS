@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / [User Interface](./index.md) / Icon
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / [User Interface](./index.md) / Icon
 Default export from [react-fontawesome](https://github.com/FortAwesome/react-fontawesome) wrapped in a [useEffectOnce](../../Hooks/Effect/useEffectOnce.md), providing componentDidMount & componentWillUnmount along with support for official FontAwesomeProps
 
 ## References

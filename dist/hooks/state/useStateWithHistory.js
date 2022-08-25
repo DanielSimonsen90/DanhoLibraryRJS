@@ -25,15 +25,17 @@ function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
         }
         pointerRef.current = history.length - 1;
     }, [capacity, current]);
-    const back = (0, useCallbackOnce_1.default)(() => {
-        if (pointerRef.current <= 0)
+    const back = (0, useCallbackOnce_1.default)((by = 1) => {
+        const value = pointerRef.current - by;
+        if (value < 0)
             return;
-        pointerRef.current--;
+        pointerRef.current = value;
     });
-    const forward = (0, useCallbackOnce_1.default)(() => {
-        if (pointerRef.current >= history.length - 1)
+    const forward = (0, useCallbackOnce_1.default)((by = 1) => {
+        const value = pointerRef.current + by;
+        if (value >= history.length)
             return;
-        pointerRef.current++;
+        pointerRef.current = value;
     });
     const go = (0, useCallbackOnce_1.default)(index => {
         if (index < 0 || index > history.length - 1)
@@ -81,3 +83,4 @@ function useStateWithHistory(defaultValue, { capacity = DefaultCapacity }) {
 }
 exports.useStateWithHistory = useStateWithHistory;
 exports.default = useStateWithHistory;
+[].slice;

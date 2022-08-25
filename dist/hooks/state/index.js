@@ -15,7 +15,7 @@ __exportStar(require("./useCookie"), exports);
 __exportStar(require("./usePrevious"), exports);
 __exportStar(require("./useStack"), exports);
 __exportStar(require("./useStateOnChange"), exports);
-__exportStar(require("./useStateOnUpdate"), exports);
+__exportStar(require("./useStateUpdate"), exports);
 __exportStar(require("./useStateWithHistory"), exports);
 __exportStar(require("./useStateWithValidation"), exports);
 __exportStar(require("./useStorage"), exports);

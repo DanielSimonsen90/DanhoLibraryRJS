@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / [User Interface](./index.md) / Button
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / [User Interface](./index.md) / Button
 
 The button component is a basic button but with custom attributes provided by the component's props.
 

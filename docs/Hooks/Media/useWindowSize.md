@@ -21,6 +21,10 @@ export default useWindowSize;
 ## Example
 ```tsx
 function TestComponent(props) {
+    const { width, height } = useWindowSize();
 
+    return (
+        <p>The current window size is {height} x {width}</p>
+    )
 }
 ```

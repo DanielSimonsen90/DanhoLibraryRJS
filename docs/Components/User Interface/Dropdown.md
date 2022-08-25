@@ -1,4 +1,4 @@
-# [DanhoLibraryRJS](../../README.md) / [Components](../index.md) / [User Interface](./index.md) / Dropdown
+# [DanhoLibraryRJS](../../index.md) / [Components](../index.md) / [User Interface](./index.md) / Dropdown
 Renders \<ul className="dropdown"> with \<li className="dropdown-item"> as children, provided by props.items. When \<li> is clicked, emits props.onItemSelected(item: T): void
 
 ## [Module](../../../src/components/Dropdown.tsx)

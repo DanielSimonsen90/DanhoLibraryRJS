@@ -3,17 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useToggle = void 0;
 const react_1 = require("react");
 /**
- * Toggle between specific values
- * @param defaultValue default/initial value for the toggle
- * @param onSetTrue Callback when value is ture
- * @param onSetFalse Callback when value is false
- * @returns [value: T, toggleValue: (newValue?: T) => T, isToggled: boolean]
+ * Toggles between defaultValue & toggledValue.
+ * @param defaultValue The default value of the toggle
+ * @param toggledValue The value of the toggle when toggled
+ * @param changes Change callbacks if needed for when a toggle has occured.
+ * @returns [value: T, toggleValue: (value?: T) => void, isToggled: boolean]
  */
-function useToggle(defaultValue, toggledValue, onSetTrue, onSetFalse) {
+function useToggle(defaultValue, toggledValue, { onDefault, onToggled, onChange } = {
+    onDefault: (value) => value,
+    onChange: (value) => { },
+    onToggled: (value) => value,
+}) {
     const [value, setValue] = (0, react_1.useState)(defaultValue);
-    const [onToggledTrue, onToggledFalse] = [
-        (0, react_1.useRef)(onSetTrue || ((v) => v)),
-        (0, react_1.useRef)(onSetFalse || ((v) => v))
+    const [onToggledTrue, onToggledFalse, onToggleChanged] = [
+        (0, react_1.useRef)(onToggled),
+        (0, react_1.useRef)(onDefault),
+        (0, react_1.useRef)(onChange),
     ];
     const isToggled = (0, react_1.useMemo)(() => value === toggledValue, [value]);
     const toggleValue = (0, react_1.useCallback)((newValue) => setValue(() => {
@@ -26,6 +31,7 @@ function useToggle(defaultValue, toggledValue, onSetTrue, onSetFalse) {
             v = newValue !== null && newValue !== void 0 ? newValue : toggledValue;
             v === defaultValue ? onToggledTrue.current(v) : onToggledFalse.current(v);
         }
+        onChange(v);
         return v;
     }), [value]);
     return [value, toggleValue, isToggled];
