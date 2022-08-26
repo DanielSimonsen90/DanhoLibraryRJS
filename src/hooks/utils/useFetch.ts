@@ -1,7 +1,10 @@
-import { DependencyList } from "react";
-import useAsync from "./useAsync";
+import { DependencyList, useCallback } from "react";
+import useAsync, { useAsyncReturn } from "./useAsync";
 
 type FetchOptions = RequestInit & {}
+export type useFetchReturn<T, Err> = Omit<useAsyncReturn<T, Err>, 'callback'> & {
+    fetch: () => Promise<T>
+}
 
 const DefaultOptions: FetchOptions = {
   headers: { "Content-Type": "application/json" },
@@ -14,8 +17,8 @@ const DefaultOptions: FetchOptions = {
  * @param dependencies Dependency list
  * @returns Fetch response
  */
-export function useFetch(url: string, options: FetchOptions = {}, dependencies: DependencyList = []) { 
-    return useAsync<Response>(async () => {
+export function useFetch<Body, Err>(url: string, options: FetchOptions = {}, dependencies: DependencyList = []): useFetchReturn<Body, Err> { 
+    const callback = useCallback<() => Promise<Body>>(async () => {
         const res = await fetch(url, { ...DefaultOptions, ...options });
         if (!res.ok) return Promise.reject(
             (await res.json()) ?? 
@@ -23,6 +26,8 @@ export function useFetch(url: string, options: FetchOptions = {}, dependencies: 
         );
 
         return res.json();
-    }, dependencies);
+    }, dependencies)
+    const { callback: _, ...asyncResult } = useAsync<Body, Err>(callback, dependencies);
+    return { ...asyncResult, fetch: callback };
 }
 export default useFetch;

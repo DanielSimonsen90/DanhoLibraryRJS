@@ -4,7 +4,8 @@ Receive all the geographical information based on provided options.
 ## [Module](../../../src/hooks/utils/useGeolocation.ts)
 ```ts
 type GeolocationError = GeolocationPositionError | null | undefined;
-type useGeolocationReturn = useAsyncReturn<GeolocationCoordinates, GeolocationError>
+type useGeolocationReturn = Omit<useAsyncReturn<GeolocationCoordinates, GeolocationError>, 'callback'>
+
 
 /**
  * Receive all the geographical information based on options

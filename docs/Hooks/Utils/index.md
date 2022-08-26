@@ -7,6 +7,7 @@ Uncategorized utility hooks - I just don't know where to put them yet xD
 * [useFetch](./useFetch.md)
 * [useGeolocation](./useGeolocation.md)
 * [useLoadData](./useLoadData.md)
+* [useLogin](./useLogin.md)
 * [useOnlineStatus](./useOnlineStatus.md)
 * [useRedirect](./useRedirect.md)
 * [useScript](./useScript.md)

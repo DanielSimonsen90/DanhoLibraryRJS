@@ -34,6 +34,7 @@ All useful hooks exported
 
 * [State](./State/index.md)
     * [useArrayState](./State/useArrayState.md)
+    * [useCache](./State/useCache.md)
     * [useCookie](./State/useCookie.md)
     * [usePrevious](./State/usePrevious.md)
     * [useStack](./State/useStack.md)

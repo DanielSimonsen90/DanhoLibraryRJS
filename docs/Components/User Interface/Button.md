@@ -2,8 +2,6 @@
 
 The button component is a basic button but with custom attributes provided by the component's props.
 
-ButtonProps extends [BaseProps](../../Utils/Base/Props.md) on the HTMLButtonElement, meaning it will accept every button property.
-
 ## References
 * [Utils](../../Utils/index.md)
     * [BaseProps](../../Utils/Base/Props.md)
@@ -12,7 +10,7 @@ ButtonProps extends [BaseProps](../../Utils/Base/Props.md) on the HTMLButtonElem
 ```tsx
 export type CRUD = 'create' | 'read' | 'update' | 'delete';
 export type Importance = 'primary' | 'secondary' | 'tertiary';
-export type ButtonProps = BaseProps<HTMLButtonElement> & {
+export type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, 'onClick'>> & {
     /**
      * Modifies color of importance
      */

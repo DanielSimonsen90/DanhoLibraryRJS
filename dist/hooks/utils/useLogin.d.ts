@@ -8,12 +8,13 @@ declare type InputProps<T extends HTMLInputTypeAttribute> = Omit<DetailedHTMLPro
     label?: string;
 };
 declare type Props = {
-    isLoggedIn: boolean;
-    onLoginAttempt: (username: string, password: string) => boolean;
+    onLogin: (username: string, password: string) => void;
+    onLogout: () => void;
+    isLoggedIn?: boolean;
     usernameProps?: InputProps<string>;
     passwordProps?: InputProps<string>;
     loginButtonProps?: ButtonProps;
 };
-declare type UseLoginReturn = [component: Component, isLoggedIn: boolean, logout: () => void];
-export declare function useLogin({ isLoggedIn: initialIsLogin, onLoginAttempt, usernameProps, passwordProps, loginButtonProps }: Props): UseLoginReturn;
-export {};
+declare type UseLoginReturn = [component: Component | null, logout: () => void];
+export declare function useLogin({ onLogin, onLogout, isLoggedIn, usernameProps, passwordProps, loginButtonProps }: Props): UseLoginReturn;
+export default useLogin;

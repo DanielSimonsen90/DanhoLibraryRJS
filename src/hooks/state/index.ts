@@ -1,4 +1,5 @@
 export * from './useArrayState';
+export * from './useCache';
 export * from './useCookie';
 export * from './usePrevious';
 export * from './useStack';

@@ -1,8 +1,8 @@
-import React from 'react';
-import { BaseProps, ClickEvent } from '../utils';
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import { ClickEvent } from '../utils';
 export declare type CRUD = 'create' | 'read' | 'update' | 'delete';
 export declare type Importance = 'primary' | 'secondary' | 'tertiary';
-export declare type ButtonProps = Omit<BaseProps<HTMLButtonElement>, 'onClick'> & {
+export declare type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, 'onClick'> & {
     crud?: CRUD;
     iconName?: string;
     importance?: Importance;

@@ -7,7 +7,7 @@ Client clicked outside of reference element - very cool for modals
 
 ## [Module](../../../src/hooks/events/useClickOutside.ts)
 ```ts
-export function useClickOutside(query: string, onClickOutside: (event: ClickEvent, element: HTMLElement)): {
+export function useClickOutside(query: string, onClickOutside: (event: MouseEvent, element: HTMLElement)): {
     addEventListener(): void;
     removeEventListener(): void;
 }
