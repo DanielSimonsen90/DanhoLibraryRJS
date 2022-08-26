@@ -13,7 +13,7 @@ function TabBar({ onItemSelected, ...props }) {
             return new Map([
                 ['Item', {
                         title: 'Item',
-                        component: (0, jsx_runtime_1.jsx)("h1", { children: "Please use the data property or give TabBar children!" })
+                        component: (0, jsx_runtime_1.jsx)("h1", { children: "Please use the data property or give TabBar children!" }, void 0)
                     }]
             ]);
         return propsChildren.reduce((map, child) => {
@@ -32,9 +32,9 @@ function TabBar({ onItemSelected, ...props }) {
     };
     return ((0, jsx_runtime_1.jsxs)("section", { ...props, className: (0, __1.classNames)('tab-bar-container', props.className), children: [(0, jsx_runtime_1.jsx)("header", { className: "tab-bar", children: (0, jsx_runtime_1.jsx)("ul", { children: titles.map(title => (0, jsx_runtime_1.jsx)("li", { className: componentSelected.title === title ?
                             'selected' :
-                            undefined, onClick: _onItemSelected, children: title }, title)) }) }), (0, jsx_runtime_1.jsx)("hr", {}), (0, jsx_runtime_1.jsx)("section", { className: "tab-bar-content", children: typeof componentSelected.component === 'function' ?
+                            undefined, onClick: _onItemSelected, children: title }, title)) }, void 0) }, void 0), (0, jsx_runtime_1.jsx)("hr", {}, void 0), (0, jsx_runtime_1.jsx)("section", { className: "tab-bar-content", children: typeof componentSelected.component === 'function' ?
                     componentSelected.component() :
-                    componentSelected.component })] }));
+                    componentSelected.component }, void 0)] }, void 0));
 }
 exports.TabBar = TabBar;
 exports.default = TabBar;

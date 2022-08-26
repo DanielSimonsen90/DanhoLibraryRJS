@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -28,7 +24,7 @@ const react_1 = require("react");
 const Calendar_1 = require("../Calendar");
 const useFormatDate_1 = __importStar(require("../useFormatDate"));
 function TimestampImperial({ apm, setApm: setAPM }) {
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-apm", type: "text", list: "apm", onChange: e => setAPM(e.target.value), value: apm }), (0, jsx_runtime_1.jsxs)("datalist", { id: "apm", children: [(0, jsx_runtime_1.jsx)("option", { value: "AM", children: "AM" }), (0, jsx_runtime_1.jsx)("option", { value: "PM", children: "PM" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-apm", type: "text", list: "apm", onChange: e => setAPM(e.target.value), value: apm }, void 0), (0, jsx_runtime_1.jsxs)("datalist", { id: "apm", children: [(0, jsx_runtime_1.jsx)("option", { value: "AM", children: "AM" }, void 0), (0, jsx_runtime_1.jsx)("option", { value: "PM", children: "PM" }, void 0)] }, void 0)] }, void 0));
 }
 function TimestampPicker({ type = '24h', format = '$hh24:$mm', onChange }) {
     const now = (0, Calendar_1.getNow)();
@@ -41,6 +37,6 @@ function TimestampPicker({ type = '24h', format = '$hh24:$mm', onChange }) {
     })), [hour, minute]);
     const formatDate = (0, useFormatDate_1.default)(selectedDate);
     (0, react_1.useEffect)(() => { onChange(selectedDate, formatDate(format)); }, [hour, minute, apm]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "timestamp-picker", children: [(0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-hour", type: "number", onChange: e => setHour(e.target.value), value: hour }), (0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-minute", type: "number", onChange: e => setMinute((0, useFormatDate_1.doubleDigit)(parseInt(e.target.value))), value: minute }), type === '12h' && (0, jsx_runtime_1.jsx)(TimestampImperial, { apm: apm, setApm: setAPM })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "timestamp-picker", children: [(0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-hour", type: "number", onChange: e => setHour(e.target.value), value: hour }, void 0), (0, jsx_runtime_1.jsx)("input", { className: "timestamp-picker-minute", type: "number", onChange: e => setMinute((0, useFormatDate_1.doubleDigit)(parseInt(e.target.value))), value: minute }, void 0), type === '12h' && (0, jsx_runtime_1.jsx)(TimestampImperial, { apm: apm, setApm: setAPM }, void 0)] }, void 0));
 }
 exports.default = TimestampPicker;

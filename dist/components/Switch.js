@@ -8,7 +8,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const _1 = require(".");
 const Icon_1 = __importDefault(require("./Icon"));
-const Switch = (props) => {
+function Switch(props) {
     const { checked, disabled, vertical, icons, onCheckChanged, className, id, ...rest } = props;
     const inputRef = (0, react_1.useRef)(null);
     const switchRef = (0, react_1.useRef)(null);
@@ -23,6 +23,7 @@ const Switch = (props) => {
                         // right: !vertical && !checked ? 'calc(var(--size-top-right) * -1)' : 'auto',
                         // top: !vertical ? '50%' : checked ? 'var(--size-top-right)' : 'auto',
                         // bottom: vertical && !checked ? 'calc(var(--size-bottom-left) / 2)' : 'auto',
-                    }, componentDidMount: onIconDidMount, componentWillUnmount: onIconWillUnmount }) }), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest })] }));
-};
+                    }, componentDidMount: onIconDidMount, componentWillUnmount: onIconWillUnmount }, void 0) }, void 0), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest }, void 0)] }, void 0));
+}
 exports.Switch = Switch;
+exports.default = Switch;
