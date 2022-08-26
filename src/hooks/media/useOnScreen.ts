@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from "react"
+import { RefObject, useEffect, useState } from "react"
 
 /**
  * Element reference is rootMargin visible - return true if element is 8px visible on the screen

@@ -28,31 +28,37 @@ function Input<T extends HTMLInputTypeAttribute>({ value: initialValue, onChange
 }
 
 type Props = {
-    isLoggedIn: boolean,
-    onLoginAttempt: (username: string, password: string) => boolean,
+    onLogin: (username: string, password: string) => void,
+    onLogout: () => void,
+
+    isLoggedIn?: boolean,
     usernameProps?: InputProps<string>,
     passwordProps?: InputProps<string>,
     loginButtonProps?: ButtonProps
 }
-type UseLoginReturn = [component: Component, isLoggedIn: boolean, logout: () => void];
+type UseLoginReturn = [component: Component | null, logout: () => void];
 
-export function useLogin({ isLoggedIn: initialIsLogin, onLoginAttempt, usernameProps, passwordProps, loginButtonProps }: Props): UseLoginReturn {
-    const [isLoggedIn, setIsLoggedIn] = useState(initialIsLogin);
+export function useLogin({ 
+    onLogin, onLogout, 
+    isLoggedIn = false, 
+    usernameProps, passwordProps, loginButtonProps 
+}: Props): UseLoginReturn {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const onSubmit = () => setIsLoggedIn(onLoginAttempt(username, password));
+    const onSubmit = () => onLogin(username, password);
 
-    const component = (
+    const component = !isLoggedIn ? (
         <div className="login-container">
-            <form action="">
+            <form onSubmit={onSubmit}>
                 <Input value={username} onChange={setUsername} type="text" id="username" label="Username" {...usernameProps} />
                 <Input value={password} onChange={setPassword} type="password" id="password" label="Password" {...passwordProps} />
-                <Button importance="primary" crud="create" type="submit" onClick={onSubmit}>Login</Button>
+                <Button {...loginButtonProps} importance="primary" crud="create" type="submit">Login</Button>
             </form>
         </div>
-    );
+    ) : null;
 
-    const logout = () => setIsLoggedIn(false);
+    const logout = onLogout
 
-    return [component, isLoggedIn, logout];
+    return [component, logout];
 }
+export default useLogin;

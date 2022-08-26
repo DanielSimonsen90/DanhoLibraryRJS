@@ -1,6 +1,6 @@
 import { UseArrayReturn } from "./useArrayState";
 export declare type HistoryOptions = {
-    /** Default: 10 */
+    /** @default 10 */
     capacity: number;
 };
 declare type UseStateWithHistoryReturn<State> = [
@@ -8,12 +8,34 @@ declare type UseStateWithHistoryReturn<State> = [
     push: (value: State) => void,
     props: {
         history: UseArrayReturn<State>;
+        /**
+         * Internal pointer reference. Recommended not to use.
+         */
         pointer: number;
+        /**
+         * Set value of the pointer reference. Preferred to use forward/go/backward instead.
+         * @param value Number between 0 and capacity - 1.
+         */
         setPointer(value: number): number;
+        /**
+         * Move pointer forward. Kinda like CTRL + Y
+         */
         forward(): void;
+        /**
+         * Go to specific history index.
+         */
         go(index: number): void;
+        /**
+         * Move pointer backward. Kinda like CTRL + Z
+         */
         back(): void;
+        /**
+         * Remove provided history item or item at index.
+         */
         remove(item: State | number): void;
+        /**
+         * Remove latest history item.
+         */
         pop(): void;
     }
 ];

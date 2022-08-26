@@ -1,7 +1,10 @@
 import { RefObject } from "react";
-declare type OnLongPress = () => void;
+import { Callback } from "../../utils";
 declare type LongPressOptions = {
-    /** Delay in ms */
+    /**
+     * Delay in ms
+     * @default 250
+     */
     delay: number;
 };
 /**
@@ -10,5 +13,5 @@ declare type LongPressOptions = {
  * @param onLongPress onLongPress callback
  * @param options Options
  */
-export declare function useLongPress<T extends HTMLElement>(ref: RefObject<T>, onLongPress: OnLongPress, { delay }?: LongPressOptions): void;
+export declare function useLongPress<T extends HTMLElement>(ref: RefObject<T>, onLongPress: Callback, { delay }?: LongPressOptions): void;
 export default useLongPress;

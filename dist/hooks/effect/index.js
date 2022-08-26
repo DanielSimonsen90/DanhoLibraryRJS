@@ -17,4 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./useAsyncEffect"), exports);
 __exportStar(require("./useDebounce"), exports);
 __exportStar(require("./useDeepCompareEffect"), exports);
-__exportStar(require("./useUpdateEffect"), exports);
+__exportStar(require("./useThrottle"), exports);

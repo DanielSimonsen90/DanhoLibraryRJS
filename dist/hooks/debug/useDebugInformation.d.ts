@@ -13,7 +13,7 @@ declare type useDebugInformationReturn = {
  * Debug component in details
  * @param componentName Name of the component to debug
  * @param props Component props
- * @param prefix Preferred console.log prefix
+ * @param prefix Preferred console.log prefix. Default = "[debug-info]"
  * @returns Debug information
  */
 export declare function useDebugInformation(componentName: string, props: any, prefix?: string): useDebugInformationReturn;

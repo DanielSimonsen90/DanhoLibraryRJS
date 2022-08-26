@@ -15,13 +15,13 @@ function useAsync(callback, dependencies = []) {
         setLoading(true);
         setError(undefined);
         setValue(undefined);
-        callback()
+        return callback()
             .then(setValue)
             .catch(setError)
             .finally(() => setLoading(false));
     }, dependencies);
     (0, react_1.useEffect)(() => { callbackMemoized(); }, [callbackMemoized]);
-    return { loading, error, value };
+    return { loading, error, value, callback: callbackMemoized };
 }
 exports.useAsync = useAsync;
 exports.default = useAsync;

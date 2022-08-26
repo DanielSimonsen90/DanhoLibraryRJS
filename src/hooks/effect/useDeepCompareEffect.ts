@@ -15,4 +15,5 @@ export function useDeepCompareEffect(callback: EffectCallback, dependencies: Dep
 
   useEffect(callback, [currentDependenciesRef.current])
 }
+export const useUpdateEffect = useDeepCompareEffect;
 export default useDeepCompareEffect;

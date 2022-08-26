@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-
-type Callback = () => void;
+import { Callback } from "../../utils";
 
 type Props = {
     onEnter?: Callback

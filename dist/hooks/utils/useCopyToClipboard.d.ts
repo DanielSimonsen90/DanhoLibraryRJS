@@ -1,6 +1,7 @@
 interface CopyOptions {
     debug?: boolean;
     message?: string;
+    /** MIME type */
     format?: string;
     onCopy?: (clipboardData: object) => void;
 }

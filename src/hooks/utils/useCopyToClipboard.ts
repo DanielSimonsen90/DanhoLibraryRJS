@@ -4,7 +4,8 @@ import copy from "copy-to-clipboard";
 interface CopyOptions {
     debug?: boolean;
     message?: string;
-    format?: string; // MIME type
+    /** MIME type */
+    format?: string;
     onCopy?: (clipboardData: object) => void;
 }
 

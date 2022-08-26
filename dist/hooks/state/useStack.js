@@ -30,7 +30,8 @@ function useStack(initialValue, options) {
         return size;
     };
     const pop = () => setArray(a => a.slice(0, -1));
-    return { value, push, pop, size };
+    const clear = () => setArray([]);
+    return { value, push, pop, clear, size };
 }
 exports.useStack = useStack;
 exports.default = useStack;

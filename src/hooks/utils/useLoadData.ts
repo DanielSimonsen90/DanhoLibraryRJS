@@ -1,11 +1,15 @@
 import { DependencyList } from "react";
 import { useAsync, useAsyncReturn } from "./useAsync";
-import { Callback, Component } from "../../utils/BaseReact";
+import { Callback, FunctionComponent, Component } from "../../utils/BaseReact";
 
-export type UseLoadDataReturn = [component: Component | undefined, loading: boolean];
-type Props<T> = Partial<Record<`${keyof useAsyncReturn<T>}Component`, Component>>;
+export type UseLoadDataReturn = [component: FunctionComponent<any> | undefined, loading: boolean];
+export type UseLoadDataProps<T> = Partial<{
+    loadingComponent: () => Component,
+    errorComponent: (error: Error) => Component,
+    valueComponent: (value: T) => Component,
+}>;
 
-export function useLoadData<T>(callback: Callback<Promise<T>>, props: Props<T>, dependencies?: DependencyList): UseLoadDataReturn {
+export function useLoadData<T>(callback: Callback<Promise<T>>, props: UseLoadDataProps<T>, dependencies?: DependencyList): UseLoadDataReturn {
     const { value, loading, error } = useAsync(callback, dependencies);
     const component = [
         loading && props.loadingComponent, 
@@ -16,5 +20,4 @@ export function useLoadData<T>(callback: Callback<Promise<T>>, props: Props<T>, 
     return [component, loading];
 }
 
-export { Props as UseLoadDataProps }
 export default useLoadData

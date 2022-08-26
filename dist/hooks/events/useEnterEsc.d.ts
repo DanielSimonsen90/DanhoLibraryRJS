@@ -1,4 +1,4 @@
-declare type Callback = () => void;
+import { Callback } from "../../utils";
 declare type Props = {
     onEnter?: Callback;
     onEsc?: Callback;

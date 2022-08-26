@@ -15,7 +15,8 @@ export function useEventListener<
 >(
     eventType: EventType, 
     callback: Listener<EventTypeEvent, ElementTarget>,
-    element?: ElementTarget | string
+    element?: ElementTarget | string,
+    options? : boolean | AddEventListenerOptions
 ) {
   const callbackRef = useRef(callback);
   const target: ElementTarget = (!element ? window : typeof element === 'string' ? document.querySelector(element) : element) as ElementTarget;
@@ -23,7 +24,7 @@ export function useEventListener<
 
   useEffect(() => { callbackRef.current = callback }, [callback])
 
-  const addEventListener = () => target.addEventListener(eventType, e => handler(e as any, target))
+  const addEventListener = () => target.addEventListener(eventType, e => handler(e as any, target), options)
   const removeEventListener = () => target.removeEventListener(eventType, e => handler(e as any, target));
 
   useEffect(() => {

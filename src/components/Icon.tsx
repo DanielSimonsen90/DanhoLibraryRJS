@@ -1,4 +1,4 @@
-import FontAwesome, { FontAwesomeProps } from 'react-fontawesome';
+import FA_Icon, { FontAwesomeProps } from 'react-fontawesome';
 import { useEffectOnce } from '../hooks';
 
 export type IconProps = FontAwesomeProps & {
@@ -10,6 +10,6 @@ export function Icon({ componentDidMount, componentWillUnmount, ...props }: Icon
         componentDidMount?.();
         return () => componentWillUnmount?.();
     });
-    return <FontAwesome {...props} />;
+    return <FA_Icon {...props} />;
 }
 export default Icon;

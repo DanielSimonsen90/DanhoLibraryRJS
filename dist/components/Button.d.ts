@@ -7,6 +7,7 @@ export declare type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HT
     iconName?: string;
     importance?: Importance;
     hideIcon?: boolean;
+    value?: string;
     onClick?: (event: ClickEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void;
 };
 export declare function Button({ crud, iconName, importance, hideIcon, className, value, children, onClick, ..._props }: ButtonProps): JSX.Element;

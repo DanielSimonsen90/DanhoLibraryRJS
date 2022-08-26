@@ -1,5 +1,5 @@
 import { TimeSpan } from "danholibraryjs";
-import React, { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import useRenderCount from "./useRenderCount"
 
 type useDebugInformationReturn = {
@@ -17,7 +17,7 @@ type useDebugInformationReturn = {
  * Debug component in details
  * @param componentName Name of the component to debug
  * @param props Component props
- * @param prefix Preferred console.log prefix
+ * @param prefix Preferred console.log prefix. Default = "[debug-info]"
  * @returns Debug information
  */
 export function useDebugInformation(componentName: string, props: any, prefix = "[debug-info]"): useDebugInformationReturn {

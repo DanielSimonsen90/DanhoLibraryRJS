@@ -1,10 +1,11 @@
 import { HistoryOptions } from "./useStateWithHistory";
 export declare type PushState<State> = (state: State) => number;
-export declare type PopState = () => void;
+export declare type ToVoid = () => void;
 export declare type UseStateStackReturn<State> = {
     value?: State;
     push: PushState<State>;
-    pop: PopState;
+    pop: ToVoid;
+    clear: ToVoid;
     size: number;
 };
 export declare type StackOptions = HistoryOptions;

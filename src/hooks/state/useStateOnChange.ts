@@ -2,6 +2,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { TimeDelay } from "danholibraryjs";
 import useDebounce from "../effect/useDebounce";
 
+/**
+ * @param state The state that is debounced
+ * @param stateChange The state that changes out of debounce - triggers debounce restart
+ * @param setStateChange Setter for stateChange
+*/
 type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Dispatch<SetStateAction<T>>]
 
 /**

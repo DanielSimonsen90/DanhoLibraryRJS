@@ -9,9 +9,10 @@ export declare type SwitchProps = BaseProps<HTMLInputElement> & {
     /**@default false */
     vertical?: boolean;
     onCheckChanged?: (value: boolean, e: ChangeEvent<HTMLInputElement>) => void;
-    icons?: Omit<IconProps, 'name' | 'checked'> & {
+    icons?: Omit<IconProps, 'name' | 'checked' | 'vertical'> & {
         checked?: string;
         unchecked?: string;
     };
 };
-export declare const Switch: React.FC<SwitchProps>;
+export declare function Switch(props: SwitchProps): JSX.Element;
+export default Switch;

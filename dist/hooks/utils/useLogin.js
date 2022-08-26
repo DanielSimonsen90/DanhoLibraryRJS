@@ -15,15 +15,15 @@ function Input({ value: initialValue, onChange, label, ...props }) {
     };
     if (label && !props.id)
         throw new Error("Input must have an id if it has a label!");
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [label && (0, jsx_runtime_1.jsx)("label", { htmlFor: props.id, children: label }), (0, jsx_runtime_1.jsx)("input", { value: value, onChange: _onChange, ...props })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [label && (0, jsx_runtime_1.jsx)("label", { htmlFor: props.id, children: label }, void 0), (0, jsx_runtime_1.jsx)("input", { value: value, onChange: _onChange, ...props }, void 0)] }, void 0));
 }
-function useLogin({ isLoggedIn: initialIsLogin, onLoginAttempt, usernameProps, passwordProps, loginButtonProps }) {
-    const [isLoggedIn, setIsLoggedIn] = (0, react_1.useState)(initialIsLogin);
+function useLogin({ onLogin, onLogout, isLoggedIn = false, usernameProps, passwordProps, loginButtonProps }) {
     const [username, setUsername] = (0, react_1.useState)("");
     const [password, setPassword] = (0, react_1.useState)("");
-    const onSubmit = () => setIsLoggedIn(onLoginAttempt(username, password));
-    const component = ((0, jsx_runtime_1.jsx)("div", { className: "login-container", children: (0, jsx_runtime_1.jsxs)("form", { action: "", children: [(0, jsx_runtime_1.jsx)(Input, { value: username, onChange: setUsername, type: "text", id: "username", label: "Username", ...usernameProps }), (0, jsx_runtime_1.jsx)(Input, { value: password, onChange: setPassword, type: "password", id: "password", label: "Password", ...passwordProps }), (0, jsx_runtime_1.jsx)(Button_1.default, { importance: "primary", crud: "create", type: "submit", onClick: onSubmit, children: "Login" })] }) }));
-    const logout = () => setIsLoggedIn(false);
-    return [component, isLoggedIn, logout];
+    const onSubmit = () => onLogin(username, password);
+    const component = !isLoggedIn ? ((0, jsx_runtime_1.jsx)("div", { className: "login-container", children: (0, jsx_runtime_1.jsxs)("form", { onSubmit: onSubmit, children: [(0, jsx_runtime_1.jsx)(Input, { value: username, onChange: setUsername, type: "text", id: "username", label: "Username", ...usernameProps }, void 0), (0, jsx_runtime_1.jsx)(Input, { value: password, onChange: setPassword, type: "password", id: "password", label: "Password", ...passwordProps }, void 0), (0, jsx_runtime_1.jsx)(Button_1.default, { ...loginButtonProps, importance: "primary", crud: "create", type: "submit", children: "Login" }, void 0)] }, void 0) }, void 0)) : null;
+    const logout = onLogout;
+    return [component, logout];
 }
 exports.useLogin = useLogin;
+exports.default = useLogin;

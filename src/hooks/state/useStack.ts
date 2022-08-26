@@ -2,11 +2,12 @@ import { useMemo, useState } from "react";
 import { HistoryOptions } from "./useStateWithHistory";
 
 export type PushState<State> = (state: State) => number;
-export type PopState = () => void;
+export type ToVoid = () => void;
 export type UseStateStackReturn<State> = {
     value?: State, 
     push: PushState<State>, 
-    pop: PopState,
+    pop: ToVoid,
+    clear: ToVoid,
     size: number
 }
 export type StackOptions = HistoryOptions;
@@ -39,7 +40,8 @@ export function useStack<State>(initialValue?: State, options?: StackOptions): U
         return size;
     }
     const pop = () => setArray(a => a.slice(0, -1));
+    const clear = () => setArray([]);
 
-    return { value, push, pop, size };
+    return { value, push, pop, clear, size };
 }
 export default useStack;

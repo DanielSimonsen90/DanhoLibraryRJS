@@ -7,11 +7,13 @@ export declare type useAsyncReturn<T, Err = Error> = {
     error: Err | undefined;
     /** The final result */
     value: T | undefined;
+    /** The callback passed, memoized to modify internal state */
+    callback: Callback<void>;
 };
 /**
  * Run something asyncronously - returns object that informs whether callback is still being processed (loading), callback errored (error) or callback finished (value)
  * @param callback Callback to run
  * @param dependencies Dependencies
  */
-export declare function useAsync<T>(callback: Callback<T>, dependencies?: DependencyList): useAsyncReturn<T>;
+export declare function useAsync<Value, Err = Error>(callback: Callback<Value>, dependencies?: DependencyList): useAsyncReturn<Value, Err>;
 export default useAsync;

@@ -4,7 +4,6 @@ export * from './DatePicker';
 export * from './Dropdown';
 export * from './Switch';
 export * from './TabBar';
-export * from './TabBarItem';
 
 export function classNames(...classNames: Array<string | undefined>) {
     return classNames.filter(v => v).join(' ');

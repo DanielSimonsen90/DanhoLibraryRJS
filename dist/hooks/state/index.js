@@ -15,11 +15,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./useArrayState"), exports);
+__exportStar(require("./useCache"), exports);
 __exportStar(require("./useCookie"), exports);
 __exportStar(require("./usePrevious"), exports);
 __exportStar(require("./useStack"), exports);
 __exportStar(require("./useStateOnChange"), exports);
-__exportStar(require("./useStateOnUpdate"), exports);
+__exportStar(require("./useStateUpdate"), exports);
 __exportStar(require("./useStateWithHistory"), exports);
 __exportStar(require("./useStateWithValidation"), exports);
 __exportStar(require("./useStorage"), exports);

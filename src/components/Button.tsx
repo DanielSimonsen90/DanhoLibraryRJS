@@ -9,7 +9,8 @@ export type ButtonProps = Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButton
     crud?: CRUD,
     iconName?: string,
     importance?: Importance,
-    hideIcon?: boolean
+    hideIcon?: boolean,
+    value?: string,
     
     onClick?: (event: ClickEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void
 }
