@@ -6,15 +6,18 @@ type Updates<State> = {
     /**
      * Callback ran when dependencies have changed. Provided state is current state. Expects SetStateAction, aka State | (state) => State returned.
     */
-     before: Callback<SetStateAction<State>, [state: State]>,
+     before?: Callback<SetStateAction<State>, [state: State]>,
      /**
       * Callback ran after state has changed. Value returned is used as clean-up for internal useEffect
      */
-     after: Callback<void | Callback, [state: State]>
+     after?: Callback<void | Callback, [state: State]>
 }
 export function useStateUpdate<State>(
     initialState: State | undefined, 
-    { before, after }: Updates<State> = {
+    { 
+        before = s => s, 
+        after = () => {} 
+    }: Updates<State> = {
         before: s => s,
         after: () => {}
     }, 

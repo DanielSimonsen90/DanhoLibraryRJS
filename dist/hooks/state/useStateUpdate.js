@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useStateUpdate = void 0;
 const react_1 = require("react");
 const effect_1 = require("../effect");
-function useStateUpdate(initialState, { before, after } = {
+function useStateUpdate(initialState, { before = s => s, after = () => { } } = {
     before: s => s,
     after: () => { }
 }, dependencies) {
