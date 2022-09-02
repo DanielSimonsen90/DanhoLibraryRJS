@@ -12,7 +12,7 @@ function Icon({ componentDidMount, componentWillUnmount, ...props }) {
         componentDidMount === null || componentDidMount === void 0 ? void 0 : componentDidMount();
         return () => componentWillUnmount === null || componentWillUnmount === void 0 ? void 0 : componentWillUnmount();
     });
-    return (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { ...props }, void 0);
+    return (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { ...props });
 }
 exports.Icon = Icon;
 exports.default = Icon;

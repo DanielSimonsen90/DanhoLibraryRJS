@@ -47,7 +47,7 @@ type UseStateWithHistoryReturn<State> = [value: State, push: (value: State) => v
  * @param options History options
  */
 export function useStateWithHistory<State>(defaultValue: State, { capacity = DefaultCapacity }: HistoryOptions): UseStateWithHistoryReturn<State> {
-    const history = useArrayState(defaultValue ? [defaultValue] : []);
+    const history = useArrayState<State>(defaultValue ? [defaultValue] : []);
     const pointerRef = useRef(0);
     const current = useMemo(() => history.index(pointerRef.current), [history, pointerRef.current])
 
