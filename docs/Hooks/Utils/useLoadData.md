@@ -1,24 +1,35 @@
 # [DanhoLibraryRJS](../../index.md) / [Hooks](../index.md) / [Utils](index.md) / useLoadData
+
 Render components based on loading state.
 
 ## References
-* [Hooks](../index.md)
-    * [useAsync](useAsync.md)
+
+- [Hooks](../index.md)
+  - [useAsync](useAsync.md)
 
 ## [Module](../../../src/hooks/utils/useLoadData.ts)
+
 ```ts
-export type UseLoadDataReturn = [component: Component | undefined, loading: boolean];
+type Functionable<Return, T extends any[] = any> =
+	| ((...args: T) => Return)
+	| Return;
+export type UseLoadDataReturn = [component: Component | null, loading: boolean];
 export type UseLoadDataProps<T> = Partial<{
-    loadingComponent: () => Component,
-    errorComponent: (error: Error) => Component,
-    valueComponent: (value: T) => Component,
+	loadingComponent: Functionable<Component>;
+	errorComponent: Functionable<Component, [error: Error]>;
+	valueComponent: Functionable<Component, [value: T]>;
 }>;
 
-export function useLoadData<T>(callback: Callback<Promise<T>>, props: UseLoadDataProps<T>, dependencies?: DependencyList): UseLoadDataReturn;
+export function useLoadData<T>(
+	callback: Callback<Promise<T>>,
+	props: UseLoadDataProps<T>,
+	dependencies?: DependencyList
+): UseLoadDataReturn;
 export default useLoadData;
 ```
 
 ## Example
+
 ```tsx
 function TestComponent(props) {
     const [query, search, setSearch] = useStateOnChange("", 1000);
@@ -27,7 +38,7 @@ function TestComponent(props) {
         const data = await response.json();
         return data;
     }, {
-        loadingComponent: () => <p>Loading...</p>,
+        loadingComponent: <p>Loading...</p>,
         errorComponent: err => (
             <div className="error">
                 <h1>There was an error!</h1>

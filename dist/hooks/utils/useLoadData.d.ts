@@ -1,7 +1,7 @@
 import { DependencyList } from "react";
-import { Callback, FunctionComponent, Component } from "../../utils/BaseReact";
-declare type Functionable<Return, T extends any[] = any> = (...args: T) => Return | Return;
-export declare type UseLoadDataReturn = [component: FunctionComponent<any> | undefined, loading: boolean];
+import { Callback, Component } from "../../utils/BaseReact";
+declare type Functionable<Return, T extends any[] = any> = ((...args: T) => Return) | Return;
+export declare type UseLoadDataReturn = [component: Component | null, loading: boolean];
 export declare type UseLoadDataProps<T> = Partial<{
     loadingComponent: Functionable<Component>;
     errorComponent: Functionable<Component, [error: Error]>;

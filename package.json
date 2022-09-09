@@ -1,6 +1,6 @@
 {
   "name": "@danielsimonsen90/danholibraryrjs",
-  "version": "1.3.2",
+  "version": "1.3.4",
   "description": "DanhoLibrary for React.js",
   "author": "DanielSimonsen90",
   "main": "dist/index.js",
