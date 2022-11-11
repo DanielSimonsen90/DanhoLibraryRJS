@@ -36,20 +36,21 @@ function useStorage<Key extends string, T>(key: Key, defaultValue: T, storageObj
     const jsonValue = storageObject.getItem(key);
 
     return jsonValue != null ? 
-      parse ? parse(JSON.parse(jsonValue) as T) : JSON.parse(jsonValue) 
+      parse ? 
+        parse(JSON.parse(jsonValue) as T) : 
+        JSON.parse(jsonValue) 
       : typeof defaultValue === 'function' ? 
           defaultValue() : 
           defaultValue;
   });
 
   useEffect(() => {
-    if (value === undefined) return storageObject.removeItem(key);
-    storageObject.setItem(key, JSON.stringify(value));
+    value === undefined ? 
+      storageObject.removeItem(key) : 
+      storageObject.setItem(key, JSON.stringify(value));
   }, [key, value, storageObject]);
 
-  const remove: () => void = useCallbackOnce(() => {
-    setValue(undefined as any);
-  });
+  const remove = useCallbackOnce(() => setValue(undefined as any));
   
   return [value, setValue, remove]
 }
