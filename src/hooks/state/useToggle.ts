@@ -1,12 +1,12 @@
-import { useCallback, useMemo, useRef, useState } from "react"
-type ValueChangeFunc<T> = (value: T) => T
-type ValueChanged<T> = (value: T) => void
-type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean]
+import { useCallback, useMemo, useRef, useState } from "react";
+type ValueChangeFunc<T> = (value: T) => T;
+type ValueChanged<T> = (value: T) => void;
+type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean];
 type ToggleChanges<T> = {
   onDefault: ValueChangeFunc<T>,
   onChange: ValueChanged<T>,
   onToggled: ValueChangeFunc<T>,
-}
+};
 
 /**
  * Toggles between defaultValue & toggledValue.
@@ -17,12 +17,12 @@ type ToggleChanges<T> = {
  */
 export function useToggle<T>(defaultValue: T, toggledValue: T, { onDefault, onToggled, onChange }: ToggleChanges<T> = {
   onDefault: (value: T) => value,
-  onChange: (value: T) => {},
+  onChange: (value: T) => { },
   onToggled: (value: T) => value,
 }): UseToggleReturn<T> {
   const [value, setValue] = useState(defaultValue);
   const [onToggledTrue, onToggledFalse, onToggleChanged] = [
-    useRef<ValueChangeFunc<T>>(onToggled), 
+    useRef<ValueChangeFunc<T>>(onToggled),
     useRef<ValueChangeFunc<T>>(onDefault),
     useRef<ValueChanged<T>>(onChange),
   ];
@@ -42,7 +42,7 @@ export function useToggle<T>(defaultValue: T, toggledValue: T, { onDefault, onTo
     onChange(v);
 
     return v;
-  }), [value])
+  }), [value]);
 
   return [value, toggleValue, isToggled];
 }

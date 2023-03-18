@@ -35,7 +35,8 @@ function useArrayState(defaultValue) {
     const clear = () => setArray([]);
     const shift = () => remove(0);
     const pop = () => remove(array.length - 1);
-    return { ...arrayProps,
+    return {
+        ...arrayProps,
         value: array,
         push,
         filter, update,

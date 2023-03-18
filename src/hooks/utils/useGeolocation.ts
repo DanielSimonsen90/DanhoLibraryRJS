@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { useAsyncReturn } from "./useAsync";
 
 type GeolocationError = GeolocationPositionError | null | undefined;
-type useGeolocationReturn = Omit<useAsyncReturn<GeolocationCoordinates, GeolocationError>, 'callback'>
+type useGeolocationReturn = Omit<useAsyncReturn<GeolocationCoordinates, GeolocationError>, 'callback'>;
 
 /**
  * Receive all the geographical information based on options
@@ -18,17 +18,17 @@ export function useGeolocation(options: PositionOptions): useGeolocationReturn {
       setLoading(false);
       setError(null);
       setValue(e.coords);
-    }
-    const errorHandler: PositionErrorCallback  = e => {
+    };
+    const errorHandler: PositionErrorCallback = e => {
       setError(e);
       setLoading(false);
-    }
+    };
 
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
     const id = navigator.geolocation.watchPosition(successHandler, errorHandler, options);
-    return () => navigator.geolocation.clearWatch(id)
-  }, [options])
+    return () => navigator.geolocation.clearWatch(id);
+  }, [options]);
 
-  return { loading, error, value }
+  return { loading, error, value };
 }
 export default useGeolocation;

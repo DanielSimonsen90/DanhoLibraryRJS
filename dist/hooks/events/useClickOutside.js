@@ -22,9 +22,6 @@ function useClickOutside(query, onClickOutside) {
         const el = document.querySelector(query);
         if (el == null || includesChild(el, e.target))
             return;
-        // console.log('Clicked outside', {
-        //     el, e, target: e.target
-        // });
         onClickOutside(e, el);
     }, document);
 }

@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { BaseProps } from "../utils";
 import { IconProps } from './Icon';
-export declare type SwitchProps = BaseProps<HTMLInputElement> & {
+export type SwitchProps = BaseProps<HTMLInputElement> & {
     /**@default false */
     checked?: boolean;
     /**@default false */

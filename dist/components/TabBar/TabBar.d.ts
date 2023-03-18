@@ -3,12 +3,12 @@ import { Arrayable } from 'danholibraryjs';
 import BaseProps from '../../utils/BaseProps';
 import { TabBarItemProps } from './TabBarItem';
 import { ClickEvent } from '../../utils';
-declare type OnItemSelected = (event: OnItemSelectedEvent) => void;
-export declare type OnItemSelectedEvent = ClickEvent<HTMLLIElement> & {
+type OnItemSelected = (event: OnItemSelectedEvent) => void;
+export type OnItemSelectedEvent = ClickEvent<HTMLLIElement> & {
     previous: TabBarItemProps;
     current: TabBarItemProps;
 };
-export declare type TabBarProps = BaseProps<HTMLElement, false> & {
+export type TabBarProps = BaseProps<HTMLElement, false> & {
     data?: Map<string, TabBarItemProps>;
     children?: Arrayable<ReactElement<TabBarItemProps>>;
     onItemSelected?: OnItemSelected;

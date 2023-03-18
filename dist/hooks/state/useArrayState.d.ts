@@ -1,11 +1,11 @@
-declare type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean;
-declare type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
+type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean;
+type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
     push(item: T): void;
     update(index: number, item: T): void;
     filter(callback: FilterCallback<T>): void;
     remove(i: number | T): T | undefined;
 };
-export declare type UseArrayReturn<T> = {
+export type UseArrayReturn<T> = {
     value: Array<T>;
 } & ArrayModifies<T> & Pick<Omit<Array<T>, keyof ArrayModifies<T>>, 'find' | 'some' | 'includes' | 'every' | 'random' | 'reduce' | 'map' | 'forEach' | 'findIndex' | 'indexOf' | 'index' | 'lastIndexOf' | 'keys' | 'values' | 'join' | 'length'>;
 /**

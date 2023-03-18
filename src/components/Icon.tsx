@@ -2,14 +2,14 @@ import FA_Icon, { FontAwesomeProps } from 'react-fontawesome';
 import { useEffectOnce } from '../hooks';
 
 export type IconProps = FontAwesomeProps & {
-    componentDidMount?: () => void;
-    componentWillUnmount?: () => void;
-}
-export function Icon({ componentDidMount, componentWillUnmount, ...props }: IconProps) {
-    useEffectOnce(() => {
-        componentDidMount?.();
-        return () => componentWillUnmount?.();
-    });
-    return <FA_Icon {...props} />;
+  onMount?: () => void;
+  onUnmount?: () => void;
+};
+export function Icon({ onMount, onUnmount, ...props }: IconProps) {
+  useEffectOnce(() => {
+    onMount?.();
+    return () => onUnmount?.();
+  });
+  return <FA_Icon {...props} />;
 }
 export default Icon;

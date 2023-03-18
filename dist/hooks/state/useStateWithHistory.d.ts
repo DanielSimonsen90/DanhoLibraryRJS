@@ -1,9 +1,9 @@
 import { UseArrayReturn } from "./useArrayState";
-export declare type HistoryOptions = {
+export type HistoryOptions = {
     /** @default 10 */
     capacity: number;
 };
-declare type UseStateWithHistoryReturn<State> = [
+type UseStateWithHistoryReturn<State> = [
     value: State,
     push: (value: State) => void,
     props: {

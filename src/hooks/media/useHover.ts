@@ -8,8 +8,8 @@ import useEventListener from "../events/useEventListener";
 export function useHover<T extends HTMLElement>(ref: RefObject<T>) {
     const [hovered, setHovered] = useState(false);
 
-    useEventListener("mouseover", () => setHovered(true), ref.current ?? undefined)
-    useEventListener("mouseout", () => setHovered(false), ref.current ?? undefined)
+    useEventListener("mouseover", () => setHovered(true), ref.current ?? undefined);
+    useEventListener("mouseout", () => setHovered(false), ref.current ?? undefined);
 
     return hovered;
 }

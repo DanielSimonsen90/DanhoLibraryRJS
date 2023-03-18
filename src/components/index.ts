@@ -2,9 +2,10 @@ export * from './Button';
 export * from './Container';
 export * from './DatePicker';
 export * from './Dropdown';
+export * from './Form';
 export * from './Switch';
 export * from './TabBar';
 
 export function classNames(...classNames: Array<string | undefined>) {
-    return classNames.filter(v => v).join(' ');
+  return classNames.filter(v => v).join(' ');
 }

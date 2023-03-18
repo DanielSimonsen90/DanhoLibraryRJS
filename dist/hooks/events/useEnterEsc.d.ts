@@ -1,5 +1,5 @@
 import { Callback } from "../../utils";
-declare type Props = {
+type Props = {
     onEnter?: Callback;
     onEsc?: Callback;
     target?: EventTarget;

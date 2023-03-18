@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { Callback } from "../../utils";
-declare type LongPressOptions = {
+type LongPressOptions = {
     /**
      * Delay in ms
      * @default 250

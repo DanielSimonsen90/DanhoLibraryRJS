@@ -1,13 +1,7 @@
-import { DetailedHTMLProps, HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
 import { ButtonProps } from "../../components/Button";
+import { InputProps } from "../../components/Form/Input";
 import { Component } from "../../utils";
-declare type InputProps<T extends HTMLInputTypeAttribute> = Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type" | "onChange" | "value"> & {
-    value: T;
-    onChange: (value: T) => void;
-    type: T;
-    label?: string;
-};
-declare type Props = {
+type Props = {
     onLogin: (username: string, password: string) => void;
     onLogout: () => void;
     isLoggedIn?: boolean;
@@ -15,6 +9,6 @@ declare type Props = {
     passwordProps?: InputProps<string>;
     loginButtonProps?: ButtonProps;
 };
-declare type UseLoginReturn = [component: Component | null, logout: () => void];
+type UseLoginReturn = [component: Component | null, logout: () => void];
 export declare function useLogin({ onLogin, onLogout, isLoggedIn, usernameProps, passwordProps, loginButtonProps }: Props): UseLoginReturn;
 export default useLogin;

@@ -12,11 +12,13 @@
     "esModuleInterop": true,
     "declaration": true,
     "watch": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "demo"
   ]
 }

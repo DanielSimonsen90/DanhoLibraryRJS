@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Date } from "danholibraryjs";
-declare type Props = {
+type Props = {
     type?: '12h' | '24h';
     /**
      * @$hh12 Replaced with double digit hour in 12-hour format

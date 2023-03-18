@@ -1,7 +1,7 @@
-declare type ValueChangeFunc<T> = (value: T) => T;
-declare type ValueChanged<T> = (value: T) => void;
-declare type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean];
-declare type ToggleChanges<T> = {
+type ValueChangeFunc<T> = (value: T) => T;
+type ValueChanged<T> = (value: T) => void;
+type UseToggleReturn<T> = [value: T, toggleValue: (newValue?: T) => void, isToggled: boolean];
+type ToggleChanges<T> = {
     onDefault: ValueChangeFunc<T>;
     onChange: ValueChanged<T>;
     onToggled: ValueChangeFunc<T>;

@@ -1,7 +1,7 @@
 import { DependencyList } from "react";
 import { useAsyncReturn } from "./useAsync";
-declare type FetchOptions = RequestInit & {};
-export declare type useFetchReturn<T, Err> = Omit<useAsyncReturn<T, Err>, 'callback'> & {
+type FetchOptions = RequestInit & {};
+export type useFetchReturn<T, Err> = Omit<useAsyncReturn<T, Err>, 'callback'> & {
     fetch: () => Promise<T>;
 };
 /**

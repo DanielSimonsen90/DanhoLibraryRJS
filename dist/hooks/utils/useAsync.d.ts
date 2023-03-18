@@ -1,6 +1,6 @@
 import { DependencyList } from "react";
-declare type Callback<T> = () => Promise<T>;
-export declare type useAsyncReturn<T, Err = Error> = {
+type Callback<T> = () => Promise<T>;
+export type useAsyncReturn<T, Err = Error> = {
     /** Value is being process asyncronously */
     loading: boolean;
     /** Error happend while handling callback */

@@ -5,21 +5,10 @@ Hook to return a basic login form, along with login state and logout function.
 ## References
 * [Components](../../Components/index.md)
     * [Button](../../Components/User%20Interface/Button.md)
+    * [Input](../../Components/Form/Input.md)
 
 ## [Module](../../../src/hooks/utils/useLogin.tsx)
 ```tsx
-type InputProps<T extends HTMLInputTypeAttribute> = Omit<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 
-    "type" | "onChange" | "value"
-> & {
-    value: T;
-    onChange: (value: T) => void;
-    type: T;
-    label?: string
-}
-
-function Input<T extends HTMLInputTypeAttribute>({ value: initialValue, onChange, label, ...props }: InputProps<T>): JSX.Element;
-
 type Props = {
     onLogin: (username: string, password: string) => void,
     onLogout: () => void,

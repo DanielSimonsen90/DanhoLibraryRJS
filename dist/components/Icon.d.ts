@@ -1,8 +1,8 @@
 /// <reference types="react" />
 import { FontAwesomeProps } from 'react-fontawesome';
-export declare type IconProps = FontAwesomeProps & {
-    componentDidMount?: () => void;
-    componentWillUnmount?: () => void;
+export type IconProps = FontAwesomeProps & {
+    onMount?: () => void;
+    onUnmount?: () => void;
 };
-export declare function Icon({ componentDidMount, componentWillUnmount, ...props }: IconProps): JSX.Element;
+export declare function Icon({ onMount, onUnmount, ...props }: IconProps): JSX.Element;
 export default Icon;

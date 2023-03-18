@@ -1,50 +1,52 @@
 @mixin defineProperties() {
-    $color-mix-percent: 25%;
-    $color-mix-percent-hover: 50%;
-    
-    $color-mix-primary: white;
-    $color-mix-secondary: black;
+  $color-mix-percent: 25%;
+  $color-mix-percent-hover: 50%;
 
-    @media (prefers-color-scheme: dark) {
-        $color-mix-primary: #333;
-        $color-mix-secondary: white;
-    }
+  $color-mix-primary: white;
+  $color-mix-secondary: black;
 
-    $color-mix: mix($color-mix-primary, $color-mix-secondary, $color-mix-percent);
-    $color-mix-hover: mix($color-mix-primary, $color-mix-secondary, $color-mix-percent-hover);
+  @media (prefers-color-scheme: dark) {
+    $color-mix-primary: #333;
+    $color-mix-secondary: white;
+  }
 
-    --tab-bar-border-color-selected: #{$color-mix};
-    --tab-bar-border-color-hover: #{$color-mix-hover};
+  $color-mix: mix($color-mix-primary, $color-mix-secondary, $color-mix-percent);
+  $color-mix-hover: mix($color-mix-primary, $color-mix-secondary, $color-mix-percent-hover);
+
+  --tab-bar-border-color-selected: #{$color-mix};
+  --tab-bar-border-color-hover: #{$color-mix-hover};
 }
 
 .tab-bar {
-    width: 100%;
+  width: 100%;
 
-    ul {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: .5em;
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: .5em;
+  }
+
+  li {
+    @include defineProperties();
+
+    list-style-type: none;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.3rem;
+
+    padding: .5em;
+    margin: .5em;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      border-bottom: 1px solid var(--tab-bar-border-color-hover);
     }
 
-    li {
-        @include defineProperties();
-
-        list-style-type: none;
-        font-weight: bold;
-        text-align: center;
-        font-size: 1.3rem;
-        
-        padding: .5em;
-        margin: .5em;
-
-        &:hover, &:focus {
-            cursor: pointer;
-            border-bottom: 1px solid var(--tab-bar-border-color-hover);
-        }
-        &.selected {
-            border-bottom: 2px solid var(--tab-bar-border-color-selected);
-        }
+    &.selected {
+      border-bottom: 2px solid var(--tab-bar-border-color-selected);
     }
+  }
 }

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-declare type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void];
-declare type Parse<T> = (value: T) => T;
+type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void];
+type Parse<T> = (value: T) => T;
 /**
  * Store a value in LocalStorage using key
  * @param key Key to store value

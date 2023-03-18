@@ -5,7 +5,7 @@ function createTabBarItem(title, component) {
     return { title, component };
 }
 exports.createTabBarItem = createTabBarItem;
-function TabBarItem({ title, component }) {
+function TabBarItem({ component }) {
     return typeof component === 'function' ? component() : component;
 }
 exports.TabBarItem = TabBarItem;
