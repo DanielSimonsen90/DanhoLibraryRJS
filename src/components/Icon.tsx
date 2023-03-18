@@ -8,8 +8,9 @@ export type IconProps = FontAwesomeProps & {
 export function Icon({ onMount, onUnmount, ...props }: IconProps) {
   useEffectOnce(() => {
     onMount?.();
-    return () => onUnmount?.();
+    return onUnmount;
   });
+  
   return <FA_Icon {...props} />;
 }
 export default Icon;

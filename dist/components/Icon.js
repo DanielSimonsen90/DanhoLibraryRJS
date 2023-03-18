@@ -10,7 +10,7 @@ const hooks_1 = require("../hooks");
 function Icon({ onMount, onUnmount, ...props }) {
     (0, hooks_1.useEffectOnce)(() => {
         onMount === null || onMount === void 0 ? void 0 : onMount();
-        return () => onUnmount === null || onUnmount === void 0 ? void 0 : onUnmount();
+        return onUnmount;
     });
     return (0, jsx_runtime_1.jsx)(react_fontawesome_1.default, { ...props });
 }
