@@ -6,14 +6,13 @@ type Login = {
 };
 
 export default function App() {
-  const [login, setLogin, removeLogin] = useLocalStorage('login', null as Login | null);
+  const [login, setLogin, removeLogin] = useLocalStorage('login', undefined as Login | undefined);
+
   const [component, logout] = useLogin({
     onLogin(username, password) {
-      alert(`Logging in with username: ${username} and password: ${password}!`);
       setLogin({ username, password });
     },
     onLogout() {
-      alert(`Logging out!`);
       removeLogin();
     },
     isLoggedIn: !!login,  

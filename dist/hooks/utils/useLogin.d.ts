@@ -1,8 +1,9 @@
+import { FormEvent } from "react";
 import { ButtonProps } from "../../components/Button";
 import { InputProps } from "../../components/Form/Input";
 import { Component } from "../../utils";
 type Props = {
-    onLogin: (username: string, password: string) => void;
+    onLogin: (username: string, password: string, event: FormEvent) => void;
     onLogout: () => void;
     isLoggedIn?: boolean;
     usernameProps?: InputProps<string>;

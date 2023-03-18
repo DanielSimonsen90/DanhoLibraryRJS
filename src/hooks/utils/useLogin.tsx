@@ -1,10 +1,10 @@
-import { ChangeEvent, DetailedHTMLProps, HTMLInputTypeAttribute, InputHTMLAttributes, useState } from "react";
+import { useState, FormEvent } from "react";
 import Button, { ButtonProps } from "../../components/Button";
 import { InputProps, Input } from "../../components/Form/Input";
 import { Component } from "../../utils";
 
 type Props = {
-  onLogin: (username: string, password: string) => void,
+  onLogin: (username: string, password: string, event: FormEvent) => void,
   onLogout: () => void,
 
   isLoggedIn?: boolean,
@@ -21,7 +21,10 @@ export function useLogin({
 }: Props): UseLoginReturn {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const onSubmit = () => onLogin(username, password);
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    onLogin(username, password, event);
+  }
 
   const component = !isLoggedIn ? (
     <div className="login-container">

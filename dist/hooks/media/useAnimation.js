@@ -15,29 +15,36 @@ const useMediaQuery_1 = __importDefault(require("./useMediaQuery"));
  */
 function useAnimation(query, className, baseTime) {
     const prefersAnimations = (0, useMediaQuery_1.default)('prefers-reduced-motion: no-preference');
-    const [{ animations: allowAnimations }] = (0, useStorage_1.useLocalStorage)('settings', { animations: prefersAnimations });
-    return ({ time, className: additionalClassName = '' } = {}) => {
-        const el = document.querySelector(query);
-        if (!el)
-            throw new Error(`Invalid query: ${query}`);
-        el.classList.add(className.replace('.', ''));
-        return new Promise((resolve, reject) => {
-            try {
-                if (!time && !baseTime)
-                    return resolve(el);
-                setTimeout(() => {
-                    el.classList.remove(...[
-                        className.replace('.', ''),
-                        additionalClassName
-                    ].filter(v => v));
-                    resolve(el);
-                }, allowAnimations ? (0, danholibraryjs_1.ms)(time || baseTime) : 0);
-            }
-            catch (err) {
-                reject(err);
-            }
-        });
-    };
+    const [{ animations: allowAnimations }, setAnimations] = (0, useStorage_1.useLocalStorage)('settings', {
+        animations: document.readyState !== 'complete'
+            ? null
+            : prefersAnimations
+    });
+    return ({ time, className: additionalClassName = '' } = {}) => new Promise((resolve, reject) => {
+        if (document.readyState !== 'complete')
+            return;
+        if (allowAnimations === null)
+            setAnimations({ animations: prefersAnimations });
+        try {
+            const el = document.querySelector(query);
+            if (!el)
+                throw new Error(`Invalid query: ${query}`);
+            el.classList.add(className.replace('.', ''));
+            if (!time && !baseTime)
+                return resolve(el);
+            setTimeout(() => {
+                el.classList.remove(...[
+                    className.replace('.', ''),
+                    additionalClassName
+                ].filter(v => v));
+                resolve(el);
+            }, allowAnimations ? (0, danholibraryjs_1.ms)(time || baseTime) : 0);
+        }
+        catch (err) {
+            reject(err);
+        }
+    });
 }
 exports.useAnimation = useAnimation;
+;
 exports.default = useAnimation;
