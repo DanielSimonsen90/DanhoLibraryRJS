@@ -1,5 +1,5 @@
-declare type AllEvents<EventType extends keyof WindowEventMap> = WindowEventMap[EventType];
-declare type Listener<T, U> = (event: T, element: U) => void;
+type AllEvents<EventType extends keyof WindowEventMap> = WindowEventMap[EventType];
+type Listener<T, U> = (event: T, element: U) => void;
 /**
  * Add event listener to element
  * @param eventType Type of event to add a listener to

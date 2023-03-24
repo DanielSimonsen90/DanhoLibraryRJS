@@ -1,8 +1,8 @@
 /// <reference types="react" />
-declare type Stringable = {
+type Stringable = {
     toString(): string;
 };
-declare type Props<T extends Stringable> = {
+type Props<T extends Stringable> = {
     items: Array<T>;
     onItemSelected: (item: T) => void;
 };

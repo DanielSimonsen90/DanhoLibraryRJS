@@ -19,6 +19,7 @@ __exportStar(require("./useCopyToClipboard"), exports);
 __exportStar(require("./useFetch"), exports);
 __exportStar(require("./useGeolocation"), exports);
 __exportStar(require("./useLoadData"), exports);
+__exportStar(require("./useLogin"), exports);
 __exportStar(require("./useOnlineStatus"), exports);
 __exportStar(require("./useRedirect"), exports);
 __exportStar(require("./useScript"), exports);

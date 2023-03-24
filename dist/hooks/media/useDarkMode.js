@@ -13,7 +13,8 @@ const useStorage_1 = require("../state/useStorage");
 function useDarkMode() {
     const prefersDarkMode = (0, useMediaQuery_1.default)("(prefers-color-scheme: dark)");
     const [settings, setSettings] = (0, useStorage_1.useLocalStorage)("settings", { darkmode: prefersDarkMode });
-    const setDarkMode = (0, react_1.useCallback)((value) => setSettings(s => ({ ...s,
+    const setDarkMode = (0, react_1.useCallback)((value) => setSettings(s => ({
+        ...s,
         darkmode: typeof value === 'function' ? value(s.darkmode) : value
     })), [setSettings]);
     return [settings.darkmode, setDarkMode];

@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { Date } from 'danholibraryjs';
 import { ClickEvent } from '../../../utils';
-export declare type CalendarProps = {
+export type CalendarProps = {
     format: string;
     onDateSelected(date: Date, event: ClickEvent): void;
     close(): void;

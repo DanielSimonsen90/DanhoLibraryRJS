@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import useEffectOnce from "../once/useEffectOnce"
+import { useState, useMemo } from "react";
+import useEffectOnce from "../once/useEffectOnce";
 
 /**
  * Get the size information about provided element

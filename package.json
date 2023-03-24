@@ -33,13 +33,12 @@
   },
   "homepage": "https://github.com/DanielSimonsen90/DanhoLibraryRJS#readme",
   "dependencies": {
-    "copy-to-clipboard": "^3.3.2",
+    "copy-to-clipboard": "^3.3.3",
     "danholibraryjs": "github:danielsimonsen90/danholibraryjs",
     "js-cookie": "^3.0.1",
-    "node-sass": "^7.0.1",
+    "node-sass": "^7.0.3",
     "react-fontawesome": "^1.7.1",
-    "react-router-dom": "^6.3.0",
-    "typescript": "^4.8.2"
+    "react-router-dom": "^6.3.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -53,6 +52,7 @@
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@types/react-fontawesome": "^1.6.5",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "typescript": "^5.0.2"
   }
 }

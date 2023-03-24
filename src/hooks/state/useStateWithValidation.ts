@@ -1,4 +1,4 @@
-import { useState, useCallback, Dispatch } from "react"
+import { useState, useCallback, Dispatch } from "react";
 
 type ValidationCallback<T> = (value: T) => boolean;
 type useStateWithValidationReturn<T> = [state: T, onChange: Dispatch<T>, isValid: boolean];
@@ -13,10 +13,10 @@ export function useStateWithValidation<State>(validator: ValidationCallback<Stat
   const [isValid, setIsValid] = useState(() => validator(state));
 
   const onChange = useCallback((nextState: State) => {
-      const value = typeof nextState === "function" ? nextState(state) : nextState;
-      setState(value);
-      setIsValid(validator(value));
-    }, [validator]);
+    const value = typeof nextState === "function" ? nextState(state) : nextState;
+    setState(value);
+    setIsValid(validator(value));
+  }, [validator]);
 
   return [state, onChange, isValid];
 }

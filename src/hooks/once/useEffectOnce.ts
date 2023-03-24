@@ -1,4 +1,4 @@
-import { useEffect, EffectCallback } from "react"
+import { useEffect, EffectCallback } from "react";
 
 /**
  * useEffect but it only runs once

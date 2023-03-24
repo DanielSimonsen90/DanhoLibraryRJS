@@ -1,22 +1,32 @@
 [data-tooltip] {
-    &::after {
-        content: attr(data-tooltip);
-        position: absolute;
-    }
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+  }
 
-    &[data-mount=top]::after, 
-    &[data-mount=bottom]::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    &[data-mount=left]::after, 
-    &[data-mount=right]::after {
-        bottom: 50%;
-        transform: translateY(-50%);
-    }
+  &:where([data-mount=top], [data-mount=bottom])::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    &[data-mount=top] { top: -100%; }
-    &[data-mount=right] { right: -100%; }
-    &[data-mount=bottom] { bottom: -100%; }
-    &[data-mount=left] { left: -100%; }
+  &:where([data-mount=left], [data-mount=right])::after {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &[data-mount=top] {
+    top: -100%;
+  }
+
+  &[data-mount=right] {
+    right: -100%;
+  }
+
+  &[data-mount=bottom] {
+    bottom: -100%;
+  }
+
+  &[data-mount=left] {
+    left: -100%;
+  }
 }

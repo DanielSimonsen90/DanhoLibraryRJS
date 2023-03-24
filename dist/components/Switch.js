@@ -15,15 +15,15 @@ function Switch(props) {
     const iconName = (0, react_1.useMemo)(() => icons ? checked ? icons.checked : icons.unchecked : undefined, [icons, checked]);
     const [iconAnimation, setIconAnimation] = (0, react_1.useState)('fade-in');
     const onInputChange = (e) => onCheckChanged === null || onCheckChanged === void 0 ? void 0 : onCheckChanged(e.target.checked, e);
-    const onIconDidMount = () => setIconAnimation('fade-in');
-    const onIconWillUnmount = () => setIconAnimation('fade-out');
+    const onIconMount = () => setIconAnimation('fade-in');
+    const onIconUnmount = () => setIconAnimation('fade-out');
     return ((0, jsx_runtime_1.jsxs)("div", { ref: switchRef, id: id, className: (0, _1.classNames)('switch', className), "data-checked": checked, "data-vertical": vertical, onClick: () => { var _a; return (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, children: [(0, jsx_runtime_1.jsx)("div", { className: "switch-circle", children: iconName && (0, jsx_runtime_1.jsx)(Icon_1.default, { name: iconName, className: "icon", style: {
                         animation: `${iconAnimation} var(--transition-time) ease-in-out forwards`,
                         // left: !vertical && checked ? 'calc(var(--size-bottom-left) / 2)' : vertical ? '50%' : 'auto',
                         // right: !vertical && !checked ? 'calc(var(--size-top-right) * -1)' : 'auto',
                         // top: !vertical ? '50%' : checked ? 'var(--size-top-right)' : 'auto',
                         // bottom: vertical && !checked ? 'calc(var(--size-bottom-left) / 2)' : 'auto',
-                    }, componentDidMount: onIconDidMount, componentWillUnmount: onIconWillUnmount }) }), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest })] }));
+                    }, onMount: onIconMount, onUnmount: onIconUnmount }) }), (0, jsx_runtime_1.jsx)("input", { type: "checkbox", ref: inputRef, checked: checked, disabled: disabled, style: { display: "none" }, onChange: onInputChange, ...rest })] }));
 }
 exports.Switch = Switch;
 exports.default = Switch;

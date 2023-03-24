@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Date } from "danholibraryjs";
-export declare type DatePickerProps = {
+export type DatePickerProps = {
     onChange(value: Date, formatted: string): void;
     allowPastDates?: boolean;
     buttonSubmitTitle?: string;

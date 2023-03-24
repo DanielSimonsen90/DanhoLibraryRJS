@@ -36,18 +36,18 @@ exports.useSessionStorage = useSessionStorage;
 function useStorage(key, defaultValue, storageObject, parse) {
     const [value, setValue] = (0, react_1.useState)(() => {
         const jsonValue = storageObject.getItem(key);
-        return jsonValue != null ?
-            parse ?
-                parse(JSON.parse(jsonValue)) :
-                JSON.parse(jsonValue)
-            : typeof defaultValue === 'function' ?
-                defaultValue() :
-                defaultValue;
+        return jsonValue != null
+            ? parse
+                ? parse(JSON.parse(jsonValue))
+                : JSON.parse(jsonValue)
+            : typeof defaultValue === 'function'
+                ? defaultValue()
+                : defaultValue;
     });
     (0, react_1.useEffect)(() => {
-        value === undefined ?
-            storageObject.removeItem(key) :
-            storageObject.setItem(key, JSON.stringify(value));
+        value === undefined
+            ? storageObject.removeItem(key)
+            : storageObject.setItem(key, JSON.stringify(value));
     }, [key, value, storageObject]);
     const remove = (0, useCallbackOnce_1.default)(() => setValue(undefined));
     return [value, setValue, remove];

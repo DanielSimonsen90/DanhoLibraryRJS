@@ -1,5 +1,5 @@
 import { TimeDelay } from 'danholibraryjs';
-declare type AdditionalData = {
+type AdditionalData = {
     time?: TimeDelay;
     className?: string;
 };
@@ -9,5 +9,5 @@ declare type AdditionalData = {
  * @param className Class to add
  * @param baseTime Base time to wait until className is removed. If left undefined, class will not be removed
  */
-export declare function useAnimation(query: string, className: string, baseTime?: TimeDelay): ({ time, className }?: AdditionalData) => Promise<HTMLElement>;
+export declare function useAnimation(query: string, className: string, baseTime?: TimeDelay): ({ time, className: additionalClassName }?: AdditionalData) => Promise<HTMLElement>;
 export default useAnimation;

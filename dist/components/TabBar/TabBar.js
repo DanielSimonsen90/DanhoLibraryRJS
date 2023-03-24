@@ -24,7 +24,8 @@ function TabBar({ onItemSelected, ...props }) {
     const [componentSelected, setComponentSelected] = (0, react_1.useState)(items.valueArr()[0]);
     const _onItemSelected = (e) => {
         const item = items.get(e.currentTarget.textContent);
-        onItemSelected === null || onItemSelected === void 0 ? void 0 : onItemSelected({ ...e,
+        onItemSelected === null || onItemSelected === void 0 ? void 0 : onItemSelected({
+            ...e,
             previous: componentSelected,
             current: item
         });

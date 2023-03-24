@@ -1,19 +1,19 @@
-import { RefObject } from "react"
+import { RefObject } from "react";
 import { Callback } from "../../utils";
-import useEffectOnce from "../once/useEffectOnce"
+import useEffectOnce from "../once/useEffectOnce";
 import useTimeout from "../utils/useTimeout";
-import useEventListener from "./useEventListener"
+import useEventListener from "./useEventListener";
 
 type LongPressOptions = {
-    /** 
-     * Delay in ms 
-     * @default 250
-     */
-    delay: number;
-}
+  /** 
+   * Delay in ms 
+   * @default 250
+   */
+  delay: number;
+};
 const defaultOptions = {
-    delay: 250
-}
+  delay: 250
+};
 
 /**
  * Practically adds onLongPress event to reference element
@@ -22,7 +22,7 @@ const defaultOptions = {
  * @param options Options
  */
 export function useLongPress<T extends HTMLElement>(ref: RefObject<T>, onLongPress: Callback, { delay }: LongPressOptions = defaultOptions) {
-    if (!ref.current) throw Error("No reference element!");
+  if (!ref.current) throw Error("No reference element!");
 
   const { reset, clear } = useTimeout(onLongPress, delay);
   useEffectOnce(clear);

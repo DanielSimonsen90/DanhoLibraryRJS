@@ -6,9 +6,9 @@ exports.useRedirect = void 0;
  * @returns Function to redirect client to new provided url
  */
 function useRedirect() {
-    return (to) => (window.location.href = typeof to === 'function' ?
-        to(window.location.origin.substring(0)) :
-        `${window.location.origin}/${to}`);
+    return (to) => (window.location.href = typeof to === 'function'
+        ? to(window.location.origin.substring(0))
+        : `${window.location.origin}/${to}`);
 }
 exports.useRedirect = useRedirect;
 exports.default = useRedirect;

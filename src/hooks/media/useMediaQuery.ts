@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo } from "react";
 import useEventListener from "../events/useEventListener";
 
 /**
@@ -14,7 +14,7 @@ export function useMediaQuery(mediaQuery: string) {
     let val = mediaQuery; // 600(px)
 
     if (mediaQuery.includes(':')) {
-      const noParents = mediaQuery.startsWith('(') ? mediaQuery.substring(1, mediaQuery.length -1) : mediaQuery;
+      const noParents = mediaQuery.startsWith('(') ? mediaQuery.substring(1, mediaQuery.length - 1) : mediaQuery;
       [prop, val] = noParents.split(':');
     }
 
@@ -24,13 +24,13 @@ export function useMediaQuery(mediaQuery: string) {
   }, [mediaQuery]);
 
   useEffect(() => {
-    const list = window.matchMedia(mq)
-    setMediaQueryList(list)
-    setIsMatch(list.matches)
+    const list = window.matchMedia(mq);
+    setMediaQueryList(list);
+    setIsMatch(list.matches);
   }, [mq]);
-  
-  useEventListener("change", (e, t) => setIsMatch(t.matches), mediaQueryList)
 
-  return isMatch
+  useEventListener("change", (_, list) => setIsMatch(list.matches), mediaQueryList);
+
+  return isMatch;
 }
 export default useMediaQuery;

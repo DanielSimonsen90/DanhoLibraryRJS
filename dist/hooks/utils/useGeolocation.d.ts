@@ -1,6 +1,6 @@
 import { useAsyncReturn } from "./useAsync";
-declare type GeolocationError = GeolocationPositionError | null | undefined;
-declare type useGeolocationReturn = Omit<useAsyncReturn<GeolocationCoordinates, GeolocationError>, 'callback'>;
+type GeolocationError = GeolocationPositionError | null | undefined;
+type useGeolocationReturn = Omit<useAsyncReturn<GeolocationCoordinates, GeolocationError>, 'callback'>;
 /**
  * Receive all the geographical information based on options
  * @param options Geographical options

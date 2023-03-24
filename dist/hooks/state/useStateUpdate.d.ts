@@ -1,6 +1,6 @@
 import { DependencyList, SetStateAction } from "react";
 import { Callback } from "../../utils";
-declare type Updates<State> = {
+type Updates<State> = {
     /**
      * Callback ran when dependencies have changed. Provided state is current state. Expects SetStateAction, aka State | (state) => State returned.
     */

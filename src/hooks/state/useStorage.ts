@@ -1,7 +1,7 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react"
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import useCallbackOnce from "../once/useCallbackOnce";
 
-type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void]
+type UseStorageReturn<T> = [value: T, setValue: Dispatch<SetStateAction<T>>, remove: () => void];
 type Parse<T> = (value: T) => T;
 
 /**
@@ -11,7 +11,7 @@ type Parse<T> = (value: T) => T;
  * @returns Value matching key in LocalStorage. If no value found, defaultValue is returned
  */
 export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T, parse?: Parse<T>) {
-  return useStorage(key, defaultValue, window.localStorage, parse)
+  return useStorage(key, defaultValue, window.localStorage, parse);
 }
 
 /**
@@ -21,7 +21,7 @@ export function useLocalStorage<Key extends string, T>(key: Key, defaultValue: T
  * @returns Value matching key in SessionStorage. If no value found, defaultValue is returned
  */
 export function useSessionStorage<Key extends string, T>(key: Key, defaultValue: T, parse?: Parse<T>) {
-  return useStorage(key, defaultValue, window.sessionStorage, parse)
+  return useStorage(key, defaultValue, window.sessionStorage, parse);
 }
 
 /**
@@ -35,22 +35,22 @@ function useStorage<Key extends string, T>(key: Key, defaultValue: T, storageObj
   const [value, setValue] = useState<T>(() => {
     const jsonValue = storageObject.getItem(key);
 
-    return jsonValue != null ? 
-      parse ? 
-        parse(JSON.parse(jsonValue) as T) : 
-        JSON.parse(jsonValue) 
-      : typeof defaultValue === 'function' ? 
-          defaultValue() : 
-          defaultValue;
+    return jsonValue != null 
+      ? parse 
+        ? parse(JSON.parse(jsonValue) as T) 
+        : JSON.parse(jsonValue) 
+      : typeof defaultValue === 'function' 
+          ? defaultValue() 
+          : defaultValue;
   });
 
   useEffect(() => {
-    value === undefined ? 
-      storageObject.removeItem(key) : 
-      storageObject.setItem(key, JSON.stringify(value));
+    value === undefined 
+      ? storageObject.removeItem(key) 
+      : storageObject.setItem(key, JSON.stringify(value));
   }, [key, value, storageObject]);
 
   const remove = useCallbackOnce(() => setValue(undefined as any));
-  
-  return [value, setValue, remove]
+
+  return [value, setValue, remove];
 }

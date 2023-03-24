@@ -1,5 +1,5 @@
 import { TimeSpan } from "danholibraryjs";
-declare type useDebugInformationReturn = {
+type useDebugInformationReturn = {
     /** Times component as rendered */
     timesRendered: number;
     /** Any props that have changed */

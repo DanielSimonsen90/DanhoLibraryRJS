@@ -7,7 +7,7 @@ import useDebounce from "../effect/useDebounce";
  * @param stateChange The state that changes out of debounce - triggers debounce restart
  * @param setStateChange Setter for stateChange
 */
-type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Dispatch<SetStateAction<T>>]
+type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Dispatch<SetStateAction<T>>];
 
 /**
  * useState but only change after not being interrupted for timeout
@@ -16,10 +16,10 @@ type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Disp
  * @returns [state after timeout, changable state, onChange/setState]
  */
 export function useStateOnChange<T>(initialState: T, timeout: TimeDelay): UseStateOnChangeReturn<T> {
-    const [state, setState] = useState(initialState);
-    const [stateChange, setStateChange] = useState(initialState);
-    useDebounce(() => { setState(stateChange) }, timeout, [stateChange, timeout]);
+  const [state, setState] = useState(initialState);
+  const [stateChange, setStateChange] = useState(initialState);
+  useDebounce(() => { setState(stateChange); }, timeout, [stateChange, timeout]);
 
-    return [state, stateChange, setStateChange];
+  return [state, stateChange, setStateChange];
 }
 export default useStateOnChange;

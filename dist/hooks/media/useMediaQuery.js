@@ -29,7 +29,7 @@ function useMediaQuery(mediaQuery) {
         setMediaQueryList(list);
         setIsMatch(list.matches);
     }, [mq]);
-    (0, useEventListener_1.default)("change", (e, t) => setIsMatch(t.matches), mediaQueryList);
+    (0, useEventListener_1.default)("change", (_, list) => setIsMatch(list.matches), mediaQueryList);
     return isMatch;
 }
 exports.useMediaQuery = useMediaQuery;

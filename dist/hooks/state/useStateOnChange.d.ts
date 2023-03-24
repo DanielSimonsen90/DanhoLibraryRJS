@@ -5,7 +5,7 @@ import { TimeDelay } from "danholibraryjs";
  * @param stateChange The state that changes out of debounce - triggers debounce restart
  * @param setStateChange Setter for stateChange
 */
-declare type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Dispatch<SetStateAction<T>>];
+type UseStateOnChangeReturn<T> = [state: T, stateChange: T, setStateChange: Dispatch<SetStateAction<T>>];
 /**
  * useState but only change after not being interrupted for timeout
  * @param initialState Initial/Default state
