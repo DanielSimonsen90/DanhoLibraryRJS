@@ -1,7 +1,7 @@
 import { classNames } from '.';
 import BaseProps from '../utils/BaseProps';
 
-export type ContainerType = 'flex' | 'popout' | 'sidebar' | 'grid';
+export type ContainerType = 'flex' | 'grid' | 'block' | 'inline' | 'inline-block';
 export type ContainerProps = BaseProps & {
   type?: ContainerType;
 };
@@ -14,7 +14,7 @@ export function Container({ type, children, ...props }: ContainerProps) {
   );
 
   return (
-    <div {...props} className={className}>
+    <div {...props} className={className} data-type={type ?? 'block'}>
       {children}
     </div>
   );

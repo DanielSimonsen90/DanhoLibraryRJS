@@ -32,8 +32,8 @@ export function Button({ crud, iconName, importance, hideIcon, className, value,
   }
 
   return (
-    <button className={classNames(className, importance ?? 'primary')} onClick={onClick}
-      onKeyDown={e => (e.key === 'Enter' || e.key === 'NumpadEnter') && onClick?.(e)}  {...props}>
+    <button className={classNames(className, importance)} onClick={onClick}
+      onKeyDown={e => ['Enter', 'NumpadEnter'].includes(e.key) && onClick?.(e)}  {...props}>
       {iconName && !hideIcon && <Icon name={iconName} />}
       {value || children}
     </button>
