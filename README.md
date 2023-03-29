@@ -5,7 +5,7 @@
 ## Installation
 
 ```cmd
-npm install danielsimonsen90/danholibraryrjs
+npm install @danielsimonsen90/danholibraryrjs
 ```
 
 ## Usage

@@ -1,5 +1,8 @@
 {
   "name": "danholibraryrjs",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "version": "1.3.6",
   "description": "DanhoLibrary for React.js",
   "author": "DanielSimonsen90",
@@ -18,9 +21,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DanielSimonsen90/DanhoLibraryRJS.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "library",
