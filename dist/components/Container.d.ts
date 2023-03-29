@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import BaseProps from '../utils/BaseProps';
-export type ContainerType = 'flex' | 'popout' | 'sidebar' | 'grid';
+export type ContainerType = 'flex' | 'grid' | 'block' | 'inline' | 'inline-block';
 export type ContainerProps = BaseProps & {
     type?: ContainerType;
 };
