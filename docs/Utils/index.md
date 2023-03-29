@@ -8,3 +8,4 @@ Mini utilities to make library development easier.
 * [Base](./Base/index.md)
     * [Props](./Base/Props.md)
     * [React](./Base/React.md)
+* [createStore](./createStore.md)

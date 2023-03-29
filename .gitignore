@@ -25,4 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # project
-demo/node_modules
+.npmrc

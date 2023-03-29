@@ -10,7 +10,7 @@ type BaseAction<State, Returns = State> = (
 type Setter<State extends {}> = (value: SetStateAction<State>) => State;
 type ActionsPicker<State extends {}> = (set: Setter<State>) => Partial<BaseAction<State>>;
 
-export default function createStore<
+export function createStore<
     State extends {},
     Store extends State & Required<BaseAction<State, void>>
 >(
@@ -48,3 +48,5 @@ export default function createStore<
     }
     return InternalStore.useStore;
 }
+
+export default createStore;
