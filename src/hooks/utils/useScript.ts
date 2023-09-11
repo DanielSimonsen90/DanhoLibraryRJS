@@ -7,10 +7,8 @@ import useAsync from "./useAsync";
 export function useScript(url: string) {
   return useAsync(() => {
     const script = document.createProperElement('script', {
-      attributes: [
-        ['src', url],
-        ['async', 'true']
-      ]
+      src: url,
+      async: true
     });
 
     return new Promise<Event>((resolve, reject) => {

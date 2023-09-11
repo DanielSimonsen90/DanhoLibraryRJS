@@ -12,10 +12,8 @@ const useAsync_1 = __importDefault(require("./useAsync"));
 function useScript(url) {
     return (0, useAsync_1.default)(() => {
         const script = document.createProperElement('script', {
-            attributes: [
-                ['src', url],
-                ['async', 'true']
-            ]
+            src: url,
+            async: true
         });
         return new Promise((resolve, reject) => {
             script.addEventListener("load", resolve);

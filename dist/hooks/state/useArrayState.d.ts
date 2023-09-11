@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean;
 type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
     push(item: T): void;
@@ -7,6 +8,7 @@ type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
 };
 export type UseArrayReturn<T> = {
     value: Array<T>;
+    set: Dispatch<SetStateAction<Array<T>>>;
 } & ArrayModifies<T> & Pick<Omit<Array<T>, keyof ArrayModifies<T>>, 'find' | 'some' | 'includes' | 'every' | 'random' | 'reduce' | 'map' | 'forEach' | 'findIndex' | 'indexOf' | 'index' | 'lastIndexOf' | 'keys' | 'values' | 'join' | 'length'>;
 /**
  * Manages array states

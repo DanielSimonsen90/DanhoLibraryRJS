@@ -10,7 +10,10 @@ type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
   filter(callback: FilterCallback<T>): void,
   remove(i: number | T): T | undefined,
 }
-export type UseArrayReturn<T> = { value: Array<T> } & 
+export type UseArrayReturn<T> = { 
+    value: Array<T>,
+    set: Dispatch<SetStateAction<Array<T>>>;
+  } & 
   ArrayModifies<T> &
   Pick<Omit<Array<T>, keyof ArrayModifies<T>>, 
     'find' | 'some' | 'includes' | 'every' | 'random' |
@@ -33,6 +36,8 @@ export default useArrayState;
 ```tsx
 function TodoList(props) {
     const { value: todos, push, update, remove, clear, findIndex } = useArrayState([]);
+//  const todos = useArrayState([]); // Can also be used instead of destructuring everything, however remember to use "todos.value" for looping through items
+
     // Imaginary hook to make a modal for a new todo
     const [modal, showModal] = useTodoModal({
         onSubmit(todo) {

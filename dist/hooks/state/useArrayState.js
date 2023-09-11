@@ -10,7 +10,6 @@ const react_1 = require("react");
 function useArrayState(defaultValue) {
     const [array, setArray] = (0, react_1.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : []);
     const arrayProps = (0, react_1.useMemo)(() => {
-        // console.log('useArray arrayProps memo update', array);
         const { find, some, includes, every, random, reduce, map, forEach, findIndex, indexOf, lastIndexOf, keys, values, join, length } = array;
         const index = (index) => array[index];
         return {
@@ -38,6 +37,7 @@ function useArrayState(defaultValue) {
     return {
         ...arrayProps,
         value: array,
+        set: setArray,
         push,
         filter, update,
         remove, clear, shift, pop

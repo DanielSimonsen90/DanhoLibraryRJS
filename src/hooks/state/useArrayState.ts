@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 
 type FilterCallback<T> = (value: T, index: number, array: Array<T>) => boolean;
 type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
@@ -7,7 +7,11 @@ type ArrayModifies<T> = Record<'clear' | 'shift' | 'pop', () => void> & {
   filter(callback: FilterCallback<T>): void,
   remove(i: number | T): T | undefined,
 };
-export type UseArrayReturn<T> = { value: Array<T>; } &
+
+export type UseArrayReturn<T> = {
+  value: Array<T>;
+  set: Dispatch<SetStateAction<Array<T>>>;
+} &
   ArrayModifies<T> &
   Pick<Omit<Array<T>, keyof ArrayModifies<T>>,
     'find' | 'some' | 'includes' | 'every' | 'random' |
@@ -25,8 +29,6 @@ export type UseArrayReturn<T> = { value: Array<T>; } &
 export function useArrayState<Item>(defaultValue?: Array<Item>): UseArrayReturn<Item> {
   const [array, setArray] = useState(defaultValue ?? []);
   const arrayProps = useMemo(() => {
-    // console.log('useArray arrayProps memo update', array);
-
     const {
       find, some, includes, every, random,
       reduce, map, forEach,
@@ -65,6 +67,7 @@ export function useArrayState<Item>(defaultValue?: Array<Item>): UseArrayReturn<
   return {
     ...arrayProps,
     value: array,
+    set: setArray,
     push,
     filter, update,
     remove, clear, shift, pop
