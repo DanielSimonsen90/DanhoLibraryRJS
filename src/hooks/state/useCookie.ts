@@ -13,6 +13,7 @@ type useCookieReturn<T extends Cookie> = [value: T, updateCookie: UpdateCookies<
  * @param defaultValue Default value, if cookie wasn't found
  */
 export function useCookie<T extends Cookie>(name: string, defaultValue: T): useCookieReturn<T> {
+    const getStringValue = useCallback((v: T) => typeof v === "string" ? v : JSON.stringify(v), []);
     const [value, setValue] = useState<T>(() => {
         const cookie = Cookies.get(name);
         if (cookie) {
@@ -24,7 +25,6 @@ export function useCookie<T extends Cookie>(name: string, defaultValue: T): useC
         Cookies.set(name, value);
         return defaultValue;
     });
-    const getStringValue = useCallback((v: T) => typeof v === "string" ? v : JSON.stringify(v), []);
 
 
     const updateCookie = useCallback<UpdateCookies<T>>((newValue, options) => {
